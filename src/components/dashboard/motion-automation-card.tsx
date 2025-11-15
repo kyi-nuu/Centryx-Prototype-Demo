@@ -4,8 +4,8 @@ import { Badge } from '@/components/ui/badge';
 
 export function MotionAutomationCard() {
   return (
-    <Card className="h-full bg-green-900/30 border-green-500/30">
-      <CardContent className="p-2 flex flex-col justify-between h-full">
+    <Card className="h-full bg-green-900/30 border-green-500/30 flex-1">
+      <CardContent className="p-1.5 flex flex-col justify-between h-full">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-2">
             <Zap className="h-3 w-3 text-green-400" />
@@ -31,7 +31,7 @@ export function MotionAutomationCard() {
           </div>
           <Lightbulb className="h-4 w-4 text-muted-foreground" />
         </div>
-        <p className="text-center text-[10px] text-muted-foreground mt-1">
+        <p className="text-center text-[9px] text-muted-foreground mt-1">
           Motion detected → Lights on
         </p>
       </CardContent>

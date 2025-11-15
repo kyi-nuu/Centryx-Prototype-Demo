@@ -32,21 +32,21 @@ const chartConfig = {
 export function EnergyUsageChart() {
   return (
     <Card className="h-full flex flex-col">
-      <CardHeader className="p-2">
+      <CardHeader className="p-1.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Zap className="h-3 w-3 text-green-500" />
-            <h3 className="font-semibold text-foreground text-xs">Energy Usage Today</h3>
+            <h3 className="font-semibold text-foreground text-[10px]">Energy Usage Today</h3>
           </div>
           <div className="flex items-center gap-2">
-             <Badge variant="outline" className="border-green-500 text-green-500 bg-transparent text-xs px-1.5 py-0">
+             <Badge variant="outline" className="border-green-500 text-green-500 bg-transparent text-[10px] px-1 py-0">
               Live
             </Badge>
-            <span className="font-bold text-xs text-foreground">7.2 kWh</span>
+            <span className="font-bold text-[10px] text-foreground">7.2 kWh</span>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="flex-1 -mt-4 p-1 pt-0">
+      <CardContent className="flex-1 p-0">
         <ChartContainer config={chartConfig} className="h-full w-full">
           <AreaChart
             data={chartData}
@@ -70,9 +70,9 @@ export function EnergyUsageChart() {
               axisLine={false}
               tickMargin={8}
               tickFormatter={(value) => value}
-              className="text-[9px]"
+              className="text-[8px]"
             />
-            <YAxis tickLine={false} axisLine={false} tickMargin={8} domain={[0, 12]} className="text-[9px]" />
+            <YAxis tickLine={false} axisLine={false} tickMargin={8} domain={[0, 12]} className="text-[8px]" />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dot" />}

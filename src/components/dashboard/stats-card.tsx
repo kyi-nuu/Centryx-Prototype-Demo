@@ -40,25 +40,25 @@ export function StatsCard({
       </CardHeader>
       <CardContent className="p-2 pt-0">
         <div className='flex justify-center my-1'>
-            <div className="p-1.5 rounded-lg bg-primary/10">
+            <div className="p-1 rounded-lg bg-primary/10">
                 {icon}
             </div>
         </div>
-        <div className="grid grid-cols-3 gap-2 text-center mt-2">
-            <div className="p-1.5 rounded-lg border border-border">
-              {title === 'Cameras' ? <Camera className="h-3 w-3 mx-auto text-muted-foreground mb-1" /> : <Lightbulb className="h-3 w-3 mx-auto text-muted-foreground mb-1" />}
-              <p className="text-sm font-bold">{total}</p>
-              <p className="text-[10px] text-muted-foreground">Total</p>
+        <div className="grid grid-cols-3 gap-1.5 text-center mt-1.5">
+            <div className="p-1 rounded-lg border border-border">
+              {title === 'Cameras' ? <Camera className="h-3 w-3 mx-auto text-muted-foreground mb-0.5" /> : <Lightbulb className="h-3 w-3 mx-auto text-muted-foreground mb-0.5" />}
+              <p className="text-xs font-bold">{total}</p>
+              <p className="text-[9px] text-muted-foreground">Total</p>
             </div>
-            <div className="p-1.5 rounded-lg border border-green-500/50 bg-green-500/10">
-              <Check className="h-3 w-3 mx-auto text-green-500 mb-1"/>
-              <p className="text-sm font-bold text-green-500">{online}</p>
-              <p className="text-[10px] text-muted-foreground">Online</p>
+            <div className="p-1 rounded-lg border border-green-500/50 bg-green-500/10">
+              <Check className="h-3 w-3 mx-auto text-green-500 mb-0.5"/>
+              <p className="text-xs font-bold text-green-500">{online}</p>
+              <p className="text-[9px] text-muted-foreground">Online</p>
             </div>
-             <div className="p-1.5 rounded-lg border border-red-500/50 bg-red-500/10">
-              <X className="h-3 w-3 mx-auto text-red-500 mb-1"/>
-              <p className="text-sm font-bold text-red-500">{offline}</p>
-              <p className="text-[10px] text-muted-foreground">Offline</p>
+             <div className="p-1 rounded-lg border border-red-500/50 bg-red-500/10">
+              <X className="h-3 w-3 mx-auto text-red-500 mb-0.5"/>
+              <p className="text-xs font-bold text-red-500">{offline}</p>
+              <p className="text-[9px] text-muted-foreground">Offline</p>
             </div>
           </div>
       </CardContent>
