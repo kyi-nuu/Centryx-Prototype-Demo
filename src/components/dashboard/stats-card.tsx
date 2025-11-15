@@ -9,7 +9,6 @@ type StatsCardProps = {
   subtitle: string;
   icon: React.ReactNode;
   status: string;
-  statusColor: string;
   total: number;
   online: number;
   offline: number;
