@@ -59,7 +59,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
           Smart Lighting & CCTV Control Platform
         </CardDescription>
       </CardHeader>
-      <div className="flex justify-center gap-4 mb-6">
+      <div className="flex justify-center gap-4 mb-4">
         <Button variant="outline" className="bg-secondary hover:bg-secondary/80 text-foreground">
           <Lightbulb className="mr-2 h-4 w-4 text-blue-400" /> Smart Lights
         </Button>
@@ -76,7 +76,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your username" {...field} className="bg-input h-11" />
+                  <Input placeholder="Enter your username" {...field} className="bg-input h-10" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -94,7 +94,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
                       type={showPassword ? 'text' : 'password'}
                       placeholder="Enter your password"
                       {...field}
-                      className="bg-input h-11 pr-10"
+                      className="bg-input h-10 pr-10"
                     />
                     <button
                       type="button"
@@ -126,7 +126,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
               Forgot password?
             </Button>
           </div>
-          <Button type="submit" size="lg" className="w-full h-11 text-base font-semibold" disabled={isLoading}>
+          <Button type="submit" size="default" className="w-full h-10 text-base font-semibold" disabled={isLoading}>
             {isLoading ? <Loader2 className="animate-spin" /> : <Shield />}
             Sign In
           </Button>
