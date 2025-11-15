@@ -32,7 +32,7 @@ export function StatsCard({
             <CardTitle className="text-lg font-semibold">{title}</CardTitle>
             <CardDescription>{subtitle}</CardDescription>
           </div>
-           <Badge variant="outline" className={cn('text-xs border-current', status === 'Active' ? 'text-blue-500' : 'text-yellow-500')}>
+           <Badge variant="outline" className={cn('text-xs', status === 'Active' ? 'border-blue-500 text-blue-500' : 'border-yellow-500 text-yellow-500')}>
             <div className={cn('w-2 h-2 rounded-full mr-2', status === 'Active' ? 'bg-blue-500' : 'bg-yellow-500')} />
             {status}
            </Badge>
