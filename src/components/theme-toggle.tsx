@@ -5,24 +5,32 @@ import { Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function ThemeToggle({ className }: { className?: string }) {
-  const [theme, setThemeState] = React.useState<'theme-light' | 'dark' | null>(null);
+  const [theme, setThemeState] = React.useState<'light' | 'dark'>('light');
+  const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
+    setIsMounted(true);
     const isDarkMode = document.documentElement.classList.contains('dark');
-    setThemeState(isDarkMode ? 'dark' : 'theme-light');
+    setThemeState(isDarkMode ? 'dark' : 'light');
   }, []);
 
   React.useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else if (theme === 'theme-light') {
-      document.documentElement.classList.remove('dark');
+    if (isMounted) {
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
     }
-  }, [theme]);
+  }, [theme, isMounted]);
 
   const toggleTheme = () => {
-    setThemeState((prevTheme) => (prevTheme === 'dark' ? 'theme-light' : 'dark'));
+    setThemeState((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
   };
+
+  if (!isMounted) {
+    return <div style={{width: '40px', height: '40px'}} />; // or a skeleton loader
+  }
 
   return (
     <Button
