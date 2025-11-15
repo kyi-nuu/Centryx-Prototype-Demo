@@ -3,7 +3,6 @@ import { MotionAutomationCard } from '@/components/dashboard/motion-automation-c
 import { EnergyUsageChart } from '@/components/dashboard/energy-usage-chart';
 import { QuickActions } from '@/components/dashboard/quick-actions';
 import { Camera, Lightbulb } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
 
 export default function DashboardPage() {
   return (
@@ -13,9 +12,9 @@ export default function DashboardPage() {
           <StatsCard
             title="Cameras"
             subtitle="CCTV Surveillance"
-            icon={<Camera className="h-8 w-8" />}
+            icon={<Camera />}
             status="Active"
-            statusColor="bg-blue-500"
+            statusColor="bg-blue-500 text-white"
             total={12}
             online={9}
             offline={3}
@@ -27,9 +26,9 @@ export default function DashboardPage() {
           <StatsCard
             title="Lights"
             subtitle="Smart Lighting"
-            icon={<Lightbulb className="h-8 w-8" />}
+            icon={<Lightbulb />}
             status="Active"
-            statusColor="bg-yellow-500"
+            statusColor="bg-yellow-500 text-background"
             total={48}
             online={42}
             offline={6}

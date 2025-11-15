@@ -25,11 +25,11 @@ const LogoIcon = (props: SVGProps<SVGSVGElement>) => (
 
 export function Logo({ className, isCollapsed }: { className?: string, isCollapsed?: boolean }) {
   return (
-    <div className={cn('flex items-center gap-2 text-foreground font-bold', className)}>
+    <div className={cn('flex flex-col items-center gap-2 text-foreground font-bold', className)}>
       <div className="rounded-full border border-primary/50 bg-card p-1.5 text-primary shadow-sm">
         <LogoIcon className="h-8 w-8" />
       </div>
-      {!isCollapsed && <span className="tracking-tight text-xl">CENTRYX</span>}
+      {!isCollapsed && <span className="tracking-tight text-xs">CENTRYX</span>}
     </div>
   );
 }
