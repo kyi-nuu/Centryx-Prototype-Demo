@@ -12,6 +12,7 @@ type StatsCardProps = {
   total: number;
   online: number;
   offline: number;
+  statusColor: string;
 };
 
 export function StatsCard({
@@ -22,6 +23,7 @@ export function StatsCard({
   total,
   online,
   offline,
+  statusColor,
 }: StatsCardProps) {
   return (
     <Card className="h-full flex flex-col justify-between">
@@ -31,8 +33,8 @@ export function StatsCard({
             <CardTitle className="text-base font-semibold">{title}</CardTitle>
             <CardDescription className="text-xs">{subtitle}</CardDescription>
           </div>
-           <Badge variant="outline" className={cn('text-xs py-1 px-2 h-6', status === 'Active' && title === 'Cameras' ? 'border-blue-500 text-blue-500' : 'border-yellow-500 text-yellow-500')}>
-            <div className={cn('w-2 h-2 rounded-full mr-2', status === 'Active' && title === 'Cameras' ? 'bg-blue-500' : 'bg-yellow-500')} />
+           <Badge variant="outline" className={cn('text-xs py-1 px-2 h-6', title === 'Cameras' ? 'border-blue-500 text-blue-500' : 'border-yellow-500 text-yellow-500')}>
+            <div className={cn('w-2 h-2 rounded-full mr-2', statusColor)} />
             {status}
            </Badge>
         </div>
