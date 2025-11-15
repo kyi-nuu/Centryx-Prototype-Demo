@@ -35,14 +35,14 @@ export function EnergyUsageChart() {
       <CardHeader className="p-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Zap className="h-4 w-4 text-green-500" />
-            <h3 className="font-semibold text-foreground text-sm">Energy Usage Today</h3>
+            <Zap className="h-3 w-3 text-green-500" />
+            <h3 className="font-semibold text-foreground text-xs">Energy Usage Today</h3>
           </div>
           <div className="flex items-center gap-2">
-             <Badge variant="outline" className="border-green-500 text-green-500 bg-transparent text-xs">
+             <Badge variant="outline" className="border-green-500 text-green-500 bg-transparent text-xs px-1.5 py-0">
               Live
             </Badge>
-            <span className="font-bold text-sm text-foreground">7.2 kWh</span>
+            <span className="font-bold text-xs text-foreground">7.2 kWh</span>
           </div>
         </div>
       </CardHeader>
@@ -70,9 +70,9 @@ export function EnergyUsageChart() {
               axisLine={false}
               tickMargin={8}
               tickFormatter={(value) => value}
-              className="text-xs"
+              className="text-[10px]"
             />
-            <YAxis tickLine={false} axisLine={false} tickMargin={8} domain={[0, 12]} className="text-xs" />
+            <YAxis tickLine={false} axisLine={false} tickMargin={8} domain={[0, 12]} className="text-[10px]" />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dot" />}
