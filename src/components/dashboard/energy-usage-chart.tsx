@@ -46,7 +46,7 @@ export function EnergyUsageChart() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="flex-1 -mt-2 p-1 pt-0">
+      <CardContent className="flex-1 -mt-4 p-1 pt-0">
         <ChartContainer config={chartConfig} className="h-full w-full">
           <AreaChart
             data={chartData}
@@ -70,9 +70,9 @@ export function EnergyUsageChart() {
               axisLine={false}
               tickMargin={8}
               tickFormatter={(value) => value}
-              className="text-[10px]"
+              className="text-[9px]"
             />
-            <YAxis tickLine={false} axisLine={false} tickMargin={8} domain={[0, 12]} className="text-[10px]" />
+            <YAxis tickLine={false} axisLine={false} tickMargin={8} domain={[0, 12]} className="text-[9px]" />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dot" />}

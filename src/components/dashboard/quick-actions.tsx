@@ -13,25 +13,25 @@ export function QuickActions() {
         </div>
       </CardHeader>
       <CardContent className="grid grid-cols-2 grid-rows-3 gap-2 flex-1 p-2 pt-0">
-        <Button size="sm" className="h-full text-[10px] bg-primary hover:bg-primary/90 text-primary-foreground">
+        <Button size="sm" className="h-full text-[10px] bg-primary hover:bg-primary/90 text-primary-foreground py-1">
           <Power className="h-3 w-3 mr-1" /> All On
         </Button>
-        <Button size="sm" variant="destructive" className="h-full text-[10px]">
+        <Button size="sm" variant="destructive" className="h-full text-[10px] py-1">
           <Power className="h-3 w-3 mr-1" /> All Off
         </Button>
-        <Button variant="secondary" size="sm" className="h-full text-[10px]">
+        <Button variant="secondary" size="sm" className="h-full text-[10px] py-1">
           <LogOut className="h-3 w-3 mr-1" />
           <span>Log Out</span>
         </Button>
-         <Button variant="secondary" size="sm" className="h-full text-[10px]">
+         <Button variant="secondary" size="sm" className="h-full text-[10px] py-1">
           <Sun className="h-3 w-3 mr-1" />
           <span>Day Mode</span>
         </Button>
-        <Button variant="secondary" size="sm" className="h-full text-[10px]">
+        <Button variant="secondary" size="sm" className="h-full text-[10px] py-1">
           <Moon className="h-3 w-3 mr-1" />
           <span>Night Mode</span>
         </Button>
-        <Button variant="secondary" size="sm" className="h-full text-[10px]">
+        <Button variant="secondary" size="sm" className="h-full text-[10px] py-1">
           <Leaf className="h-3 w-3 mr-1" />
           <span>Eco Mode</span>
         </Button>
