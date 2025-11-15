@@ -6,10 +6,10 @@ import { Card } from '../ui/card';
 
 export function DashboardHeader() {
   return (
-    <Card className="flex items-center justify-between p-4">
+    <Card className="flex items-center justify-between p-3">
        <div className="flex items-center gap-3">
         <div className="relative">
-            <Avatar className="h-10 w-10">
+            <Avatar className="h-9 w-9">
                 <AvatarImage src="https://picsum.photos/seed/avatar/100/100" alt="User avatar" />
                 <AvatarFallback>JD</AvatarFallback>
             </Avatar>
@@ -20,7 +20,7 @@ export function DashboardHeader() {
             <p className="font-semibold text-foreground text-sm">John Doe</p>
         </div>
        </div>
-       <Badge variant="outline" className='border-primary text-primary text-xs font-normal'>Administrator</Badge>
+       <Badge variant="outline" className='border-primary text-primary text-xs font-normal'>Admin</Badge>
     </Card>
   );
 }
