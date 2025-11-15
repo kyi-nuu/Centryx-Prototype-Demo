@@ -4,35 +4,35 @@ import { Power, LogOut, Sun, Moon, Leaf, Sparkles } from 'lucide-react';
 
 export function QuickActions() {
   return (
-    <Card>
+    <Card className="h-full flex flex-col">
       <CardHeader>
         <div className="flex items-center gap-2">
             <Sparkles className="h-6 w-6 text-primary" />
             <CardTitle>Quick Actions</CardTitle>
         </div>
       </CardHeader>
-      <CardContent className="grid grid-cols-3 gap-4">
-        <Button size="lg" className="h-20 text-lg bg-primary hover:bg-primary/90 col-span-1">
-          <Power className="mr-2 h-5 w-5" /> All Lights On
+      <CardContent className="grid grid-cols-3 gap-2 flex-1">
+        <Button size="lg" className="h-full text-sm bg-primary hover:bg-primary/90 col-span-1 flex-col gap-1">
+          <Power className="h-5 w-5" /> All On
         </Button>
-        <Button size="lg" variant="destructive" className="h-20 text-lg bg-red-600 hover:bg-red-700 text-white col-span-1">
-          <Power className="mr-2 h-5 w-5" /> All Lights Off
+        <Button size="lg" variant="destructive" className="h-full text-sm bg-red-600 hover:bg-red-700 text-white col-span-1 flex-col gap-1">
+          <Power className="h-5 w-5" /> All Off
         </Button>
-        <Button variant="secondary" size="lg" className="h-20 text-lg flex-col gap-2">
+        <Button variant="secondary" size="lg" className="h-full text-sm flex-col gap-1">
           <LogOut className="h-5 w-5" />
-          <span className='text-sm'>Log Out</span>
+          <span>Log Out</span>
         </Button>
-        <Button variant="secondary" size="lg" className="h-20 text-lg flex-col gap-2">
+        <Button variant="secondary" size="lg" className="h-full text-sm flex-col gap-1">
           <Sun className="h-5 w-5" />
-          <span className='text-sm'>Day Mode</span>
+          <span>Day Mode</span>
         </Button>
-        <Button variant="secondary" size="lg" className="h-20 text-lg flex-col gap-2">
+        <Button variant="secondary" size="lg" className="h-full text-sm flex-col gap-1">
           <Moon className="h-5 w-5" />
-          <span className='text-sm'>Night Mode</span>
+          <span>Night Mode</span>
         </Button>
-        <Button variant="secondary" size="lg" className="h-20 text-lg flex-col gap-2">
+        <Button variant="secondary" size="lg" className="h-full text-sm flex-col gap-1">
           <Leaf className="h-5 w-5" />
-          <span className='text-sm'>Eco Mode</span>
+          <span>Eco Mode</span>
         </Button>
       </CardContent>
     </Card>

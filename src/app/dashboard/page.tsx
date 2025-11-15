@@ -6,48 +6,44 @@ import { Camera, Lightbulb } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
-    <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <div className="lg:col-span-2 xl:col-span-1">
-          <StatsCard
-            title="Cameras"
-            subtitle="CCTV Surveillance"
-            icon={<Camera />}
-            status="Active"
-            statusColor="bg-blue-500 text-white"
-            total={12}
-            online={9}
-            offline={3}
-            iconBgColor="bg-blue-500/10"
-            iconColor="text-blue-500"
-          />
-        </div>
-        <div className="lg:col-span-2 xl:col-span-1">
-          <StatsCard
-            title="Lights"
-            subtitle="Smart Lighting"
-            icon={<Lightbulb />}
-            status="Active"
-            statusColor="bg-yellow-500 text-background"
-            total={48}
-            online={42}
-            offline={6}
-            iconBgColor="bg-yellow-500/10"
-            iconColor="text-yellow-500"
-          />
-        </div>
-        <div className="md:col-span-2 lg:col-span-3 xl:col-span-2">
-          <MotionAutomationCard />
-        </div>
+    <div className="grid h-[calc(100vh-8rem)] grid-cols-1 grid-rows-3 gap-6 md:grid-cols-3 lg:grid-cols-4">
+      <div className="md:col-span-1 lg:col-span-1 row-span-1">
+        <StatsCard
+          title="Cameras"
+          subtitle="CCTV Surveillance"
+          icon={<Camera />}
+          status="Active"
+          statusColor="bg-blue-500 text-white"
+          total={12}
+          online={9}
+          offline={3}
+          iconBgColor="bg-blue-500/10"
+          iconColor="text-blue-500"
+        />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
-          <EnergyUsageChart />
-        </div>
-        <div>
-          <QuickActions />
-        </div>
+      <div className="md:col-span-1 lg:col-span-1 row-span-1">
+        <StatsCard
+          title="Lights"
+          subtitle="Smart Lighting"
+          icon={<Lightbulb />}
+          status="Active"
+          statusColor="bg-yellow-500 text-background"
+          total={48}
+          online={42}
+          offline={6}
+          iconBgColor="bg-yellow-500/10"
+          iconColor="text-yellow-500"
+        />
       </div>
-    </>
+      <div className="md:col-span-1 lg:col-span-2 row-span-1">
+        <MotionAutomationCard />
+      </div>
+      <div className="md:col-span-3 lg:col-span-3 row-span-2">
+        <EnergyUsageChart />
+      </div>
+      <div className="md:col-span-3 lg:col-span-1 row-span-2">
+        <QuickActions />
+      </div>
+    </div>
   );
 }
