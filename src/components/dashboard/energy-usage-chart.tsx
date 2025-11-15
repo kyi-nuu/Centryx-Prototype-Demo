@@ -32,28 +32,28 @@ const chartConfig = {
 export function EnergyUsageChart() {
   return (
     <Card className="h-full flex flex-col">
-      <CardHeader className="p-1.5">
+      <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Zap className="h-3 w-3 text-green-500" />
-            <h3 className="font-semibold text-foreground text-[10px]">Energy Usage Today</h3>
+            <Zap className="h-4 w-4 text-green-500" />
+            <h3 className="font-semibold text-foreground text-base">Energy Usage Today</h3>
           </div>
           <div className="flex items-center gap-2">
-             <Badge variant="outline" className="border-green-500 text-green-500 bg-transparent text-[10px] px-1 py-0">
+             <Badge variant="outline" className="border-green-500 text-green-500 bg-transparent text-xs px-2 py-1">
               Live
             </Badge>
-            <span className="font-bold text-[10px] text-foreground">7.2 kWh</span>
+            <span className="font-bold text-base text-foreground">7.2 kWh</span>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="flex-1 p-0">
+      <CardContent className="flex-1 -mt-4">
         <ChartContainer config={chartConfig} className="h-full w-full">
           <AreaChart
             data={chartData}
             margin={{
               top: 5,
-              right: 5,
-              left: -35,
+              right: 10,
+              left: -30,
               bottom: 0,
             }}
           >
@@ -70,9 +70,9 @@ export function EnergyUsageChart() {
               axisLine={false}
               tickMargin={8}
               tickFormatter={(value) => value}
-              className="text-[8px]"
+              className="text-xs"
             />
-            <YAxis tickLine={false} axisLine={false} tickMargin={8} domain={[0, 12]} className="text-[8px]" />
+            <YAxis tickLine={false} axisLine={false} tickMargin={8} domain={[0, 12]} className="text-xs" />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dot" />}

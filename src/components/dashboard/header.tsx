@@ -6,21 +6,21 @@ import { Card } from '../ui/card';
 
 export function DashboardHeader() {
   return (
-    <Card className="flex items-center justify-between p-1.5">
-       <div className="flex items-center gap-2">
+    <Card className="flex items-center justify-between p-3">
+       <div className="flex items-center gap-3">
         <div className="relative">
-            <Avatar className="h-7 w-7">
+            <Avatar className="h-10 w-10">
                 <AvatarImage src="https://picsum.photos/seed/avatar/100/100" alt="User avatar" />
                 <AvatarFallback>JD</AvatarFallback>
             </Avatar>
-            <div className="absolute bottom-0 right-0 h-1.5 w-1.5 rounded-full bg-green-500 border border-background"></div>
+            <div className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-green-500 border-2 border-background"></div>
         </div>
         <div className="text-left">
-            <p className="text-[9px] text-muted-foreground">Welcome back,</p>
-            <p className="font-semibold text-foreground text-[11px]">John Doe</p>
+            <p className="text-sm text-muted-foreground">Welcome back,</p>
+            <p className="font-semibold text-foreground text-base">John Doe</p>
         </div>
        </div>
-       <Badge variant="outline" className='border-primary text-primary text-[9px] font-normal px-1 py-0'>Admin</Badge>
+       <Badge variant="outline" className='border-primary text-primary text-xs font-normal px-2 py-1'>Admin</Badge>
     </Card>
   );
 }
