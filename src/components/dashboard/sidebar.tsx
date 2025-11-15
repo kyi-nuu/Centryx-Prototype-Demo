@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, Lightbulb, Video, Settings, User } from 'lucide-react';
+import { Lightbulb, Video, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Logo } from '../logo';
@@ -24,7 +24,7 @@ export function DashboardSidebar() {
     <aside className="hidden md:flex flex-col w-28 bg-card p-4 border-r justify-between">
       <div>
         <div className="flex h-16 items-center justify-center mb-6 w-full">
-          <Logo />
+          <Logo isCollapsed={false} />
         </div>
         <nav className="flex flex-col items-center space-y-4 w-full">
           {navItems.map((item) => (

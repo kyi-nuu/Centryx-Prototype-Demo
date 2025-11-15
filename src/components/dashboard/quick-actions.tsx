@@ -15,7 +15,7 @@ export function QuickActions() {
         <Button size="lg" className="h-full text-sm bg-primary hover:bg-primary/90 col-span-1 flex-col gap-1">
           <Power className="h-5 w-5" /> All On
         </Button>
-        <Button size="lg" variant="destructive" className="h-full text-sm bg-red-600 hover:bg-red-700 text-white col-span-1 flex-col gap-1">
+        <Button size="lg" variant="destructive" className="h-full text-sm col-span-1 flex-col gap-1">
           <Power className="h-5 w-5" /> All Off
         </Button>
         <Button variant="secondary" size="lg" className="h-full text-sm flex-col gap-1">

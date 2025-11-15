@@ -17,8 +17,8 @@ export default function DashboardPage() {
           total={12}
           online={9}
           offline={3}
-          iconBgColor="bg-blue-500/10"
-          iconColor="text-blue-500"
+          iconBgColor="bg-primary/10"
+          iconColor="text-primary"
         />
       </div>
       <div className="md:col-span-1 lg:col-span-1 row-span-1">
