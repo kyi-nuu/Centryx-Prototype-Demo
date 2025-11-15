@@ -23,7 +23,6 @@ export function StatsCard({
   total,
   online,
   offline,
-  statusColor,
 }: StatsCardProps) {
   return (
     <Card className="h-full flex flex-col justify-between">
@@ -34,7 +33,7 @@ export function StatsCard({
             <CardDescription className="text-xs">{subtitle}</CardDescription>
           </div>
            <Badge variant="outline" className={cn('text-xs py-1 px-2 h-6', title === 'Cameras' ? 'border-blue-500 text-blue-500' : 'border-yellow-500 text-yellow-500')}>
-            <div className={cn('w-2 h-2 rounded-full mr-2', statusColor)} />
+            <div className={cn('w-2 h-2 rounded-full mr-2', title === 'Cameras' ? 'bg-blue-500' : 'bg-yellow-500')} />
             {status}
            </Badge>
         </div>

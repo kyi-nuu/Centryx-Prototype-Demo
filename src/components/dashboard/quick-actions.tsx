@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Power, LogOut, Sun, Moon } from 'lucide-react';
+import { Power, LogOut, Sun, Moon, Leaf } from 'lucide-react';
 import { Sparkles } from 'lucide-react';
 
 export function QuickActions() {
@@ -12,20 +12,28 @@ export function QuickActions() {
             <CardTitle className="text-base font-semibold">Quick Actions</CardTitle>
         </div>
       </CardHeader>
-      <CardContent className="grid grid-cols-2 gap-2 flex-1 p-4 pt-0">
-        <Button size="lg" className="h-full text-sm bg-orange-500 hover:bg-orange-600 text-white flex-col gap-1">
-          <Power className="h-5 w-5" /> All On
+      <CardContent className="grid grid-cols-2 grid-rows-3 gap-2 flex-1 p-4 pt-0">
+        <Button size="lg" className="h-full text-sm bg-primary hover:bg-primary/90 text-primary-foreground col-span-1 row-span-1">
+          <Power className="h-5 w-5 mr-2" /> All Lights On
         </Button>
-        <Button size="lg" variant="destructive" className="h-full text-sm flex-col gap-1">
-          <Power className="h-5 w-5" /> All Off
+        <Button size="lg" variant="destructive" className="h-full text-sm col-span-1 row-span-1">
+          <Power className="h-5 w-5 mr-2" /> All Lights Off
         </Button>
-        <Button variant="secondary" size="lg" className="h-full text-sm flex-col gap-1">
+        <Button variant="secondary" size="lg" className="h-full text-sm col-span-1 row-span-1">
           <LogOut className="h-5 w-5" />
           <span>Log Out</span>
         </Button>
-        <Button variant="secondary" size="lg" className="h-full text-sm flex-col gap-1">
+         <Button variant="secondary" size="lg" className="h-full text-sm col-span-1 row-span-1">
           <Sun className="h-5 w-5" />
           <span>Day Mode</span>
+        </Button>
+        <Button variant="secondary" size="lg" className="h-full text-sm col-span-1 row-span-1">
+          <Moon className="h-5 w-5" />
+          <span>Night Mode</span>
+        </Button>
+        <Button variant="secondary" size="lg" className="h-full text-sm col-span-1 row-span-1">
+          <Leaf className="h-5 w-5" />
+          <span>Eco Mode</span>
         </Button>
       </CardContent>
     </Card>

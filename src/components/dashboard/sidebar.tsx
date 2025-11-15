@@ -5,12 +5,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Logo } from '../logo';
 import { cn } from '@/lib/utils';
-import { Separator } from '../ui/separator';
 
 const navItems = [
   { href: '/dashboard', icon: Home, label: 'Home' },
-  { href: '/cctv', icon: Video, label: 'CCTV' },
   { href: '/lights', icon: Lightbulb, label: 'Lights' },
+  { href: '/cctv', icon: Video, label: 'CCTV' },
   { href: '/settings', icon: Settings, label: 'Settings' },
   { href: '/profile', icon: User, label: 'Profile' },
 ];
@@ -29,17 +28,12 @@ export function DashboardSidebar() {
             key={item.href}
             href={item.href}
             className={cn(
-              'flex items-center justify-center w-16 h-16 rounded-xl text-muted-foreground transition-colors hover:text-primary hover:bg-primary/10 relative group',
+              'flex flex-col items-center justify-center w-16 h-16 rounded-xl text-muted-foreground transition-colors hover:text-primary hover:bg-primary/10',
               pathname.startsWith(item.href) && 'text-primary bg-primary/10'
             )}
           >
-            <item.icon className="h-8 w-8" />
-            <span className="absolute left-full ml-4 px-2 py-1 bg-card border rounded-md text-sm text-foreground opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-              {item.label}
-            </span>
-             {pathname.startsWith(item.href) && (
-              <div className="absolute -left-4 h-8 w-1 bg-primary rounded-r-full" />
-            )}
+            <item.icon className="h-6 w-6" />
+            <span className="text-xs mt-1">{item.label}</span>
           </Link>
         ))}
       </nav>

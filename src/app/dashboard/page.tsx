@@ -14,7 +14,7 @@ export default function DashboardPage() {
           subtitle="CCTV Surveillance"
           icon={
             <Image
-              src="https://picsum.photos/seed/cctv/100/100"
+              src="https://picsum.photos/seed/cctv-icon/100/100"
               alt="CCTV Camera"
               width={56}
               height={56}
@@ -35,7 +35,7 @@ export default function DashboardPage() {
           subtitle="Smart Lighting"
           icon={
             <Image
-              src="https://picsum.photos/seed/lightbulb/100/100"
+              src="https://picsum.photos/seed/lightbulb-icon/100/100"
               alt="Smart Lightbulb"
               width={56}
               height={56}
