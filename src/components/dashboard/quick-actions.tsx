@@ -5,13 +5,13 @@ import { Power, LogOut, Sun, Moon, Leaf, Sparkles } from 'lucide-react';
 export function QuickActions() {
   return (
     <Card className="h-full flex flex-col">
-      <CardHeader className="pb-4">
+      <CardHeader className="pb-2 p-4">
         <div className="flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-primary" />
             <CardTitle className="text-base font-semibold">Quick Actions</CardTitle>
         </div>
       </CardHeader>
-      <CardContent className="grid grid-cols-2 gap-2 flex-1">
+      <CardContent className="grid grid-cols-2 gap-2 flex-1 p-4 pt-0">
         <Button size="lg" className="h-full text-sm bg-primary hover:bg-primary/90 flex-col gap-1">
           <Power className="h-5 w-5" /> All On
         </Button>

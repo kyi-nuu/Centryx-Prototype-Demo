@@ -16,8 +16,8 @@ export default function DashboardPage() {
             <Image
               src="https://picsum.photos/seed/cctv/100/100"
               alt="CCTV Camera"
-              width={64}
-              height={64}
+              width={56}
+              height={56}
               className="rounded-lg"
               data-ai-hint="cctv camera"
             />
@@ -37,8 +37,8 @@ export default function DashboardPage() {
             <Image
               src="https://picsum.photos/seed/lightbulb/100/100"
               alt="Smart Lightbulb"
-              width={64}
-              height={64}
+              width={56}
+              height={56}
               className="rounded-lg"
               data-ai-hint="smart lightbulb"
             />
