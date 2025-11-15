@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  Home,
-  Lightbulb,
-  Video,
-  Settings,
-  User,
-  PanelLeft,
-} from 'lucide-react';
+import { Home, Lightbulb, Video, Settings, User } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -16,41 +9,30 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { Button } from '../ui/button';
 import { Logo } from '../logo';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
+import { Separator } from '../ui/separator';
 
 const navItems = [
   { href: '/dashboard', icon: Home, label: 'Home' },
   { href: '/lights', icon: Lightbulb, label: 'Lights' },
   { href: '/cctv', icon: Video, label: 'CCTV' },
+];
+
+const secondaryNavItems = [
   { href: '/settings', icon: Settings, label: 'Settings' },
   { href: '/profile', icon: User, label: 'Profile' },
 ];
 
 export function DashboardSidebar() {
   const pathname = usePathname();
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
-  };
 
   return (
-    <aside
-      className={cn(
-        'hidden md:flex flex-col border-r bg-card text-card-foreground transition-all duration-300 ease-in-out',
-        isCollapsed ? 'w-20' : 'w-64'
-      )}
-    >
-      <div className="flex h-16 items-center justify-between p-4 border-b">
-        {!isCollapsed && <Logo className="text-2xl" />}
-        <Button variant="ghost" size="icon" onClick={toggleSidebar}>
-          <PanelLeft className="h-6 w-6" />
-        </Button>
+    <aside className="hidden md:flex flex-col items-center w-24 bg-card/80 backdrop-blur-sm p-4 border-r">
+      <div className="flex h-16 items-center justify-center mb-4">
+        <Logo isCollapsed />
       </div>
-      <nav className="flex-1 p-2 space-y-2">
+      <nav className="flex-1 flex flex-col items-center space-y-2">
         <TooltipProvider>
           {navItems.map((item) => (
             <Tooltip key={item.href} delayDuration={0}>
@@ -58,20 +40,47 @@ export function DashboardSidebar() {
                 <Link
                   href={item.href}
                   className={cn(
-                    'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-primary/10',
-                    pathname === item.href && 'bg-primary/10 text-primary',
-                    isCollapsed && 'justify-center'
+                    'flex items-center justify-center w-14 h-14 rounded-xl text-muted-foreground transition-all duration-300 ease-in-out hover:text-primary hover:bg-primary/10',
+                    'group relative',
+                    pathname === item.href && 'bg-primary/20 text-primary'
                   )}
                 >
-                  <item.icon className="h-5 w-5" />
-                  {!isCollapsed && <span>{item.label}</span>}
+                  <item.icon className="h-7 w-7" />
+                  {pathname === item.href && (
+                     <span className="absolute -left-1.5 h-6 w-1 rounded-full bg-primary" />
+                  )}
                 </Link>
               </TooltipTrigger>
-              {isCollapsed && (
-                <TooltipContent side="right">
-                  <p>{item.label}</p>
-                </TooltipContent>
-              )}
+              <TooltipContent side="right">
+                <p>{item.label}</p>
+              </TooltipContent>
+            </Tooltip>
+          ))}
+        </TooltipProvider>
+      </nav>
+      <Separator className="my-4" />
+      <nav className="flex flex-col items-center space-y-2">
+        <TooltipProvider>
+          {secondaryNavItems.map((item) => (
+            <Tooltip key={item.href} delayDuration={0}>
+              <TooltipTrigger asChild>
+                <Link
+                  href={item.href}
+                  className={cn(
+                    'flex items-center justify-center w-14 h-14 rounded-xl text-muted-foreground transition-all duration-300 ease-in-out hover:text-primary hover:bg-primary/10',
+                    'group relative',
+                    pathname === item.href && 'bg-primary/20 text-primary'
+                  )}
+                >
+                  <item.icon className="h-7 w-7" />
+                   {pathname === item.href && (
+                     <span className="absolute -left-1.5 h-6 w-1 rounded-full bg-primary" />
+                  )}
+                </Link>
+              </TooltipTrigger>
+               <TooltipContent side="right">
+                <p>{item.label}</p>
+              </TooltipContent>
             </Tooltip>
           ))}
         </TooltipProvider>
