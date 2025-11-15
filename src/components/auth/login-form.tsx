@@ -3,7 +3,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-
+import { useState } from 'react';
+import { Eye, EyeOff, Lightbulb, Shield, Video } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -15,12 +16,13 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
+import { Checkbox } from '../ui/checkbox';
 
 const formSchema = z.object({
-  email: z.string().email({ message: 'Please enter a valid email address.' }),
+  username: z.string().min(1, { message: 'Please enter your username.' }),
   password: z.string().min(8, { message: 'Password must be at least 8 characters long.' }),
+  remember: z.boolean().default(false),
 });
 
 type LoginFormProps = {
@@ -29,11 +31,14 @@ type LoginFormProps = {
 
 export function LoginForm({ onSuccess }: LoginFormProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: '',
+      username: '',
       password: '',
+      remember: false,
     },
   });
 
@@ -41,7 +46,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
     setIsLoading(true);
     // Simulate API call
     setTimeout(() => {
-      onSuccess(values.email);
+      onSuccess(values.username); // Using username as email for demo
       setIsLoading(false);
     }, 1000);
   }
@@ -49,19 +54,29 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
   return (
     <>
       <CardHeader className="p-0 pb-6 text-center">
-        <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
-        <CardDescription>Sign in to access your dashboard</CardDescription>
+        <CardTitle className="text-4xl font-bold text-foreground">CENTRYX</CardTitle>
+        <CardDescription className="text-muted-foreground">
+          Smart Lighting & CCTV Control Platform
+        </CardDescription>
       </CardHeader>
+      <div className="flex justify-center gap-4 mb-8">
+        <Button variant="outline" className="bg-secondary hover:bg-secondary/80 text-foreground">
+          <Lightbulb className="mr-2 h-4 w-4 text-blue-400" /> Smart Lights
+        </Button>
+        <Button variant="outline" className="bg-secondary hover:bg-secondary/80 text-foreground">
+          <Video className="mr-2 h-4 w-4 text-green-400" /> CCTV
+        </Button>
+      </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
-            name="email"
+            name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder="name@example.com" {...field} />
+                  <Input placeholder="Enter your username" {...field} className="bg-input h-12" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -74,18 +89,55 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="********" {...field} />
+                  <div className="relative">
+                    <Input
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder="Enter your password"
+                      {...field}
+                      className="bg-input h-12 pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground hover:text-foreground"
+                    >
+                      {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                    </button>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          <div className="flex items-center justify-between">
+            <FormField
+              control={form.control}
+              name="remember"
+              render={({ field }) => (
+                <FormItem className="flex items-center space-x-2 space-y-0">
+                  <FormControl>
+                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                  </FormControl>
+                  <FormLabel className="text-sm font-normal">Remember me</FormLabel>
+                </FormItem>
+              )}
+            />
+            <Button variant="link" size="sm" className="p-0 h-auto text-primary">
+              Forgot password?
+            </Button>
+          </div>
+          <Button type="submit" size="lg" className="w-full h-12 text-base font-semibold" disabled={isLoading}>
+            {isLoading ? <Loader2 className="animate-spin" /> : <Shield />}
             Sign In
           </Button>
         </form>
       </Form>
+       <div className="mt-6 text-center text-sm text-muted-foreground">
+        <p className="flex items-center justify-center gap-2">
+          <Shield className="h-4 w-4 text-green-500" />
+          Secured with 2FA Authentication
+        </p>
+      </div>
     </>
   );
 }

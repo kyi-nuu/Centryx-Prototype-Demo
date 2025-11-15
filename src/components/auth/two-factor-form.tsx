@@ -59,7 +59,7 @@ export function TwoFactorForm({ email, onBack }: TwoFactorFormProps) {
     <>
       <CardHeader className="p-0 pb-6 text-center">
         <CardTitle className="text-2xl font-bold">Two-Factor Authentication</CardTitle>
-        <CardDescription>
+        <CardDescription className="text-muted-foreground">
           We've sent a verification code to <span className="font-medium text-foreground">{email}</span>.
         </CardDescription>
       </CardHeader>
@@ -76,21 +76,21 @@ export function TwoFactorForm({ email, onBack }: TwoFactorFormProps) {
                     placeholder="123456"
                     {...field}
                     maxLength={6}
-                    className="text-center text-lg tracking-[0.5em]"
+                    className="h-14 text-center text-2xl tracking-[0.5em] bg-input"
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button type="submit" size="lg" className="w-full h-12" disabled={isLoading}>
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Verify
           </Button>
         </form>
       </Form>
       <div className="mt-4 text-center text-sm">
-        <Button variant="link" size="sm" onClick={onBack} className="p-0 h-auto">
+        <Button variant="link" size="sm" onClick={onBack} className="p-0 h-auto text-primary">
           Back to login
         </Button>
       </div>

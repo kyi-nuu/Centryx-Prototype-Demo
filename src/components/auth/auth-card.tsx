@@ -22,9 +22,9 @@ export function AuthCard() {
   };
 
   return (
-    <Card className="w-full max-w-md">
-      <CardContent className="p-8">
-        <div className="mb-6 flex justify-center">
+    <Card className="w-full max-w-md bg-transparent border-0 shadow-none">
+      <CardContent className="p-0">
+        <div className="mb-8 flex justify-center">
           <Logo />
         </div>
         <ClientOnly>
