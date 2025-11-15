@@ -27,7 +27,7 @@ export function Logo({ className, isCollapsed }: { className?: string, isCollaps
   return (
     <div className={cn('flex flex-col items-center gap-2 text-foreground font-bold', className)}>
       <div className="rounded-full border border-primary/50 bg-card p-1.5 text-primary shadow-sm">
-        <LogoIcon className="h-8 w-8" />
+        <LogoIcon className="h-6 w-6" />
       </div>
       {!isCollapsed && <span className="tracking-tight text-xs">CENTRYX</span>}
     </div>

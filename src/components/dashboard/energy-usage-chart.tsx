@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Badge } from '@/components/ui/badge';
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
@@ -35,18 +35,18 @@ export function EnergyUsageChart() {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Zap className="h-6 w-6 text-green-500" />
-            <CardTitle>Energy Usage Today</CardTitle>
+            <Zap className="h-5 w-5 text-green-500" />
+            <h3 className="font-semibold text-foreground">Energy Usage Today</h3>
           </div>
           <div className="flex items-center gap-2">
-            <Badge variant="outline" className="border-green-500 text-green-500">
+             <Badge variant="outline" className="border-green-500 text-green-500 bg-transparent text-xs">
               Live
             </Badge>
             <span className="font-bold text-lg text-foreground">7.2 kWh</span>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="flex-1">
+      <CardContent className="flex-1 -mt-4">
         <ChartContainer config={chartConfig} className="h-full w-full">
           <AreaChart
             data={chartData}
@@ -54,13 +54,13 @@ export function EnergyUsageChart() {
               top: 5,
               right: 20,
               left: -10,
-              bottom: 5,
+              bottom: 0,
             }}
           >
             <defs>
               <linearGradient id="colorKWh" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="var(--color-kWh)" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="var(--color-kWh)" stopOpacity={0.1} />
+                <stop offset="5%" stopColor="var(--color-kWh)" stopOpacity={0.4} />
+                <stop offset="95%" stopColor="var(--color-kWh)" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
@@ -70,8 +70,9 @@ export function EnergyUsageChart() {
               axisLine={false}
               tickMargin={8}
               tickFormatter={(value) => value}
+              className="text-xs"
             />
-            <YAxis tickLine={false} axisLine={false} tickMargin={8} domain={[0, 12]} />
+            <YAxis tickLine={false} axisLine={false} tickMargin={8} domain={[0, 12]} className="text-xs" />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dot" />}

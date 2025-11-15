@@ -5,10 +5,10 @@ import { Power, LogOut, Sun, Moon, Leaf, Sparkles } from 'lucide-react';
 export function QuickActions() {
   return (
     <Card className="h-full flex flex-col">
-      <CardHeader>
+      <CardHeader className="pb-4">
         <div className="flex items-center gap-2">
-            <Sparkles className="h-6 w-6 text-primary" />
-            <CardTitle>Quick Actions</CardTitle>
+            <Sparkles className="h-5 w-5 text-primary" />
+            <CardTitle className="text-base font-semibold">Quick Actions</CardTitle>
         </div>
       </CardHeader>
       <CardContent className="grid grid-cols-3 gap-2 flex-1">
