@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Logo } from '../logo';
 import { cn } from '@/lib/utils';
-import { Separator } from '../ui/separator';
 
 const navItems = [
   { href: '/dashboard', icon: Home, label: 'Home' },
@@ -23,9 +22,9 @@ export function DashboardSidebar() {
 
   return (
     <aside className="hidden md:flex flex-col w-24 bg-card p-4 border-r justify-between items-center">
-      <div className="flex flex-col items-center gap-y-8">
+      <div className="flex flex-col items-center gap-y-8 w-full">
         <div className="flex h-16 items-center justify-center w-full">
-          <Logo isCollapsed={true} />
+          <Logo isCollapsed={false} />
         </div>
         <nav className="flex flex-col items-center space-y-2 w-full">
           {navItems.map((item) => (
@@ -34,7 +33,7 @@ export function DashboardSidebar() {
               href={item.href}
               className={cn(
                 'flex flex-col items-center justify-center w-16 h-16 rounded-xl text-muted-foreground transition-colors hover:text-primary hover:bg-primary/10',
-                pathname.startsWith(item.href) && 'text-primary bg-primary/10'
+                pathname === item.href && 'text-primary bg-primary/10'
               )}
             >
               <item.icon className="h-6 w-6" />

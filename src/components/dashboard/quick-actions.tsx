@@ -11,11 +11,11 @@ export function QuickActions() {
             <CardTitle className="text-base font-semibold">Quick Actions</CardTitle>
         </div>
       </CardHeader>
-      <CardContent className="grid grid-cols-3 gap-2 flex-1">
-        <Button size="lg" className="h-full text-sm bg-primary hover:bg-primary/90 col-span-1 flex-col gap-1">
+      <CardContent className="grid grid-cols-2 gap-2 flex-1">
+        <Button size="lg" className="h-full text-sm bg-primary hover:bg-primary/90 flex-col gap-1">
           <Power className="h-5 w-5" /> All On
         </Button>
-        <Button size="lg" variant="destructive" className="h-full text-sm col-span-1 flex-col gap-1">
+        <Button size="lg" variant="destructive" className="h-full text-sm flex-col gap-1">
           <Power className="h-5 w-5" /> All Off
         </Button>
         <Button variant="secondary" size="lg" className="h-full text-sm flex-col gap-1">

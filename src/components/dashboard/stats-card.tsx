@@ -57,7 +57,7 @@ export function StatsCard({
             </div>
              <div className="p-2 rounded-lg border border-red-500/50 bg-red-500/10">
               <X className="h-4 w-4 mx-auto text-red-500 mb-1"/>
-              <p className="xl font-bold text-red-500">{offline}</p>
+              <p className="text-xl font-bold text-red-500">{offline}</p>
               <p className="text-xs text-muted-foreground">Offline</p>
             </div>
           </div>
