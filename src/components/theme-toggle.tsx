@@ -5,31 +5,35 @@ import { Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function ThemeToggle({ className }: { className?: string }) {
-  const [theme, setThemeState] = React.useState<'light' | 'dark'>('light');
-  const [isMounted, setIsMounted] = React.useState(false);
+  const [theme, setThemeState] = React.useState<'light' | 'dark'>();
 
   React.useEffect(() => {
-    setIsMounted(true);
-    const isDarkMode = document.documentElement.classList.contains('dark');
-    setThemeState(isDarkMode ? 'dark' : 'light');
+    // On mount, read the theme from localStorage or default to 'dark'
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const initialTheme = savedTheme || 'dark';
+    setThemeState(initialTheme);
   }, []);
 
   React.useEffect(() => {
-    if (isMounted) {
+    if (theme) {
       if (theme === 'dark') {
         document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
       } else {
+        document.documentElement.classList.add('light');
         document.documentElement.classList.remove('dark');
       }
+      localStorage.setItem('theme', theme);
     }
-  }, [theme, isMounted]);
+  }, [theme]);
 
   const toggleTheme = () => {
     setThemeState((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
   };
 
-  if (!isMounted) {
-    return <div style={{width: '40px', height: '40px'}} />; // or a skeleton loader
+  if (theme === undefined) {
+    // Render a placeholder or null during server-side rendering and initial client-side render
+    return <div style={{width: '40px', height: '40px'}} />;
   }
 
   return (
