@@ -47,7 +47,7 @@ export function EnergyUsageChart() {
         </div>
       </CardHeader>
       <CardContent className="flex-1 -mt-4 p-4 pt-0">
-        <ChartContainer config={chartConfig} className="h-full w-full min-h-[150px]">
+        <ChartContainer config={chartConfig} className="h-full w-full">
           <AreaChart
             data={chartData}
             margin={{
