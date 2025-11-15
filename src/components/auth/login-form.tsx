@@ -76,7 +76,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your username" {...field} className="bg-input h-10" />
+                  <Input placeholder="Enter your username" {...field} className="bg-input h-9" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -94,7 +94,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
                       type={showPassword ? 'text' : 'password'}
                       placeholder="Enter your password"
                       {...field}
-                      className="bg-input h-10 pr-10"
+                      className="bg-input h-9 pr-10"
                     />
                     <button
                       type="button"
@@ -126,13 +126,13 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
               Forgot password?
             </Button>
           </div>
-          <Button type="submit" size="default" className="w-full h-10 text-base font-semibold" disabled={isLoading}>
+          <Button type="submit" size="default" className="w-full h-9 text-base font-semibold" disabled={isLoading}>
             {isLoading ? <Loader2 className="animate-spin" /> : <Shield />}
             Sign In
           </Button>
         </form>
       </Form>
-       <div className="mt-4 text-center text-sm text-muted-foreground">
+       <div className="mt-2 text-center text-sm text-muted-foreground">
         <p className="flex items-center justify-center gap-2">
           <Shield className="h-4 w-4 text-green-500" />
           Secured with 2FA Authentication
