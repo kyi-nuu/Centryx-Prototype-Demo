@@ -32,7 +32,7 @@ const chartConfig = {
 export function EnergyUsageChart() {
   return (
     <Card className="h-full flex flex-col">
-      <CardHeader className="p-3">
+      <CardHeader className="p-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Zap className="h-4 w-4 text-green-500" />
@@ -46,14 +46,14 @@ export function EnergyUsageChart() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="flex-1 -mt-2 p-2 pt-0">
+      <CardContent className="flex-1 -mt-2 p-1 pt-0">
         <ChartContainer config={chartConfig} className="h-full w-full">
           <AreaChart
             data={chartData}
             margin={{
               top: 5,
               right: 5,
-              left: -25,
+              left: -35,
               bottom: 0,
             }}
           >
