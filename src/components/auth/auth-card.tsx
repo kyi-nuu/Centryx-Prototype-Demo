@@ -6,6 +6,7 @@ import { LoginForm } from './login-form';
 import { TwoFactorForm } from './two-factor-form';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Logo } from '../logo';
+import { ClientOnly } from '../client-only';
 
 export function AuthCard() {
   const [step, setStep] = useState<'login' | 'two-factor'>('login');
@@ -26,18 +27,20 @@ export function AuthCard() {
         <div className="mb-6 flex justify-center">
           <Logo />
         </div>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={step}
-            initial={{ opacity: 0, x: step === 'login' ? -50 : 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: step === 'login' ? 50 : -50 }}
-            transition={{ duration: 0.3 }}
-          >
-            {step === 'login' && <LoginForm onSuccess={handleLoginSuccess} />}
-            {step === 'two-factor' && <TwoFactorForm email={userEmail} onBack={handleBackToLogin} />}
-          </motion.div>
-        </AnimatePresence>
+        <ClientOnly>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={step}
+              initial={{ opacity: 0, x: step === 'login' ? -50 : 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: step === 'login' ? 50 : -50 }}
+              transition={{ duration: 0.3 }}
+            >
+              {step === 'login' && <LoginForm onSuccess={handleLoginSuccess} />}
+              {step === 'two-factor' && <TwoFactorForm email={userEmail} onBack={handleBackToLogin} />}
+            </motion.div>
+          </AnimatePresence>
+        </ClientOnly>
       </CardContent>
     </Card>
   );
