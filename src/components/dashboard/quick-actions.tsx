@@ -12,28 +12,28 @@ export function QuickActions() {
             <CardTitle className="text-base font-semibold">Quick Actions</CardTitle>
         </div>
       </CardHeader>
-      <CardContent className="grid grid-cols-2 grid-rows-3 gap-4 flex-1">
-        <Button size="lg" className="h-full text-sm bg-primary hover:bg-primary/90 text-primary-foreground">
-          <Power className="h-4 w-4 mr-2" /> All On
+      <CardContent className="grid grid-cols-3 grid-rows-2 gap-2 flex-1">
+        <Button size="lg" className="h-full text-sm bg-primary hover:bg-primary/90 text-primary-foreground flex-col gap-1">
+          <Power className="h-4 w-4" /> All On
         </Button>
-        <Button size="lg" variant="destructive" className="h-full text-sm">
-          <Power className="h-4 w-4 mr-2" /> All Off
+        <Button size="lg" variant="destructive" className="h-full text-sm flex-col gap-1">
+          <Power className="h-4 w-4" /> All Off
         </Button>
-        <Button variant="secondary" size="lg" className="h-full text-sm">
-          <LogOut className="h-4 w-4 mr-2" />
-          <span>Log Out</span>
-        </Button>
-         <Button variant="secondary" size="lg" className="h-full text-sm">
-          <Sun className="h-4 w-4 mr-2" />
+        <Button variant="secondary" size="lg" className="h-full text-sm flex-col gap-1">
+          <Sun className="h-4 w-4" />
           <span>Day Mode</span>
         </Button>
-        <Button variant="secondary" size="lg" className="h-full text-sm">
-          <Moon className="h-4 w-4 mr-2" />
+        <Button variant="secondary" size="lg" className="h-full text-sm flex-col gap-1">
+          <Moon className="h-4 w-4" />
           <span>Night Mode</span>
         </Button>
-        <Button variant="secondary" size="lg" className="h-full text-sm">
-          <Leaf className="h-4 w-4 mr-2" />
+        <Button variant="secondary" size="lg" className="h-full text-sm flex-col gap-1">
+          <Leaf className="h-4 w-4" />
           <span>Eco Mode</span>
+        </Button>
+        <Button variant="secondary" size="lg" className="h-full text-sm flex-col gap-1">
+          <LogOut className="h-4 w-4" />
+          <span>Log Out</span>
         </Button>
       </CardContent>
     </Card>
