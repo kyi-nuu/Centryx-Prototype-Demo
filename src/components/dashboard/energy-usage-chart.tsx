@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Badge } from '@/components/ui/badge';
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
-import { Zap } from 'lucide-react';
+import { Bolt } from 'lucide-react';
 
 const chartData = [
   { time: '00:00', kWh: 1.5 },
@@ -35,7 +35,7 @@ export function EnergyUsageChart() {
       <CardHeader className="py-2 px-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Zap className="h-4 w-4 text-green-500" />
+            <Bolt className="h-4 w-4 text-green-500" />
             <h3 className="font-semibold text-foreground text-sm">Energy Usage</h3>
           </div>
           <div className="flex items-center gap-2">

@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Check, X, Camera, Lightbulb } from 'lucide-react';
+import { Check, X, Camera, Lightbulb, Video } from 'lucide-react';
 import { Badge } from '../ui/badge';
 
 type StatsCardProps = {
@@ -46,7 +46,7 @@ export function StatsCard({
       <CardContent className="p-3 pt-2">
         <div className="grid grid-cols-3 gap-2 text-center">
             <div className="p-2 rounded-lg border border-border">
-              {title === 'Cameras' ? <Camera className="h-4 w-4 mx-auto text-muted-foreground mb-1" /> : <Lightbulb className="h-4 w-4 mx-auto text-muted-foreground mb-1" />}
+              {title === 'Cameras' ? <Video className="h-4 w-4 mx-auto text-muted-foreground mb-1" /> : <Lightbulb className="h-4 w-4 mx-auto text-muted-foreground mb-1" />}
               <p className="text-lg font-bold">{total}</p>
               <p className="text-[10px] text-muted-foreground">Total</p>
             </div>

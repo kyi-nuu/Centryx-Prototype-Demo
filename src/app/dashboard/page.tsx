@@ -3,7 +3,7 @@ import { QuickActions } from '@/components/dashboard/quick-actions';
 import { DashboardHeader } from '@/components/dashboard/header';
 import { EnergyUsageChart } from '@/components/dashboard/energy-usage-chart';
 import { MotionAutomationCard } from '@/components/dashboard/motion-automation-card';
-import Image from 'next/image';
+import { Lightbulb, Video } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
@@ -13,13 +13,8 @@ export default function DashboardPage() {
           title="Cameras"
           subtitle="CCTV Surveillance"
           icon={
-            <Image
-              src="https://picsum.photos/seed/cctv-icon/100/100"
-              alt="CCTV Camera"
-              width={24}
-              height={24}
-              className="rounded-md"
-              data-ai-hint="cctv camera"
+            <Video
+              className="h-6 w-6 text-blue-500"
             />
           }
           status="Active"
@@ -32,13 +27,8 @@ export default function DashboardPage() {
           title="Lights"
           subtitle="Smart Lighting"
           icon={
-            <Image
-              src="https://picsum.photos/seed/lightbulb-icon/100/100"
-              alt="Smart Lightbulb"
-              width={24}
-              height={24}
-              className="rounded-md"
-              data-ai-hint="smart lightbulb"
+            <Lightbulb
+                className="h-6 w-6 text-yellow-500"
             />
           }
           status="Active"
