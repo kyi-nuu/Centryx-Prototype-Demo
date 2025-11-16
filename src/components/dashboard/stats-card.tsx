@@ -43,7 +43,7 @@ export function StatsCard({
            </Badge>
         </div>
       </CardHeader>
-      <CardContent className="p-3 pt-2">
+      <CardContent className="p-3 pt-0">
         <div className="grid grid-cols-3 gap-2 text-center">
             <div className="p-2 rounded-lg border border-border">
               {title === 'Cameras' ? <Video className="h-4 w-4 mx-auto text-muted-foreground mb-1" /> : <Lightbulb className="h-4 w-4 mx-auto text-muted-foreground mb-1" />}
