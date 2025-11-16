@@ -54,8 +54,7 @@ export function TwoFactorForm({ email, onBack }: TwoFactorFormProps) {
         description: "You're now logged in.",
       });
       router.push('/dashboard');
-      // A small delay to allow toast to be seen, then stop loading
-      setTimeout(() => setIsLoading(false), 500);
+      setIsLoading(false);
     }, 1000);
   }
 
