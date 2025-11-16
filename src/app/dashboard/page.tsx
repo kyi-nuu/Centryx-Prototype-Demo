@@ -1,18 +1,14 @@
 import { StatsCard } from '@/components/dashboard/stats-card';
 import { QuickActions } from '@/components/dashboard/quick-actions';
 import { DashboardHeader } from '@/components/dashboard/header';
+import { EnergyUsageChart } from '@/components/dashboard/energy-usage-chart';
+import { MotionAutomationCard } from '@/components/dashboard/motion-automation-card';
 import Image from 'next/image';
 
 export default function DashboardPage() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
-      <div className="flex flex-col">
-        <DashboardHeader />
-      </div>
-      <div className="flex flex-col">
-        <QuickActions />
-      </div>
-      <div className="flex flex-col">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
+      <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
         <StatsCard
           title="Cameras"
           subtitle="CCTV Surveillance"
@@ -32,8 +28,6 @@ export default function DashboardPage() {
           online={9}
           offline={3}
         />
-      </div>
-      <div className="flex flex-col">
         <StatsCard
           title="Lights"
           subtitle="Smart Lighting"
@@ -53,6 +47,14 @@ export default function DashboardPage() {
           online={42}
           offline={6}
         />
+        <div className="md:col-span-2">
+          <EnergyUsageChart />
+        </div>
+      </div>
+      <div className="grid grid-cols-1 gap-6">
+        <DashboardHeader />
+        <MotionAutomationCard />
+        <QuickActions />
       </div>
     </div>
   );
