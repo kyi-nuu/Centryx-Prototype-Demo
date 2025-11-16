@@ -31,12 +31,12 @@ const chartConfig = {
 
 export function EnergyUsageChart() {
   return (
-    <Card className="h-full flex flex-col">
-      <CardHeader className="py-3 px-4">
+    <Card>
+      <CardHeader className="py-2 px-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Zap className="h-4 w-4 text-green-500" />
-            <h3 className="font-semibold text-foreground text-sm">Energy Usage Today</h3>
+            <h3 className="font-semibold text-foreground text-sm">Energy Usage</h3>
           </div>
           <div className="flex items-center gap-2">
              <Badge variant="outline" className="border-green-500 text-green-500 bg-transparent text-xs px-2 py-0.5">
@@ -46,7 +46,7 @@ export function EnergyUsageChart() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="flex-1 -mt-4 px-2">
+      <CardContent className="px-2 h-40">
         <ChartContainer config={chartConfig} className="h-full w-full">
           <AreaChart
             data={chartData}
