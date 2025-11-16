@@ -7,8 +7,8 @@ import Image from 'next/image';
 
 export default function DashboardPage() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 h-full">
-      <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
+      <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
         <StatsCard
           title="Cameras"
           subtitle="CCTV Surveillance"
@@ -16,8 +16,8 @@ export default function DashboardPage() {
             <Image
               src="https://picsum.photos/seed/cctv-icon/100/100"
               alt="CCTV Camera"
-              width={28}
-              height={28}
+              width={24}
+              height={24}
               className="rounded-md"
               data-ai-hint="cctv camera"
             />
@@ -35,8 +35,8 @@ export default function DashboardPage() {
             <Image
               src="https://picsum.photos/seed/lightbulb-icon/100/100"
               alt="Smart Lightbulb"
-              width={28}
-              height={28}
+              width={24}
+              height={24}
               className="rounded-md"
               data-ai-hint="smart lightbulb"
             />
@@ -51,7 +51,7 @@ export default function DashboardPage() {
           <EnergyUsageChart />
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-1 gap-6 grid-rows-[auto,auto,1fr]">
         <DashboardHeader />
         <MotionAutomationCard />
         <QuickActions />

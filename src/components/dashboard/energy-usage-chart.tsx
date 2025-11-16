@@ -52,7 +52,7 @@ export function EnergyUsageChart() {
             data={chartData}
             margin={{
               top: 5,
-              right: 5,
+              right: 10,
               left: -30,
               bottom: 0,
             }}

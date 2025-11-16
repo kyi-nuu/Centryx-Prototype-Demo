@@ -21,39 +21,39 @@ export function DashboardSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden md:flex flex-col w-20 bg-card p-2 border-r items-center justify-between">
-      <div className="flex flex-col items-center gap-y-4 w-full">
-        <div className="flex h-16 items-center justify-center w-full mb-2">
+    <aside className="hidden md:flex flex-col w-20 bg-card p-4 border-r items-center justify-between">
+      <div className="flex flex-col items-center gap-y-6 w-full">
+        <div className="flex h-16 items-center justify-center w-full mb-4">
             <Logo isCollapsed={true} />
         </div>
-        <nav className="flex flex-col items-center gap-y-2 w-full">
+        <nav className="flex flex-col items-center gap-y-4 w-full">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                'flex flex-col items-center justify-center w-14 h-14 rounded-xl text-muted-foreground transition-colors hover:text-primary hover:bg-primary/10',
+                'flex flex-col items-center justify-center w-16 h-16 rounded-xl text-muted-foreground transition-colors hover:text-primary hover:bg-primary/10',
                 pathname.startsWith(item.href) && 'text-primary bg-primary/10'
               )}
             >
-              <item.icon className="h-5 w-5" />
-              <span className="text-[10px] mt-1">{item.label}</span>
+              <item.icon className="h-6 w-6" />
+              <span className="text-xs mt-1">{item.label}</span>
             </Link>
           ))}
         </nav>
       </div>
-       <nav className="flex flex-col items-center gap-y-2 w-full">
+       <nav className="flex flex-col items-center gap-y-4 w-full">
           {secondaryNavItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                'flex flex-col items-center justify-center w-14 h-14 rounded-xl text-muted-foreground transition-colors hover:text-primary hover:bg-primary/10',
+                'flex flex-col items-center justify-center w-16 h-16 rounded-xl text-muted-foreground transition-colors hover:text-primary hover:bg-primary/10',
                 pathname.startsWith(item.href) && 'text-primary bg-primary/10'
               )}
             >
-              <item.icon className="h-5 w-5" />
-              <span className="text-[10px] mt-1">{item.label}</span>
+              <item.icon className="h-6 w-6" />
+              <span className="text-xs mt-1">{item.label}</span>
             </Link>
           ))}
         </nav>

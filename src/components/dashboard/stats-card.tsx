@@ -26,14 +26,14 @@ export function StatsCard({
 }: StatsCardProps) {
   return (
     <Card className="h-full flex flex-col justify-between">
-       <CardHeader className="p-3 pb-2">
+       <CardHeader className="p-4 pb-2">
         <div className="flex items-start justify-between">
           <div className='flex items-center gap-3'>
-             <div className="p-1.5 rounded-lg bg-primary/10">
+             <div className="p-2 rounded-lg bg-card-foreground/5">
                 {icon}
             </div>
             <div>
-              <CardTitle className="text-sm font-semibold">{title}</CardTitle>
+              <CardTitle className="text-md font-semibold">{title}</CardTitle>
               <CardDescription className="text-xs">{subtitle}</CardDescription>
             </div>
           </div>
@@ -43,21 +43,21 @@ export function StatsCard({
            </Badge>
         </div>
       </CardHeader>
-      <CardContent className="p-3">
+      <CardContent className="p-4 pt-2">
         <div className="grid grid-cols-3 gap-2 text-center">
-            <div className="p-2 rounded-lg border border-border">
+            <div className="p-3 rounded-lg border border-border">
               {title === 'Cameras' ? <Camera className="h-4 w-4 mx-auto text-muted-foreground mb-1" /> : <Lightbulb className="h-4 w-4 mx-auto text-muted-foreground mb-1" />}
-              <p className="text-md font-bold">{total}</p>
+              <p className="text-xl font-bold">{total}</p>
               <p className="text-[10px] text-muted-foreground">Total</p>
             </div>
-            <div className="p-2 rounded-lg border border-green-500/50 bg-green-500/10">
+            <div className="p-3 rounded-lg border border-green-500/50 bg-green-500/10">
               <Check className="h-4 w-4 mx-auto text-green-500 mb-1"/>
-              <p className="text-md font-bold text-green-500">{online}</p>
+              <p className="text-xl font-bold text-green-500">{online}</p>
               <p className="text-[10px] text-muted-foreground">Online</p>
             </div>
-             <div className="p-2 rounded-lg border border-red-500/50 bg-red-500/10">
+             <div className="p-3 rounded-lg border border-red-500/50 bg-red-500/10">
               <X className="h-4 w-4 mx-auto text-red-500 mb-1"/>
-              <p className="text-md font-bold text-red-500">{offline}</p>
+              <p className="text-xl font-bold text-red-500">{offline}</p>
               <p className="text-[10px] text-muted-foreground">Offline</p>
             </div>
           </div>
