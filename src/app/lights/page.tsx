@@ -27,20 +27,22 @@ const lightsData = [
 
 export default function LightsPage() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full">
       <div className="sticky top-0 z-10">
         <LightsHeader />
       </div>
-      <div className="p-4 sm:p-6 lg:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {lightsData.map((light, index) => (
-          <LightCard
-            key={index}
-            name={light.name}
-            room={light.room}
-            isOn={light.isOn}
-            brightness={light.brightness}
-          />
-        ))}
+      <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {lightsData.map((light, index) => (
+            <LightCard
+              key={index}
+              name={light.name}
+              room={light.room}
+              isOn={light.isOn}
+              brightness={light.brightness}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
