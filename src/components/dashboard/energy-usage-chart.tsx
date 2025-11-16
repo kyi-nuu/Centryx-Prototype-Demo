@@ -36,7 +36,7 @@ export function EnergyUsageChart() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Bolt className="h-4 w-4 text-green-500" />
-            <h3 className="font-semibold text-foreground text-sm">Energy Usage</h3>
+            <h3 className="font-semibold text-foreground text-sm">Energy Usage Today</h3>
           </div>
           <div className="flex items-center gap-2">
              <Badge variant="outline" className="border-green-500 text-green-500 bg-transparent text-xs px-2 py-0.5">

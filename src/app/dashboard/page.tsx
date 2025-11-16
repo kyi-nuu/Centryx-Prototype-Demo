@@ -14,7 +14,7 @@ export default function DashboardPage() {
           subtitle="CCTV Surveillance"
           icon={
             <Video
-              className="h-6 w-6 text-blue-500"
+              className="h-10 w-10 text-blue-500"
             />
           }
           status="Active"
@@ -28,7 +28,7 @@ export default function DashboardPage() {
           subtitle="Smart Lighting"
           icon={
             <Lightbulb
-                className="h-6 w-6 text-yellow-500"
+                className="h-10 w-10 text-yellow-500"
             />
           }
           status="Active"
