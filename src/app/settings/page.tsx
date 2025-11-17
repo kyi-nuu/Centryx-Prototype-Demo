@@ -66,6 +66,7 @@ export default function SettingsPage() {
                         description: camera.location,
                         details: camera.model,
                     }))}
+                    layout="list"
                 />
                  <DeviceList 
                     title="Lights"
@@ -77,6 +78,7 @@ export default function SettingsPage() {
                         description: light.room,
                         details: light.model,
                     }))}
+                    layout="grid"
                 />
             </div>
         </div>
