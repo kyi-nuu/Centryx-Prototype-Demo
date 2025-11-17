@@ -54,7 +54,7 @@ export default function SettingsPage() {
   return (
     <div className="flex flex-col h-full">
       <SettingsHeader />
-      <div className="flex-1 p-4 sm:p-6 lg:p-8 overflow-hidden grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <div className="flex-1 p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start overflow-hidden">
         <div className="flex flex-col gap-4 h-full">
           <DeviceList 
             title="CCTV"
