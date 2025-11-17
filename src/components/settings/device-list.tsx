@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Trash2, Video, Lightbulb } from 'lucide-react';
+import { Trash2, Video, Lightbulb, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type DeviceItem = {
@@ -32,7 +32,7 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
         layout === 'grid' && 'flex-col items-start gap-2 bg-card border'
       )}
     >
-      <div className={cn('flex items-center gap-4', layout === 'list' ? 'w-full' : '')}>
+      <div className={cn('flex items-center gap-4 flex-1')}>
         <div
           className={cn(
             'rounded-lg p-2',
@@ -48,12 +48,14 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
           <p className="text-xs text-muted-foreground">{item.description}</p>
         </div>
       </div>
-      <div className={cn('flex-1', layout === 'grid' ? 'w-full pl-12 pt-2' : 'text-right')}>
-        <p className="text-xs font-medium text-foreground">{item.details.split(' ')[0]}</p>
-        <p className="text-[10px] text-muted-foreground">
-          {item.details.split(' ').slice(1).join(' ')}
-        </p>
-      </div>
+      {layout === 'list' && (
+        <div className='text-right'>
+          <p className="text-xs font-medium text-foreground">{item.details.split(' ')[0]}</p>
+          <p className="text-[10px] text-muted-foreground">
+            {item.details.split(' ').slice(1).join(' ')}
+          </p>
+        </div>
+      )}
       <Button
         variant="ghost"
         size="icon"
@@ -103,9 +105,12 @@ export function DeviceList({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+           <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 text-muted-foreground h-9 w-9">
+            <ArrowRight className="h-4 w-4" />
+          </Button>
         </div>
       </CardHeader>
-      <CardContent className="flex-1 p-2 pt-0 overflow-y-auto">
+      <CardContent className="flex-1 p-2 pt-0 overflow-hidden">
         <ScrollArea className="h-full">
             <div
             className={cn(
