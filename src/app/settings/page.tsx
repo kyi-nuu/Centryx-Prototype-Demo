@@ -54,8 +54,8 @@ export default function SettingsPage() {
         <div className="sticky top-0 z-10">
             <SettingsHeader />
         </div>
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="flex-1 overflow-hidden p-4 sm:p-6 lg:p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
                 <DeviceList 
                     title="CCTV"
                     searchPlaceholder="Search camera by name"

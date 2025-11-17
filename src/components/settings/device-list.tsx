@@ -28,8 +28,8 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
     const IconComponent = isLight ? Lightbulb : Video;
   return (
     <div className={cn(
-        "flex items-center p-3 rounded-lg hover:bg-secondary/50 transition-colors",
-        layout === 'grid' && 'flex-col items-start gap-3'
+        "flex items-center p-3 rounded-lg hover:bg-secondary/50 transition-colors group",
+        layout === 'grid' && 'flex-col items-start gap-2 bg-card border'
       )}>
       <div className="flex items-center w-full">
         <div className={cn(
@@ -39,19 +39,19 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
           <IconComponent className="h-5 w-5" />
         </div>
         <div className="flex-grow">
-          <p className="font-semibold text-foreground">{item.name}</p>
-          <p className="text-sm text-muted-foreground">{item.description}</p>
+          <p className="font-semibold text-foreground text-sm">{item.name}</p>
+          <p className="text-xs text-muted-foreground">{item.description}</p>
         </div>
-        <Button variant="ghost" size="icon" onClick={() => onDelete(item.id)} className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 ml-auto shrink-0">
-            <Trash2 className="h-5 w-5" />
+         <Button variant="ghost" size="icon" onClick={() => onDelete(item.id)} className={cn("text-muted-foreground hover:text-destructive hover:bg-destructive/10 ml-auto shrink-0", layout === 'grid' && 'absolute top-2 right-2')}>
+            <Trash2 className="h-4 w-4" />
         </Button>
       </div>
       <div className={cn(
           "w-full text-right",
-          layout === 'grid' ? 'text-left pl-11' : 'mr-4 hidden sm:block'
+          layout === 'grid' ? 'text-left pl-12 pt-2' : 'hidden sm:block mr-12'
         )}>
-        <p className="text-sm font-medium text-foreground">{item.details.split(' ')[0]}</p>
-        <p className="text-xs text-muted-foreground">{item.details.split(' ').slice(1).join(' ')}</p>
+        <p className="text-xs font-medium text-foreground">{item.details.split(' ')[0]}</p>
+        <p className="text-[10px] text-muted-foreground">{item.details.split(' ').slice(1).join(' ')}</p>
       </div>
     </div>
   );
@@ -79,8 +79,8 @@ export function DeviceList({ title, searchPlaceholder, items: initialItems, layo
   );
 
   return (
-    <Card className="flex flex-col">
-      <CardHeader>
+    <Card className="flex flex-col h-full">
+      <CardHeader className="flex-shrink-0">
         <CardTitle>{title}</CardTitle>
         <div className="relative mt-2">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -92,10 +92,10 @@ export function DeviceList({ title, searchPlaceholder, items: initialItems, layo
             />
         </div>
       </CardHeader>
-      <CardContent className="flex-1 flex flex-col p-2 pt-0">
-        <ScrollArea className="flex-1" style={{height: '500px'}}>
+      <CardContent className="flex-1 p-2 pt-0 overflow-hidden">
+        <ScrollArea className="h-full">
             <div className={cn(
-                "pr-2",
+                "p-2",
                 layout === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 gap-2" : "space-y-1"
             )}>
                 {filteredItems.map(item => (
