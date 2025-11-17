@@ -92,7 +92,7 @@ export function DeviceList({ title, searchPlaceholder, items: initialItems, layo
             />
         </div>
       </CardHeader>
-      <CardContent className="flex-1 overflow-y-auto p-2 pt-0">
+      <CardContent className="flex-1 p-2 pt-0 overflow-y-auto">
         <div className={cn(
             "p-2",
             layout === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 gap-2" : "space-y-1"
