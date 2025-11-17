@@ -28,7 +28,7 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
     const IconComponent = isLight ? Lightbulb : Video;
   return (
     <div className={cn(
-        "flex items-center p-3 rounded-lg hover:bg-secondary/50 transition-colors group",
+        "flex items-center p-3 rounded-lg hover:bg-secondary/50 transition-colors group relative",
         layout === 'grid' && 'flex-col items-start gap-2 bg-card border'
       )}>
       <div className="flex items-center w-full">

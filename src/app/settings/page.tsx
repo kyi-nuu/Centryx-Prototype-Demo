@@ -51,37 +51,35 @@ const lightsData = [
 export default function SettingsPage() {
   return (
     <div className="flex flex-col h-full">
-        <div className="sticky top-0 z-10">
-            <SettingsHeader />
-        </div>
-        <div className="flex-1 overflow-hidden p-4 sm:p-6 lg:p-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
+      <SettingsHeader />
+      <div className="flex-1 overflow-hidden p-4 sm:p-6 lg:p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
+              <DeviceList 
+                  title="CCTV"
+                  searchPlaceholder="Search camera by name"
+                  items={camerasData.map(camera => ({
+                      id: camera.name,
+                      icon: 'cctv',
+                      name: camera.name,
+                      description: camera.location,
+                      details: camera.model,
+                  }))}
+                  layout="list"
+              />
                 <DeviceList 
-                    title="CCTV"
-                    searchPlaceholder="Search camera by name"
-                    items={camerasData.map(camera => ({
-                        id: camera.name,
-                        icon: 'cctv',
-                        name: camera.name,
-                        description: camera.location,
-                        details: camera.model,
-                    }))}
-                    layout="list"
-                />
-                 <DeviceList 
-                    title="Lights"
-                    searchPlaceholder="Search light by name"
-                    items={lightsData.map(light => ({
-                        id: light.name,
-                        icon: 'light',
-                        name: light.name,
-                        description: light.room,
-                        details: light.model,
-                    }))}
-                    layout="grid"
-                />
-            </div>
-        </div>
+                  title="Lights"
+                  searchPlaceholder="Search light by name"
+                  items={lightsData.map(light => ({
+                      id: light.name,
+                      icon: 'light',
+                      name: light.name,
+                      description: light.room,
+                      details: light.model,
+                  }))}
+                  layout="grid"
+              />
+          </div>
+      </div>
     </div>
   );
 }
