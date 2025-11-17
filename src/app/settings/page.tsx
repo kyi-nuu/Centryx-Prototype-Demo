@@ -1,7 +1,6 @@
 
 import { SettingsHeader } from '@/components/settings/settings-header';
 import { DeviceList } from '@/components/settings/device-list';
-import { Video, Lightbulb } from 'lucide-react';
 
 const camerasData = [
     { name: "Main Entrance", location: "Front Door", isRecording: true, status: 'online', model: 'Hikvision P3225-LVE' },
@@ -62,7 +61,7 @@ export default function SettingsPage() {
                     searchPlaceholder="Search camera by name"
                     items={camerasData.map(camera => ({
                         id: camera.name,
-                        icon: Video,
+                        icon: 'cctv',
                         name: camera.name,
                         description: camera.location,
                         details: camera.model,
@@ -73,7 +72,7 @@ export default function SettingsPage() {
                     searchPlaceholder="Search light by name"
                     items={lightsData.map(light => ({
                         id: light.name,
-                        icon: Lightbulb,
+                        icon: 'light',
                         name: light.name,
                         description: light.room,
                         details: light.model,
