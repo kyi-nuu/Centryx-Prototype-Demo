@@ -1,4 +1,3 @@
-
 import { SettingsHeader } from '@/components/settings/settings-header';
 import { DeviceList } from '@/components/settings/device-list';
 

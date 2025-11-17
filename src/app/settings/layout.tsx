@@ -8,8 +8,8 @@ export default function SettingsLayout({
   return (
     <div className="flex h-screen w-full bg-muted/40">
       <DashboardSidebar />
-      <div className="flex flex-col flex-1">
-        <main className="flex-1 h-full flex flex-col">
+      <div className="flex flex-col flex-1 overflow-hidden">
+        <main className="flex-1 flex flex-col h-full">
           {children}
         </main>
       </div>
