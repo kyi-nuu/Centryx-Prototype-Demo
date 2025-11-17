@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Trash2, Search, Video, Lightbulb, ArrowRight } from 'lucide-react';
+import { Trash2, Video, Lightbulb } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type DeviceItem = {
@@ -103,29 +103,28 @@ export function DeviceList({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8">
-            <ArrowRight className="h-4 w-4 text-muted-foreground" />
-          </Button>
         </div>
       </CardHeader>
       <CardContent className="flex-1 p-2 pt-0 overflow-y-auto">
-        <div
-          className={cn(
-            'p-0',
-            layout === 'grid'
-              ? 'grid grid-cols-1 sm:grid-cols-2 gap-2'
-              : 'space-y-1'
-          )}
-        >
-          {filteredItems.map((item) => (
-            <DeviceListItem
-              key={item.id}
-              item={item}
-              onDelete={handleDelete}
-              layout={layout}
-            />
-          ))}
-        </div>
+        <ScrollArea className="h-full">
+            <div
+            className={cn(
+                'p-0',
+                layout === 'grid'
+                ? 'grid grid-cols-1 sm:grid-cols-2 gap-2'
+                : 'space-y-1'
+            )}
+            >
+            {filteredItems.map((item) => (
+                <DeviceListItem
+                key={item.id}
+                item={item}
+                onDelete={handleDelete}
+                layout={layout}
+                />
+            ))}
+            </div>
+        </ScrollArea>
       </CardContent>
     </Card>
   );
