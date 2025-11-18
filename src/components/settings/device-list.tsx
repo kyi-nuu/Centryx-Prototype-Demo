@@ -29,7 +29,7 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
     <div
       className={cn(
         'flex items-center p-3 rounded-lg hover:bg-secondary/50 transition-colors group',
-        layout === 'grid' && 'flex-col items-start gap-2 bg-card border p-4'
+        layout === 'grid' && 'bg-card border p-4'
       )}
     >
       <div className={cn('flex items-center gap-4 flex-1 w-full')}>
@@ -44,21 +44,19 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
           <IconComponent className="h-5 w-5" />
         </div>
         <div className="flex-grow">
-          <div className="flex items-center justify-between">
-            <p className="font-semibold text-foreground text-sm">{item.name}</p>
-            {layout === 'grid' && (
-               <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => onDelete(item.id)}
-                className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-6 w-6"
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
-            )}
-          </div>
+          <p className="font-semibold text-foreground text-sm">{item.name}</p>
           <p className="text-xs text-muted-foreground">{item.description}</p>
         </div>
+        {layout === 'grid' && (
+           <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => onDelete(item.id)}
+            className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-6 w-6"
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        )}
       </div>
       {layout === 'list' && (
         <div className='text-right shrink-0 ml-4'>
