@@ -110,26 +110,24 @@ export function DeviceList({
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="flex-1 p-2 pt-0 overflow-hidden">
-        <ScrollArea className="h-full">
-            <div
-            className={cn(
-                'p-0',
-                layout === 'grid'
-                ? 'grid grid-cols-1 sm:grid-cols-2 gap-2'
-                : 'space-y-1'
-            )}
-            >
-            {filteredItems.map((item) => (
-                <DeviceListItem
-                key={item.id}
-                item={item}
-                onDelete={handleDelete}
-                layout={layout}
-                />
-            ))}
-            </div>
-        </ScrollArea>
+      <CardContent className="flex-1 p-2 pt-0 overflow-y-auto">
+        <div
+        className={cn(
+            'p-0',
+            layout === 'grid'
+            ? 'grid grid-cols-1 sm:grid-cols-2 gap-2'
+            : 'space-y-1'
+        )}
+        >
+        {filteredItems.map((item) => (
+            <DeviceListItem
+            key={item.id}
+            item={item}
+            onDelete={handleDelete}
+            layout={layout}
+            />
+        ))}
+        </div>
       </CardContent>
     </Card>
   );
