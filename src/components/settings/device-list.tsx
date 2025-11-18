@@ -44,7 +44,19 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
           <IconComponent className="h-5 w-5" />
         </div>
         <div className="flex-grow">
-          <p className="font-semibold text-foreground text-sm">{item.name}</p>
+          <div className="flex items-center justify-between">
+            <p className="font-semibold text-foreground text-sm">{item.name}</p>
+            {layout === 'grid' && (
+               <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => onDelete(item.id)}
+                className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-6 w-6"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
           <p className="text-xs text-muted-foreground">{item.description}</p>
         </div>
       </div>
@@ -56,14 +68,16 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
           </p>
         </div>
       )}
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={() => onDelete(item.id)}
-        className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 ml-2 shrink-0"
-      >
-        <Trash2 className="h-4 w-4" />
-      </Button>
+       {layout === 'list' && (
+            <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => onDelete(item.id)}
+                className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 ml-2 shrink-0 h-8 w-8"
+            >
+                <Trash2 className="h-4 w-4" />
+            </Button>
+       )}
     </div>
   );
 }
