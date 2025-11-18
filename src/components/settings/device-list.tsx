@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Trash2, Video, Lightbulb, ArrowRight } from 'lucide-react';
+import { Trash2, Video, Lightbulb, ArrowRight, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type DeviceItem = {
@@ -29,7 +29,7 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
     <div
       className={cn(
         'flex items-center p-3 rounded-lg hover:bg-secondary/50 transition-colors group',
-        layout === 'grid' && 'flex-col items-start gap-2 bg-card border'
+        layout === 'grid' && 'flex-col items-start gap-2 bg-card border p-4'
       )}
     >
       <div className={cn('flex items-center gap-4 flex-1 w-full')}>
@@ -99,22 +99,20 @@ export function DeviceList({
       <CardHeader className="flex-shrink-0">
         <CardTitle>{title}</CardTitle>
         <div className="relative mt-2">
+           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder={searchPlaceholder}
-            className="bg-background h-11 pr-10"
+            className="bg-background h-11 pl-10"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-           <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 text-muted-foreground h-9 w-9">
-            <ArrowRight className="h-4 w-4" />
-          </Button>
         </div>
       </CardHeader>
-      <CardContent className="flex-1 p-2 pt-0 overflow-y-auto">
+      <CardContent className="flex-1 p-2 pt-0 overflow-hidden">
         <ScrollArea className="h-full">
             <div
             className={cn(
-                'p-0',
+                'p-0 pr-2',
                 layout === 'grid'
                 ? 'grid grid-cols-1 sm:grid-cols-2 gap-2 p-2'
                 : 'space-y-1'

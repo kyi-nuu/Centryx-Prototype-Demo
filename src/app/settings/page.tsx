@@ -5,26 +5,26 @@ import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
 
 const camerasData = [
-    { name: "Main Entrance", location: "Front Door", isRecording: true, status: 'online', model: 'Hikvision P3225-LVE' },
-    { name: "Parking Lot A", location: "East Wing", isRecording: true, status: 'online', model: 'Dahua IPC-HFW2431S' },
-    { name: "Lobby Area", location: "Ground Floor", isRecording: false, status: 'offline', model: 'Hikvision DS-2CD2143G0-I' },
-    { name: "Hallway Section 3", location: "Floor 2", isRecording: true, status: 'online', model: 'Axis M1065-L' },
-    { name: "Rooftop East", location: "Building A", isRecording: false, status: 'offline', model: 'Bosch Flexidome 5000i' },
-    { name: "Loading Bay", location: "Service Area", isRecording: true, status: 'online', model: 'Hanwha QNO-8080R' },
-    { name: "Server Room", location: "Basement", isRecording: true, status: 'online', model: 'Avigilon H5A' },
-    { name: "Staff Canteen", location: "Floor 1", isRecording: false, status: 'offline', model: 'Mobotix M26' },
-    { name: "Meeting Room 5", location: "Floor 3", isRecording: true, status: 'online', model: 'Vivotek IB9367-H' },
-    { name: "West Corridor", location: "Floor 2", isRecording: true, status: 'online', model: 'Panasonic WV-S2531LN' },
-    { name: "Garage Level 2", location: "Parking Structure", isRecording: true, status: 'online', model: 'Sony SNC-VB770' },
-    { name: "Library", location: "Community Hall", isRecording: false, status: 'offline', model: 'IDIS DC-D4213WRX' },
-    { name: "Main Auditorium", location: "Main Hall", isRecording: true, status: 'online', model: 'Canon VB-H45' },
-    { name: "Gymnasium", location: "Sports Complex", isRecording: true, status: 'online', model: 'i-PRO WV-X8570N' },
-    { name: "IT Department", location: "Floor 4", isRecording: false, status: 'offline', model: 'Arecont Vision Contera' },
-    { name: "Reception", location: "Ground Floor", isRecording: true, status: 'online', model: 'Dahua IPC-HDW5442TM-AS' },
-    { name: "Archive Room", location: "Basement", isRecording: true, status: 'online', model: 'Hikvision DS-2CD2T87G2-L' },
-    { name: "Data Center", location: "Floor 5", isRecording: true, status: 'online', model: 'Axis Q1615-LE Mk III' },
-    { name: "Back Entrance", location: "Rear Side", isRecording: false, status: 'offline', model: 'Vivotek FD9387-HTV' },
-    { name: "Finance Office", location: "Floor 4", isRecording: true, status: 'online', model: 'Bosch Dinion 7000' },
+    { name: "Main Entrance", location: "Front Door", model: 'Hikvision P3225-LVE' },
+    { name: "Parking Lot A", location: "East Wing", model: 'Dahua IPC-HFW2431S' },
+    { name: "Lobby Area", location: "Ground Floor", model: 'Hikvision DS-2CD2143G0-I' },
+    { name: "Hallway Section 3", location: "Floor 2", model: 'Axis M1065-L' },
+    { name: "Rooftop East", location: "Building A", model: 'Bosch Flexidome 5000i' },
+    { name: "Loading Bay", location: "Service Area", model: 'Hanwha QNO-8080R' },
+    { name: "Server Room", location: "Basement", model: 'Avigilon H5A' },
+    { name: "Staff Canteen", location: "Floor 1", model: 'Mobotix M26' },
+    { name: "Meeting Room 5", location: "Floor 3", model: 'Vivotek IB9367-H' },
+    { name: "West Corridor", location: "Floor 2", model: 'Panasonic WV-S2531LN' },
+    { name: "Garage Level 2", location: "Parking Structure", model: 'Sony SNC-VB770' },
+    { name: "Library", location: "Community Hall", model: 'IDIS DC-D4213WRX' },
+    { name: "Main Auditorium", location: "Main Hall", model: 'Canon VB-H45' },
+    { name: "Gymnasium", location: "Sports Complex", model: 'i-PRO WV-X8570N' },
+    { name: "IT Department", location: "Floor 4", model: 'Arecont Vision Contera' },
+    { name: "Reception", location: "Ground Floor", model: 'Dahua IPC-HDW5442TM-AS' },
+    { name: "Archive Room", location: "Basement", model: 'Hikvision DS-2CD2T87G2-L' },
+    { name: "Data Center", location: "Floor 5", model: 'Axis Q1615-LE Mk III' },
+    { name: "Back Entrance", location: "Rear Side", model: 'Vivotek FD9387-HTV' },
+    { name: "Finance Office", location: "Floor 4", model: 'Bosch Dinion 7000' },
 ];
 
 const lightsData = [
@@ -56,7 +56,7 @@ export default function SettingsPage() {
       <SettingsHeader />
       <div className="flex-1 p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start overflow-hidden">
         <div className="flex flex-col gap-4 h-full">
-          <DeviceList 
+          <DeviceList
             title="CCTV"
             searchPlaceholder="Search camera by name"
             items={camerasData.map(camera => ({
@@ -73,7 +73,7 @@ export default function SettingsPage() {
           </Button>
         </div>
         <div className="flex flex-col gap-4 h-full">
-          <DeviceList 
+          <DeviceList
             title="Lights"
             searchPlaceholder="Search light by name"
             items={lightsData.map(light => ({
@@ -91,7 +91,7 @@ export default function SettingsPage() {
         </div>
       </div>
       <div className="p-4 sm:p-6 lg:p-8 pt-0">
-          <AddDeviceForm />
+        <AddDeviceForm />
       </div>
     </div>
   );
