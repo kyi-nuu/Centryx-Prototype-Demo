@@ -13,7 +13,7 @@ export default function ProfilePage({ activeTab }: ProfilePageProps) {
     <div className="h-full">
       {activeTab === 'profile' && <ProfileForm />}
       {activeTab === 'security' && <SecurityTab />}
-      {activeTeb === 'users' && <UsersTab />}
+      {activeTab === 'users' && <UsersTab />}
     </div>
   );
 }

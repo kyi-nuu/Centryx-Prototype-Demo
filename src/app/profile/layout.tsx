@@ -2,7 +2,7 @@
 
 import { DashboardSidebar } from '@/components/dashboard/sidebar';
 import { ProfileHeader } from '@/components/profile/profile-header';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function ProfileLayout({
   children,
@@ -10,6 +10,14 @@ export default function ProfileLayout({
   children: React.ReactNode;
 }) {
   const [activeTab, setActiveTab] = useState('profile');
+
+  // Clone the child element to pass down the activeTab prop
+  const childrenWithProps = React.Children.map(children, (child) => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child, { activeTab } as any);
+    }
+    return child;
+  });
 
   return (
     <div className="flex min-h-screen w-full bg-muted/40">
@@ -19,12 +27,7 @@ export default function ProfileLayout({
           <ProfileHeader activeTab={activeTab} setActiveTab={setActiveTab} />
         </div>
         <main className="flex-1 p-4 sm:p-6 lg:p-8">
-          {/* Pass activeTab to children */}
-          {children &&
-            (children as any).type({
-              ... (children as any).props,
-              activeTab,
-            })}
+          {childrenWithProps}
         </main>
       </div>
     </div>
