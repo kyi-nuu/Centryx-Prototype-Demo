@@ -32,7 +32,7 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
         layout === 'grid' && 'flex-col items-start gap-2 bg-card border'
       )}
     >
-      <div className={cn('flex items-center gap-4 flex-1')}>
+      <div className={cn('flex items-center gap-4 flex-1 w-full')}>
         <div
           className={cn(
             'rounded-lg p-2',
@@ -49,7 +49,7 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
         </div>
       </div>
       {layout === 'list' && (
-        <div className='text-right'>
+        <div className='text-right shrink-0 ml-4'>
           <p className="text-xs font-medium text-foreground">{item.details.split(' ')[0]}</p>
           <p className="text-[10px] text-muted-foreground">
             {item.details.split(' ').slice(1).join(' ')}
@@ -111,23 +111,25 @@ export function DeviceList({
         </div>
       </CardHeader>
       <CardContent className="flex-1 p-2 pt-0 overflow-y-auto">
-        <div
-        className={cn(
-            'p-0',
-            layout === 'grid'
-            ? 'grid grid-cols-1 sm:grid-cols-2 gap-2'
-            : 'space-y-1'
-        )}
-        >
-        {filteredItems.map((item) => (
-            <DeviceListItem
-            key={item.id}
-            item={item}
-            onDelete={handleDelete}
-            layout={layout}
-            />
-        ))}
-        </div>
+        <ScrollArea className="h-full">
+            <div
+            className={cn(
+                'p-0',
+                layout === 'grid'
+                ? 'grid grid-cols-1 sm:grid-cols-2 gap-2 p-2'
+                : 'space-y-1'
+            )}
+            >
+            {filteredItems.map((item) => (
+                <DeviceListItem
+                key={item.id}
+                item={item}
+                onDelete={handleDelete}
+                layout={layout}
+                />
+            ))}
+            </div>
+        </ScrollArea>
       </CardContent>
     </Card>
   );
