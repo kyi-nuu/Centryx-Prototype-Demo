@@ -30,7 +30,7 @@ export function ProfileForm() {
               <Input id="username" defaultValue="johndoe" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phoneNumber">Phone Number *</Label>
+              <Label htmlFor="phoneNumber">Phone Number</Label>
               <Input id="phoneNumber" type="tel" defaultValue="+1 (555) 123-4567" />
             </div>
           </div>

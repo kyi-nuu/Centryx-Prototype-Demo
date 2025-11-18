@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Shield, User, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 
 export function ProfileHeader({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (tab: string) => void }) {
   return (
@@ -13,41 +14,22 @@ export function ProfileHeader({ activeTab, setActiveTab }: { activeTab: string, 
           <h1 className="text-3xl font-bold">Profile Management</h1>
           <p className="text-muted-foreground">Manage your account settings and preferences</p>
         </div>
-        <div className="flex border-b border-border">
-          <Button
-            variant="ghost"
-            onClick={() => setActiveTab('profile')}
-            className={cn(
-              'rounded-none border-b-2 border-transparent hover:bg-transparent hover:border-primary/50 hover:text-primary py-4 px-6',
-              activeTab === 'profile' ? 'border-primary text-primary font-semibold' : 'text-muted-foreground'
-            )}
-          >
-            <User className="mr-2 h-4 w-4" />
-            Profile
-          </Button>
-          <Button
-            variant="ghost"
-            onClick={() => setActiveTab('security')}
-            className={cn(
-              'rounded-none border-b-2 border-transparent hover:bg-transparent hover:border-primary/50 hover:text-primary py-4 px-6',
-              activeTab === 'security' ? 'border-primary text-primary font-semibold' : 'text-muted-foreground'
-            )}
-          >
-            <Shield className="mr-2 h-4 w-4" />
-            Security
-          </Button>
-          <Button
-            variant="ghost"
-            onClick={() => setActiveTab('users')}
-            className={cn(
-              'rounded-none border-b-2 border-transparent hover:bg-transparent hover:border-primary/50 hover:text-primary py-4 px-6',
-              activeTab === 'users' ? 'border-primary text-primary font-semibold' : 'text-muted-foreground'
-            )}
-          >
-            <Users className="mr-2 h-4 w-4" />
-            Users
-          </Button>
-        </div>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full max-w-md grid-cols-3 bg-secondary/50">
+              <TabsTrigger value="profile">
+                <User className="mr-2 h-4 w-4" />
+                Profile
+              </TabsTrigger>
+              <TabsTrigger value="security">
+                <Shield className="mr-2 h-4 w-4" />
+                Security
+              </TabsTrigger>
+              <TabsTrigger value="users">
+                <Users className="mr-2 h-4 w-4" />
+                Users
+              </TabsTrigger>
+            </TabsList>
+        </Tabs>
       </CardContent>
     </Card>
   );
