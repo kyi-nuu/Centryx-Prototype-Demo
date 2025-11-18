@@ -3,12 +3,9 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Shield, User, Users } from 'lucide-react';
-import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
-export function ProfileHeader() {
-  const [activeTab, setActiveTab] = useState('profile');
-
+export function ProfileHeader({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (tab: string) => void }) {
   return (
     <Card className="rounded-none border-x-0 border-t-0 bg-card/80 backdrop-blur-sm">
       <CardContent className="p-4 sm:p-6 lg:p-8 space-y-6">
