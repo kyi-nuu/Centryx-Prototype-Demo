@@ -25,12 +25,41 @@ type DeviceListItemProps = {
 function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
   const isLight = item.icon === 'light';
   const IconComponent = isLight ? Lightbulb : Video;
+  
+  if (layout === 'grid') {
+    return (
+      <Card className="p-4">
+        <div className='flex items-center gap-4'>
+            <div
+              className={cn(
+                'rounded-lg p-2',
+                isLight
+                  ? 'bg-yellow-400/20 text-yellow-400'
+                  : 'bg-blue-500/20 text-blue-500'
+              )}
+            >
+              <IconComponent className="h-5 w-5" />
+            </div>
+            <div className="flex-grow">
+              <p className="font-semibold text-foreground text-sm">{item.name}</p>
+              <p className="text-xs text-muted-foreground">{item.description}</p>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => onDelete(item.id)}
+              className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-8 w-8 shrink-0"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+        </div>
+      </Card>
+    );
+  }
+
   return (
     <div
-      className={cn(
-        'flex items-center p-3 rounded-lg hover:bg-secondary/50 transition-colors group',
-        layout === 'grid' && 'bg-card border p-4'
-      )}
+      className='flex items-center p-3 rounded-lg hover:bg-secondary/50 transition-colors group'
     >
       <div className={cn('flex items-center gap-4 flex-1 w-full')}>
         <div
@@ -47,35 +76,15 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
           <p className="font-semibold text-foreground text-sm">{item.name}</p>
           <p className="text-xs text-muted-foreground">{item.description}</p>
         </div>
-        {layout === 'grid' && (
-           <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => onDelete(item.id)}
-            className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-6 w-6"
-          >
-            <Trash2 className="h-4 w-4" />
-          </Button>
-        )}
       </div>
-      {layout === 'list' && (
-        <div className='text-right shrink-0 ml-4'>
-          <p className="text-xs font-medium text-foreground">{item.details.split(' ')[0]}</p>
-          <p className="text-[10px] text-muted-foreground">
-            {item.details.split(' ').slice(1).join(' ')}
-          </p>
-        </div>
-      )}
-       {layout === 'list' && (
-            <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => onDelete(item.id)}
-                className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 ml-2 shrink-0 h-8 w-8"
-            >
-                <Trash2 className="h-4 w-4" />
-            </Button>
-       )}
+      <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => onDelete(item.id)}
+          className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 ml-2 shrink-0 h-8 w-8"
+      >
+          <Trash2 className="h-4 w-4" />
+      </Button>
     </div>
   );
 }
@@ -124,9 +133,9 @@ export function DeviceList({
         <ScrollArea className="h-full">
             <div
             className={cn(
-                'p-0 pr-2',
+                'p-2 pr-4',
                 layout === 'grid'
-                ? 'grid grid-cols-1 sm:grid-cols-2 gap-2 p-2'
+                ? 'grid grid-cols-1 sm:grid-cols-2 gap-4'
                 : 'space-y-1'
             )}
             >
