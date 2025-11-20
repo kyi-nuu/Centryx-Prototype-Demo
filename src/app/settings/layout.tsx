@@ -6,13 +6,11 @@ export default function SettingsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex h-screen w-full bg-muted/40">
+    <div className="flex flex-col h-screen w-full bg-muted/40">
+      <main className="flex-1 overflow-auto">
+        {children}
+      </main>
       <DashboardSidebar />
-      <div className="flex flex-col flex-1 overflow-hidden">
-        <main className="flex-1 flex flex-col h-full overflow-y-auto">
-          {children}
-        </main>
-      </div>
     </div>
   );
 }

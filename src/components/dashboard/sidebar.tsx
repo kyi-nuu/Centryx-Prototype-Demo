@@ -3,59 +3,53 @@
 import { Home, Lightbulb, Video, Settings, User } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Logo } from '../logo';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 const navItems = [
   { href: '/dashboard', icon: Home, label: 'Home' },
   { href: '/lights', icon: Lightbulb, label: 'Lights' },
   { href: '/cctv', icon: Video, label: 'CCTV' },
+  { href: '/settings', icon: Settings, label: 'Settings' },
 ];
-
-const secondaryNavItems = [
-    { href: '/settings', icon: Settings, label: 'Settings' },
-]
 
 export function DashboardSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden md:flex flex-col w-20 bg-card p-4 border-r items-center justify-between">
-      <div className="flex flex-col items-center gap-y-6 w-full">
-        <div className="flex h-16 items-center justify-center w-full mb-4">
-            <Logo isCollapsed={true} />
-        </div>
-        <nav className="flex flex-col items-center gap-y-4 w-full">
+    <nav className="flex items-center justify-center p-4">
+      <div className="flex items-end h-16 justify-center gap-2 rounded-full border bg-card/80 px-4 py-3 backdrop-blur-sm">
+        <TooltipProvider>
           {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                'flex flex-col items-center justify-center w-16 h-16 rounded-xl text-muted-foreground transition-colors hover:text-primary hover:bg-primary/10',
-                pathname.startsWith(item.href) && 'text-primary bg-primary/10'
-              )}
-            >
-              <item.icon className="h-6 w-6" />
-              <span className="text-xs mt-1">{item.label}</span>
-            </Link>
+            <Tooltip key={item.href}>
+              <TooltipTrigger asChild>
+                <Link href={item.href}>
+                  <motion.div
+                    whileHover={{ scale: 1.2, y: -8 }}
+                    whileTap={{ scale: 0.9 }}
+                    className={cn(
+                      'relative flex h-12 w-12 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary',
+                      pathname.startsWith(item.href) &&
+                        'bg-primary/10 text-primary'
+                    )}
+                  >
+                    <item.icon className="h-6 w-6" />
+                  </motion.div>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{item.label}</p>
+              </TooltipContent>
+            </Tooltip>
           ))}
-        </nav>
+        </TooltipProvider>
       </div>
-       <nav className="flex flex-col items-center gap-y-4 w-full">
-          {secondaryNavItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                'flex flex-col items-center justify-center w-16 h-16 rounded-xl text-muted-foreground transition-colors hover:text-primary hover:bg-primary/10',
-                pathname.startsWith(item.href) && 'text-primary bg-primary/10'
-              )}
-            >
-              <item.icon className="h-6 w-6" />
-              <span className="text-xs mt-1">{item.label}</span>
-            </Link>
-          ))}
-        </nav>
-    </aside>
+    </nav>
   );
 }
