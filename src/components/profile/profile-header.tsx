@@ -19,26 +19,25 @@ const tabs: { id: ProfileTab; label: string; icon: React.ElementType }[] = [
 
 export function ProfileHeader({ activeTab, setActiveTab }: ProfileHeaderProps) {
   return (
-    <header className="sticky top-0 z-10 bg-muted/80 backdrop-blur-sm">
-      <Card className="rounded-none border-x-0 border-t-0 bg-transparent">
+    <header className="sticky top-0 z-10 bg-card/80 backdrop-blur-sm border-b border-border">
+      <Card className="rounded-none border-0 bg-transparent shadow-none">
         <CardContent className="p-4 sm:p-6 lg:p-8 space-y-6">
           <div>
             <h1 className="text-3xl font-bold">Profile Management</h1>
             <p className="text-muted-foreground">Manage your account settings and preferences</p>
           </div>
-          <div className="flex items-center gap-4 border-b border-border pb-px">
+          <div className="flex items-center gap-2">
             {tabs.map((tab) => (
               <Button
                 key={tab.id}
                 variant={activeTab === tab.id ? 'default' : 'ghost'}
+                size="sm"
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
-                  'gap-2 rounded-none border-b-2 border-transparent px-4 pb-3 pt-2 font-semibold',
-                  'transition-none',
+                  'gap-2',
                   activeTab === tab.id
-                    ? 'border-primary text-primary'
-                    : 'text-muted-foreground hover:text-foreground',
-                  'bg-transparent hover:bg-transparent'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
                 )}
               >
                 <tab.icon className="h-4 w-4" />

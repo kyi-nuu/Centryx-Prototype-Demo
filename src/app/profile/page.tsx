@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { ProfileHeader } from '@/components/profile/profile-header';
-import { ProfileTab } from '@/components/profile/profile-header';
 import { ProfileForm } from '@/components/profile/profile-form';
+
+export type ProfileTab = 'profile' | 'security' | 'users';
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState<ProfileTab>('profile');
