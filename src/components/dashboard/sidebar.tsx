@@ -76,18 +76,17 @@ const AppIcon = ({ mouseY, isActive, icon, href, label }: AppIconProps) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Link href={href} ref={ref}>
-          <motion.div
-            style={{ scale }}
-            className={cn(
-              'aspect-square rounded-full flex items-center justify-center transition-colors w-12 h-12',
-              isActive
-                ? 'bg-primary text-primary-foreground'
-                : 'bg-secondary text-muted-foreground hover:bg-primary/80 hover:text-primary-foreground'
-            )}
-          >
-            {icon}
-          </motion.div>
+        <Link
+          href={href}
+          ref={ref}
+          className={cn(
+            'aspect-square rounded-full flex items-center justify-center transition-colors w-12 h-12',
+            isActive
+              ? 'bg-primary text-primary-foreground'
+              : 'bg-secondary text-muted-foreground hover:bg-primary/80 hover:text-primary-foreground'
+          )}
+        >
+          <motion.div style={{ scale }}>{icon}</motion.div>
         </Link>
       </TooltipTrigger>
       <TooltipContent side="right">
