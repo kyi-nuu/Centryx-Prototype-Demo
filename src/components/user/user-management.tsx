@@ -37,24 +37,22 @@ const usersData: User[] = [
 function UserRow({ user }: { user: User }) {
   return (
     <Card className="bg-secondary/30 transition-all hover:bg-secondary/50 hover:shadow-md">
-      <CardContent className="p-4 flex items-center gap-4">
+      <CardContent className="p-3 flex items-center gap-4">
         <Avatar className="h-10 w-10">
           <AvatarImage src={user.avatarUrl} alt={user.name} data-ai-hint="person face" />
           <AvatarFallback>{user.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
         </Avatar>
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-x-4">
-          <div>
-            <p className="font-semibold text-base text-foreground">{user.name}</p>
-            <div className='flex items-center gap-1.5'>
-              <Mail className="h-3 w-3 text-muted-foreground" />
-              <a href={`mailto:${user.email}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                {user.email}
-              </a>
-            </div>
+        <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 items-center gap-x-4 gap-y-1">
+          <p className="font-semibold text-sm text-foreground">{user.name}</p>
+          <div className='flex items-center gap-1.5'>
+            <Mail className="h-3 w-3 text-muted-foreground" />
+            <a href={`mailto:${user.email}`} className="text-xs text-muted-foreground hover:text-primary transition-colors">
+              {user.email}
+            </a>
           </div>
           <div className='flex items-center gap-1.5'>
             <Phone className="h-3 w-3 text-muted-foreground" />
-            <a href={`tel:${user.phone}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            <a href={`tel:${user.phone}`} className="text-xs text-muted-foreground hover:text-primary transition-colors">
               {user.phone}
             </a>
           </div>
@@ -63,7 +61,7 @@ function UserRow({ user }: { user: User }) {
         <div className="flex items-center gap-2">
           <Badge
             className={cn(
-              'text-xs capitalize px-2 py-0.5',
+              'text-[10px] capitalize px-2 py-0.5',
               user.status === 'active'
                 ? 'border-green-500/50 bg-green-900/50 text-green-400'
                 : 'border-transparent bg-muted text-muted-foreground'
@@ -72,7 +70,7 @@ function UserRow({ user }: { user: User }) {
           >
             {user.status}
           </Badge>
-          <Badge variant="outline" className="text-xs capitalize px-2 py-0.5">
+          <Badge variant="outline" className="text-[10px] capitalize px-2 py-0.5">
             {user.role}
           </Badge>
           <Button variant="ghost" size="icon" className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive h-8 w-8">
@@ -102,8 +100,8 @@ export function UserManagement() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold">User Management</h2>
-          <p className="text-muted-foreground">Manage users and their permissions</p>
+          <h2 className="text-xl font-bold">User Management</h2>
+          <p className="text-sm text-muted-foreground">Manage users and their permissions</p>
         </div>
          <Button>
           <UserPlus className="mr-2 h-4 w-4" />
@@ -137,7 +135,7 @@ export function UserManagement() {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {filteredUsers.length > 0 ? (
             filteredUsers.map(user => (
             <UserRow key={user.id} user={user} />
