@@ -11,7 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import React, { useRef, forwardRef } from 'react';
+import React, { useRef } from 'react';
 import { Logo } from '../logo';
 
 const navItems = [
@@ -39,19 +39,14 @@ export function DashboardSidebar() {
           {navItems.map((item) => {
             const isActive = pathname.startsWith(item.href);
             return (
-              <Tooltip key={item.href}>
-                <TooltipTrigger asChild>
-                    <AppIcon
-                        href={item.href}
-                        mouseY={mouseY}
-                        isActive={isActive}
-                        icon={<item.icon className="h-6 w-6" />}
-                    />
-                </TooltipTrigger>
-                <TooltipContent side="right">
-                  <p>{item.label}</p>
-                </TooltipContent>
-              </Tooltip>
+              <AppIcon
+                key={item.href}
+                href={item.href}
+                mouseY={mouseY}
+                isActive={isActive}
+                icon={<item.icon className="h-6 w-6" />}
+                label={item.label}
+              />
             );
           })}
         </TooltipProvider>
@@ -65,10 +60,11 @@ type AppIconProps = {
   isActive: boolean;
   icon: React.ReactNode;
   href: string;
+  label: string;
 };
 
-const AppIcon = ({ mouseY, isActive, icon, href }: AppIconProps) => {
-  const ref = useRef<HTMLAnchorElement>(null);
+const AppIcon = ({ mouseY, isActive, icon, href, label }: AppIconProps) => {
+  const ref = useRef<HTMLDivElement>(null);
 
   const distance = useTransform(mouseY, (val) => {
     const bounds = ref.current?.getBoundingClientRect();
@@ -82,20 +78,27 @@ const AppIcon = ({ mouseY, isActive, icon, href }: AppIconProps) => {
   });
 
   return (
-    <motion.div style={{ scale }}>
-      <Link href={href} ref={ref}>
-        <div
-          className={cn(
-            'aspect-square rounded-full flex items-center justify-center transition-colors w-12 h-12',
-            isActive
-              ? 'bg-primary/10 text-primary'
-              : 'bg-secondary text-muted-foreground hover:bg-primary/10 hover:text-primary'
-          )}
-        >
-          {icon}
-        </div>
-      </Link>
-    </motion.div>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Link href={href} aria-label={label}>
+          <motion.div
+            ref={ref}
+            style={{ scale }}
+            className={cn(
+              'aspect-square rounded-full flex items-center justify-center transition-colors w-12 h-12',
+              isActive
+                ? 'bg-primary/10 text-primary'
+                : 'bg-secondary text-muted-foreground hover:bg-primary/10 hover:text-primary'
+            )}
+          >
+            {icon}
+          </motion.div>
+        </Link>
+      </TooltipTrigger>
+      <TooltipContent side="right">
+        <p>{label}</p>
+      </TooltipContent>
+    </Tooltip>
   );
 };
 
