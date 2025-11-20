@@ -69,11 +69,11 @@ export function CameraCard({
             </div>
           )}
         </div>
-        <div className="p-3">
-          <h3 className="font-semibold text-foreground text-sm truncate">{name}</h3>
+        <div className="p-2">
+          <h3 className="font-semibold text-foreground text-xs truncate">{name}</h3>
           <div className="flex justify-between items-center">
-            <p className="text-xs text-muted-foreground">{location}</p>
-            <Badge variant="outline" className="text-xs">{brand}</Badge>
+            <p className="text-[10px] text-muted-foreground">{location}</p>
+            <Badge variant="outline" className="text-[10px]">{brand}</Badge>
           </div>
         </div>
       </CardContent>
