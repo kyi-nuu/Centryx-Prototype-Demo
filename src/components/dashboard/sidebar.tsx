@@ -11,7 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import React, { useRef } from 'react';
+import React, { useRef, forwardRef } from 'react';
 import { Logo } from '../logo';
 
 const navItems = [
@@ -41,12 +41,7 @@ export function DashboardSidebar() {
             return (
               <Tooltip key={item.href}>
                 <TooltipTrigger asChild>
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      'relative flex h-16 w-16 items-center justify-center rounded-full text-muted-foreground transition-colors'
-                    )}
-                  >
+                  <Link href={item.href} passHref legacyBehavior>
                     <AppIcon
                       mouseY={mouseY}
                       isActive={isActive}
@@ -66,15 +61,20 @@ export function DashboardSidebar() {
   );
 }
 
-function AppIcon({
-  mouseY,
-  isActive,
-  icon,
-}: {
+type AppIconProps = {
   mouseY: ReturnType<typeof useMotionValue>;
   isActive: boolean;
   icon: React.ReactNode;
-}) {
+  href?: string;
+  onClick?: () => void;
+};
+
+const AppIcon = forwardRef<HTMLAnchorElement, AppIconProps>(({
+  mouseY,
+  isActive,
+  icon,
+  ...props
+}, forwardedRef) => {
   let ref = useRef<HTMLDivElement>(null);
 
   let distance = useTransform(mouseY, (val) => {
@@ -82,21 +82,31 @@ function AppIcon({
     return val - (bounds?.y || 0) - (bounds?.height || 0) / 2;
   });
 
-  let widthSync = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+  let widthSync = useTransform(distance, [-150, 0, 150], [50, 100, 50]);
   let width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
 
   return (
-    <motion.div
-      ref={ref}
-      style={{ width }}
+    <motion.a
+      ref={forwardedRef}
+      {...props}
       className={cn(
-        "aspect-square w-12 rounded-full flex items-center justify-center transition-colors",
-        isActive
-          ? 'bg-primary/10 text-primary'
-          : 'bg-secondary text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
+        'relative flex h-16 w-16 items-center justify-center rounded-full text-muted-foreground transition-colors'
       )}
     >
-      {icon}
-    </motion.div>
+      <motion.div
+        ref={ref}
+        style={{ width }}
+        className={cn(
+          "aspect-square w-12 rounded-full flex items-center justify-center transition-colors",
+          isActive
+            ? 'bg-primary/10 text-primary'
+            : 'bg-secondary text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
+        )}
+      >
+        {icon}
+      </motion.div>
+    </motion.a>
   );
-}
+});
+
+AppIcon.displayName = 'AppIcon';
