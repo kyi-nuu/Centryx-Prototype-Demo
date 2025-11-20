@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 type CameraCardProps = {
   name: string;
   location: string;
+  brand: string;
   isRecording: boolean;
   status: 'online' | 'offline';
   imageUrl: string;
@@ -18,6 +19,7 @@ type CameraCardProps = {
 export function CameraCard({
   name,
   location,
+  brand,
   isRecording,
   status,
   imageUrl,
@@ -67,9 +69,12 @@ export function CameraCard({
             </div>
           )}
         </div>
-        <div className="p-4">
-          <h3 className="font-semibold text-foreground">{name}</h3>
-          <p className="text-sm text-muted-foreground">{location}</p>
+        <div className="p-3">
+          <h3 className="font-semibold text-foreground text-sm truncate">{name}</h3>
+          <div className="flex justify-between items-center">
+            <p className="text-xs text-muted-foreground">{location}</p>
+            <Badge variant="outline" className="text-xs">{brand}</Badge>
+          </div>
         </div>
       </CardContent>
     </Card>
