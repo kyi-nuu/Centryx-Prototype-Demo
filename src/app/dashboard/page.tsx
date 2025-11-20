@@ -1,8 +1,10 @@
+'use client';
+
 import { StatsCard } from '@/components/dashboard/stats-card';
 import { QuickActions } from '@/components/dashboard/quick-actions';
 import { DashboardHeader } from '@/components/dashboard/header';
-import { EnergyUsageChart } from '@/components/dashboard/energy-usage-chart';
-import { MotionAutomationCard } from '@/components/dashboard/motion-automation-card';
+import { EnergyUsageCard } from '@/components/dashboard/energy-usage-card';
+import { ElectricityHoursCard } from '@/components/dashboard/electricity-hours-card';
 import { Lightbulb, Video } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -37,8 +39,9 @@ export default function DashboardPage() {
           online={42}
           offline={6}
         />
-        <div className="md:col-span-2">
-          <EnergyUsageChart />
+        <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <EnergyUsageCard />
+          <ElectricityHoursCard />
         </div>
       </div>
       <div className="flex flex-col gap-4">
