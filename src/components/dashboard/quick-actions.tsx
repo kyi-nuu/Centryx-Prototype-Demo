@@ -13,26 +13,26 @@ export function QuickActions() {
         </div>
       </CardHeader>
       <CardContent className="grid grid-cols-3 gap-2 flex-1 p-3">
-        <Button size="sm" className="h-full text-xs bg-primary hover:bg-primary/90 text-primary-foreground flex-col gap-1">
-          <Power className="h-4 w-4" /> All On
+        <Button size="sm" className="h-full text-xs bg-primary hover:bg-primary/90 text-primary-foreground flex-col gap-1.5 py-2">
+          <Power className="h-5 w-5" /> All On
         </Button>
-        <Button size="sm" variant="destructive" className="h-full text-xs flex-col gap-1">
-          <Power className="h-4 w-4" /> All Off
+        <Button size="sm" variant="destructive" className="h-full text-xs flex-col gap-1.5 py-2">
+          <Power className="h-5 w-5" /> All Off
         </Button>
-        <Button variant="secondary" size="sm" className="h-full text-xs flex-col gap-1">
-          <LogOut className="h-4 w-4" />
+        <Button variant="secondary" size="sm" className="h-full text-xs flex-col gap-1.5 py-2">
+          <LogOut className="h-5 w-5" />
           <span>Log Out</span>
         </Button>
-        <Button variant="secondary" size="sm" className="h-full text-xs flex-col gap-1">
-          <Sun className="h-4 w-4" />
+        <Button variant="secondary" size="sm" className="h-full text-xs flex-col gap-1.5 py-2">
+          <Sun className="h-5 w-5" />
           <span>Day Mode</span>
         </Button>
-        <Button variant="secondary" size="sm" className="h-full text-xs flex-col gap-1">
-          <Moon className="h-4 w-4" />
+        <Button variant="secondary" size="sm" className="h-full text-xs flex-col gap-1.5 py-2">
+          <Moon className="h-5 w-5" />
           <span>Night Mode</span>
         </Button>
-        <Button variant="secondary" size="sm" className="h-full text-xs flex-col gap-1">
-          <Leaf className="h-4 w-4" />
+        <Button variant="secondary" size="sm" className="h-full text-xs flex-col gap-1.5 py-2">
+          <Leaf className="h-5 w-5" />
           <span>Eco Mode</span>
         </Button>
       </CardContent>

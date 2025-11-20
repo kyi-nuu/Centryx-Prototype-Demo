@@ -24,13 +24,13 @@ export function MotionAutomationCard() {
             <span className="mr-1.5">✓</span> ON
           </Badge>
         </div>
-        <div className="flex flex-col items-center justify-center my-6">
+        <div className="flex flex-col items-center justify-center my-4">
             <div className="flex items-center justify-between w-full">
                 <div className="relative">
                     <div className="absolute -inset-2 bg-blue-500/20 rounded-full blur-lg" />
                     <Camera className="h-8 w-8 text-blue-400 z-10 relative" />
                 </div>
-                <div className="flex-1 mx-4 h-2 bg-muted/50 rounded-full relative overflow-hidden">
+                <div className="flex-1 mx-4 h-1 bg-muted/50 rounded-full relative overflow-hidden">
                     <div className="absolute h-full bg-gradient-to-r from-blue-500 to-yellow-500 w-full" />
                 </div>
                 <div className="relative">
@@ -38,8 +38,8 @@ export function MotionAutomationCard() {
                     <Lightbulb className="h-8 w-8 text-yellow-400 z-10 relative" />
                 </div>
             </div>
-            <p className="text-center text-sm text-muted-foreground mt-4">
-              When motion is detected, lights are automatically turned on.
+            <p className="text-center text-xs text-muted-foreground mt-3">
+              When motion is detected, lights turn on.
             </p>
         </div>
       </CardContent>
