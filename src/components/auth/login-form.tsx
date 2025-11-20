@@ -18,6 +18,7 @@ import { Input } from '@/components/ui/input';
 import { CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Loader2 } from 'lucide-react';
 import { Checkbox } from '../ui/checkbox';
+import { Logo } from '../logo';
 
 const formSchema = z.object({
   username: z.string().min(1, { message: 'Please enter your username.' }),
@@ -53,9 +54,9 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
 
   return (
     <>
-      <CardHeader className="p-0 pb-8 text-center">
-        <CardTitle className="text-3xl font-bold text-foreground">CENTRYX</CardTitle>
-        <CardDescription className="text-muted-foreground">
+      <CardHeader className="p-0 pb-8 text-center flex items-center">
+        <Logo />
+        <CardDescription className="text-muted-foreground pt-2">
           Smart Lighting & CCTV Control Platform
         </CardDescription>
       </CardHeader>

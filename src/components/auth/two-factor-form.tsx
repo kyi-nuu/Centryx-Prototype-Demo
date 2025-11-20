@@ -19,6 +19,7 @@ import { Input } from '@/components/ui/input';
 import { CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { Logo } from '../logo';
 
 const formSchema = z.object({
   code: z
@@ -61,6 +62,9 @@ export function TwoFactorForm({ email, onBack }: TwoFactorFormProps) {
   return (
     <>
       <CardHeader className="p-0 pb-6 text-center">
+        <div className="flex justify-center mb-4">
+          <Logo />
+        </div>
         <CardTitle className="text-2xl font-bold">Two-Factor Authentication</CardTitle>
         <CardDescription className="text-muted-foreground">
           We've sent a verification code to <span className="font-medium text-foreground">{email}</span>.
