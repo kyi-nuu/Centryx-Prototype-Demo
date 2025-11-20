@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { ProfileHeader } from '@/components/profile/profile-header';
-
-export type ProfileTab = 'profile' | 'security' | 'users';
+import { ProfileTab } from '@/components/profile/profile-header';
+import { ProfileForm } from '@/components/profile/profile-form';
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState<ProfileTab>('profile');
@@ -11,9 +11,8 @@ export default function ProfilePage() {
   return (
     <div className="flex flex-col h-full">
       <ProfileHeader activeTab={activeTab} setActiveTab={setActiveTab} />
-      <div className="flex-1 p-8">
-        {/* Content for the selected tab will be rendered here */}
-        {activeTab === 'profile' && <div>Profile Content</div>}
+      <div className="flex-1 p-4 sm:p-6 lg:p-8">
+        {activeTab === 'profile' && <ProfileForm />}
         {activeTab === 'security' && <div>Security Content</div>}
         {activeTab === 'users' && <div>Users Content</div>}
       </div>
