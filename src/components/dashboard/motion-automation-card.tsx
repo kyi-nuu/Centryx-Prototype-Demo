@@ -1,19 +1,22 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Camera, Lightbulb, Zap } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 export function MotionAutomationCard() {
   return (
     <Card className="bg-blue-900/30 border-blue-500/30">
-      <CardContent className="p-3">
+      <CardContent className="p-4">
         <div className="flex items-start justify-between">
-          <div className="flex items-center gap-2">
-            <Zap className="h-4 w-4 text-blue-400" />
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-blue-500/20 rounded-lg">
+                <Zap className="h-5 w-5 text-blue-400" />
+            </div>
             <div>
-              <h3 className="font-semibold text-foreground text-sm">Motion Automation</h3>
+              <h3 className="font-semibold text-foreground text-base">Motion Automation</h3>
               <div className="flex items-center gap-1.5">
-                <div className="h-2 w-2 rounded-full bg-blue-400" />
-                <span className="text-xs text-blue-400">Active</span>
+                <div className="h-2 w-2 rounded-full bg-blue-400 animate-pulse" />
+                <span className="text-sm text-blue-400">Active</span>
               </div>
             </div>
           </div>
@@ -21,19 +24,22 @@ export function MotionAutomationCard() {
             <span className="mr-1.5">✓</span> ON
           </Badge>
         </div>
-        <div className="flex flex-col items-center justify-center my-2">
+        <div className="flex flex-col items-center justify-center my-6">
             <div className="flex items-center justify-between w-full">
-                <Camera className="h-5 w-5 text-muted-foreground" />
-                <div className="flex-1 mx-4 h-1 bg-muted/50 rounded-full relative overflow-hidden">
-                    <div
-                    className="absolute h-full bg-gradient-to-r from-blue-500 to-yellow-500"
-                    style={{ width: '100%' }}
-                    ></div>
+                <div className="relative">
+                    <div className="absolute -inset-2 bg-blue-500/20 rounded-full blur-lg" />
+                    <Camera className="h-8 w-8 text-blue-400 z-10 relative" />
                 </div>
-                <Lightbulb className="h-5 w-5 text-muted-foreground" />
+                <div className="flex-1 mx-4 h-2 bg-muted/50 rounded-full relative overflow-hidden">
+                    <div className="absolute h-full bg-gradient-to-r from-blue-500 to-yellow-500 w-full" />
+                </div>
+                <div className="relative">
+                    <div className="absolute -inset-2 bg-yellow-500/20 rounded-full blur-lg" />
+                    <Lightbulb className="h-8 w-8 text-yellow-400 z-10 relative" />
+                </div>
             </div>
-            <p className="text-center text-[10px] text-muted-foreground mt-1.5">
-            Motion detected → Lights on
+            <p className="text-center text-sm text-muted-foreground mt-4">
+              When motion is detected, lights are automatically turned on.
             </p>
         </div>
       </CardContent>
