@@ -11,22 +11,22 @@ const modeCards = [
   {
     label: 'Day Mode',
     icon: Sun,
-    color: 'bg-blue-900/30 border-blue-700/50 text-blue-400',
+    color: 'bg-blue-200/50 dark:bg-blue-900/30 border-blue-300/50 dark:border-blue-700/50 text-blue-500 dark:text-blue-400',
   },
   {
     label: 'Night Mode',
     icon: Moon,
-    color: 'bg-purple-900/30 border-purple-700/50 text-purple-400',
+    color: 'bg-purple-200/50 dark:bg-purple-900/30 border-purple-300/50 dark:border-purple-700/50 text-purple-500 dark:text-purple-400',
   },
   {
     label: 'Eco Mode',
     icon: Zap,
-    color: 'bg-green-900/30 border-green-700/50 text-green-400',
+    color: 'bg-green-200/50 dark:bg-green-900/30 border-green-300/50 dark:border-green-700/50 text-green-500 dark:text-green-400',
   },
   {
     label: 'All Off',
     icon: PowerOffIcon,
-    color: 'bg-red-900/30 border-red-700/50 text-red-400',
+    color: 'bg-red-200/50 dark:bg-red-900/30 border-red-300/50 dark:border-red-700/50 text-red-500 dark:text-red-400',
   },
 ];
 
