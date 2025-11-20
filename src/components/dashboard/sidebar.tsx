@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, Lightbulb, Video, Settings } from 'lucide-react';
+import { Home, Lightbulb, Settings, Video } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
@@ -25,11 +25,11 @@ export function DashboardSidebar() {
   const mouseY = useMotionValue(Infinity);
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-50 flex items-center">
+    <aside className="fixed inset-y-0 left-4 z-50 flex items-center">
       <motion.div
         onMouseMove={(e) => mouseY.set(e.clientY)}
         onMouseLeave={() => mouseY.set(Infinity)}
-        className="flex flex-col items-center gap-4 rounded-full bg-card border mx-4 px-2 py-6"
+        className="flex flex-col items-center gap-4 rounded-full bg-card border px-2 py-6"
       >
         <TooltipProvider>
           <div className="pb-4">
@@ -76,17 +76,18 @@ const AppIcon = ({ mouseY, isActive, icon, href, label }: AppIconProps) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Link
-          href={href}
-          ref={ref}
-          className={cn(
-            'aspect-square rounded-full flex items-center justify-center transition-colors w-12 h-12',
-            isActive
-              ? 'bg-primary/10 text-primary'
-              : 'bg-secondary text-muted-foreground hover:bg-primary/10 hover:text-primary'
-          )}
-        >
-          <motion.div style={{ scale }}>{icon}</motion.div>
+        <Link href={href} ref={ref} passHref>
+          <motion.div
+            style={{ scale }}
+            className={cn(
+              'aspect-square rounded-full flex items-center justify-center transition-colors w-12 h-12',
+              isActive
+                ? 'bg-primary/10 text-primary'
+                : 'bg-secondary text-muted-foreground hover:bg-primary/10 hover:text-primary'
+            )}
+          >
+            {icon}
+          </motion.div>
         </Link>
       </TooltipTrigger>
       <TooltipContent side="right">
