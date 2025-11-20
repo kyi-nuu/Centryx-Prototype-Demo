@@ -6,6 +6,7 @@ import { DashboardHeader } from '@/components/dashboard/header';
 import { EnergyUsageCard } from '@/components/dashboard/energy-usage-card';
 import { ElectricityHoursCard } from '@/components/dashboard/electricity-hours-card';
 import { Lightbulb, Video } from 'lucide-react';
+import { MotionAutomationCard } from '@/components/dashboard/motion-automation-card';
 
 export default function DashboardPage() {
   return (
