@@ -24,8 +24,8 @@ const chartConfig = {
 
 export function EnergyUsageCard() {
   return (
-    <Card className="h-full">
-      <CardHeader className="p-4 pb-0">
+    <Card className="h-full flex flex-col">
+      <CardHeader className="p-4 pb-2">
         <div className="flex items-center gap-2">
             <Bolt className="h-5 w-5 text-green-500" />
             <CardTitle className="text-sm font-semibold">Energy Usage</CardTitle>
@@ -35,7 +35,7 @@ export function EnergyUsageCard() {
             <p className="text-sm text-muted-foreground">kWh</p>
         </div>
       </CardHeader>
-      <CardContent className="p-0 h-[80px]">
+      <CardContent className="p-0 flex-1">
         <ChartContainer config={chartConfig} className="h-full w-full">
           <AreaChart
             data={chartData}

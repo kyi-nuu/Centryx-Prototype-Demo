@@ -24,8 +24,8 @@ const chartConfig = {
 
 export function ElectricityHoursCard() {
   return (
-    <Card className="h-full">
-      <CardHeader className="p-4 pb-0">
+    <Card className="h-full flex flex-col">
+      <CardHeader className="p-4 pb-2">
         <div className="flex items-center gap-2">
             <Clock className="h-5 w-5 text-blue-500" />
             <CardTitle className="text-sm font-semibold">Total Hours On</CardTitle>
@@ -35,15 +35,15 @@ export function ElectricityHoursCard() {
             <p className="text-sm text-muted-foreground">hours</p>
         </div>
       </CardHeader>
-      <CardContent className="p-0 h-[80px]">
+      <CardContent className="p-0 flex-1">
         <ChartContainer config={chartConfig} className="h-full w-full">
           <BarChart
             accessibilityLayer
             data={chartData}
             margin={{
               top: 10,
-              right: 0,
-              left: 0,
+              right: 10,
+              left: 10,
               bottom: 0,
             }}
           >
@@ -54,8 +54,8 @@ export function ElectricityHoursCard() {
             <Bar
               dataKey="hours"
               fill="var(--color-hours)"
-              radius={2}
-              barSize={10}
+              radius={4}
+              barSize={12}
             />
           </BarChart>
         </ChartContainer>
