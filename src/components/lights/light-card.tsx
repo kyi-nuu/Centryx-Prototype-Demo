@@ -26,24 +26,24 @@ export function LightCard({
 
   return (
     <Card className={cn('flex flex-col', isOn && 'border-yellow-500/50')}>
-      <CardHeader className="flex flex-row items-center justify-between p-4">
+      <CardHeader className="flex flex-row items-center justify-between p-3">
         <div className="flex items-center gap-3">
           <div className={cn("rounded-lg p-2", isOn ? "bg-yellow-400/20 text-yellow-400" : "bg-secondary text-muted-foreground")}>
             <Lightbulb className="h-5 w-5" />
           </div>
           <div>
-            <h3 className="font-semibold text-foreground">{name}</h3>
+            <h3 className="font-semibold text-sm text-foreground">{name}</h3>
             <p className="text-xs text-muted-foreground">{room}</p>
           </div>
         </div>
         <Switch checked={isOn} onCheckedChange={setIsOn} />
       </CardHeader>
-      <CardContent className="flex-1 flex flex-col justify-center p-4 pt-0">
+      <CardContent className="flex-1 flex flex-col justify-center p-3 pt-0">
         {isOn ? (
-          <div className="space-y-3">
+          <div className="space-y-2">
             <div className="flex justify-between items-center">
               <span className="text-xs text-muted-foreground">Brightness</span>
-              <span className="text-sm font-semibold">{brightness}%</span>
+              <span className="text-xs font-semibold">{brightness}%</span>
             </div>
             <Slider
               value={[brightness]}
@@ -53,8 +53,8 @@ export function LightCard({
             />
           </div>
         ) : (
-          <div className="text-center py-6">
-            <p className="text-sm text-muted-foreground">Light is off</p>
+          <div className="text-center py-4">
+            <p className="text-xs text-muted-foreground">Light is off</p>
           </div>
         )}
       </CardContent>
