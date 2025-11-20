@@ -12,27 +12,27 @@ export function QuickActions() {
             <CardTitle className="text-sm font-semibold">Quick Actions</CardTitle>
         </div>
       </CardHeader>
-      <CardContent className="grid grid-cols-3 gap-3 flex-1 p-3">
-        <Button size="sm" className="text-sm bg-primary hover:bg-primary/90 text-primary-foreground flex-col gap-1 py-2 h-auto">
-          <Power className="h-6 w-6" /> All On
+      <CardContent className="grid grid-cols-3 gap-2 flex-1 p-3">
+        <Button size="sm" className="text-xs bg-primary hover:bg-primary/90 text-primary-foreground flex-col h-auto py-2">
+          <Power className="h-5 w-5 mb-1" /> All On
         </Button>
-        <Button size="sm" variant="destructive" className="text-sm flex-col gap-1 py-2 h-auto">
-          <Power className="h-6 w-6" /> All Off
+        <Button size="sm" variant="destructive" className="text-xs flex-col h-auto py-2">
+          <Power className="h-5 w-5 mb-1" /> All Off
         </Button>
-        <Button variant="secondary" size="sm" className="text-sm flex-col gap-1 py-2 h-auto">
-          <LogOut className="h-6 w-6" />
+        <Button variant="secondary" size="sm" className="text-xs flex-col h-auto py-2">
+          <LogOut className="h-5 w-5 mb-1" />
           <span>Log Out</span>
         </Button>
-        <Button variant="secondary" size="sm" className="text-sm flex-col gap-1 py-2 h-auto">
-          <Sun className="h-6 w-6" />
+        <Button variant="secondary" size="sm" className="text-xs flex-col h-auto py-2">
+          <Sun className="h-5 w-5 mb-1" />
           <span>Day Mode</span>
         </Button>
-        <Button variant="secondary" size="sm" className="text-sm flex-col gap-1 py-2 h-auto">
-          <Moon className="h-6 w-6" />
+        <Button variant="secondary" size="sm" className="text-xs flex-col h-auto py-2">
+          <Moon className="h-5 w-5 mb-1" />
           <span>Night Mode</span>
         </Button>
-        <Button variant="secondary" size="sm" className="text-sm flex-col gap-1 py-2 h-auto">
-          <Leaf className="h-6 w-6" />
+        <Button variant="secondary" size="sm" className="text-xs flex-col h-auto py-2">
+          <Leaf className="h-5 w-5 mb-1" />
           <span>Eco Mode</span>
         </Button>
       </CardContent>
