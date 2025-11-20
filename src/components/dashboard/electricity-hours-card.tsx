@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { Bar, BarChart, LabelList } from 'recharts';
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { Clock } from 'lucide-react';
 
 const chartData = [
@@ -41,12 +41,28 @@ export function ElectricityHoursCard() {
             accessibilityLayer
             data={chartData}
             margin={{
-              top: 20,
+              top: 5,
               right: 10,
-              left: 10,
+              left: -20,
               bottom: 0,
             }}
           >
+            <CartesianGrid vertical={false} strokeDasharray="3 3" />
+            <XAxis
+              dataKey="day"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.slice(0, 3)}
+              className="text-[10px]"
+            />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickCount={4}
+               className="text-[10px]"
+            />
             <ChartTooltip
                 cursor={false}
                 content={<ChartTooltipContent hideIndicator />}
@@ -57,7 +73,6 @@ export function ElectricityHoursCard() {
               radius={4}
               barSize={20}
             >
-              <LabelList dataKey="hours" position="top" offset={8} className="fill-foreground" fontSize={12} />
             </Bar>
           </BarChart>
         </ChartContainer>

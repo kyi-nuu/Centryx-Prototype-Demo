@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { Area, AreaChart, LabelList } from 'recharts';
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { Bolt } from 'lucide-react';
 
 const chartData = [
@@ -40,9 +40,9 @@ export function EnergyUsageCard() {
           <AreaChart
             data={chartData}
             margin={{
-              top: 20,
+              top: 5,
               right: 10,
-              left: 10,
+              left: -20,
               bottom: 0,
             }}
           >
@@ -52,6 +52,22 @@ export function EnergyUsageCard() {
                 <stop offset="95%" stopColor="var(--color-kWh)" stopOpacity={0} />
               </linearGradient>
             </defs>
+            <CartesianGrid vertical={false} strokeDasharray="3 3" />
+            <XAxis
+              dataKey="day"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.slice(0, 3)}
+              className="text-[10px]"
+            />
+            <YAxis
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                tickCount={3}
+                className="text-[10px]"
+            />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dot" />}
@@ -63,15 +79,7 @@ export function EnergyUsageCard() {
               strokeWidth={2}
               fillOpacity={1}
               fill="url(#colorKWhCard)"
-              dot={{
-                r: 4,
-                fill: 'var(--color-kWh)',
-                stroke: 'hsl(var(--background))',
-                strokeWidth: 2,
-              }}
-            >
-              <LabelList dataKey="kWh" position="top" offset={8} className="fill-foreground" fontSize={12} />
-            </Area>
+            />
           </AreaChart>
         </ChartContainer>
       </CardContent>
