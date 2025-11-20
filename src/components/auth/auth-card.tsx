@@ -5,7 +5,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { LoginForm } from './login-form';
 import { TwoFactorForm } from './two-factor-form';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Logo } from '../logo';
 import { ClientOnly } from '../client-only';
 
 export function AuthCard() {
@@ -24,9 +23,6 @@ export function AuthCard() {
   return (
     <Card className="w-full max-w-sm bg-transparent border-0 shadow-none">
       <CardContent className="p-0">
-        <div className="mb-8 flex justify-center">
-          <Logo />
-        </div>
         <ClientOnly>
           <AnimatePresence mode="wait">
             <motion.div

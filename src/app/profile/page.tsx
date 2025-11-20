@@ -10,13 +10,13 @@ export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState<ProfileTab>('profile');
 
   return (
-    <div className="flex flex-col h-full">
+    <main className="flex-1 flex flex-col h-full overflow-y-auto">
       <ProfileHeader activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="flex-1 p-4 sm:p-6 lg:p-8">
         {activeTab === 'profile' && <ProfileForm />}
-        {activeTab === 'security' && <div>Security Content</div>}
-        {activeTab === 'users' && <div>Users Content</div>}
+        {activeTab === 'security' && <div className="text-center p-8">Security Settings (Coming Soon)</div>}
+        {activeTab === 'users' && <div className="text-center p-8">User Management (Coming Soon)</div>}
       </div>
-    </div>
+    </main>
   );
 }

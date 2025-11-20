@@ -53,13 +53,13 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
 
   return (
     <>
-      <CardHeader className="p-0 pb-4 text-center">
+      <CardHeader className="p-0 pb-8 text-center">
         <CardTitle className="text-3xl font-bold text-foreground">CENTRYX</CardTitle>
         <CardDescription className="text-muted-foreground">
           Smart Lighting & CCTV Control Platform
         </CardDescription>
       </CardHeader>
-      <div className="flex justify-center gap-4 mb-4">
+      <div className="flex justify-center gap-4 mb-6">
         <Button variant="outline" className="bg-secondary hover:bg-secondary/80 text-foreground">
           <Lightbulb className="mr-2 h-4 w-4 text-blue-400" /> Smart Lights
         </Button>
@@ -132,7 +132,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
           </Button>
         </form>
       </Form>
-       <div className="mt-2 text-center text-sm text-muted-foreground">
+       <div className="mt-4 text-center text-sm text-muted-foreground">
         <p className="flex items-center justify-center gap-2">
           <Shield className="h-4 w-4 text-green-500" />
           Secured with 2FA Authentication

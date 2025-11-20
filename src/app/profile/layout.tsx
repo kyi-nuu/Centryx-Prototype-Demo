@@ -9,9 +9,7 @@ export default function ProfileLayout({
     <div className="flex h-screen w-full bg-muted/40">
       <DashboardSidebar />
       <div className="flex flex-col flex-1 overflow-hidden">
-        <main className="flex-1 flex flex-col h-full overflow-y-auto">
-          {children}
-        </main>
+        {children}
       </div>
     </div>
   );
