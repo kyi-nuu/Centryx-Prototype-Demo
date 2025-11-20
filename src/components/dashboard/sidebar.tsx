@@ -3,7 +3,7 @@
 import { Home, Lightbulb, Video, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, useMotionValue } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import {
   Tooltip,
@@ -11,7 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import React from 'react';
+import React, { useRef } from 'react';
 import { Logo } from '../logo';
 
 const navItems = [
@@ -26,14 +26,16 @@ export function DashboardSidebar() {
   let mouseY = useMotionValue(Infinity);
 
   return (
-    <aside className="flex flex-col items-center justify-between py-4 px-2 bg-card border-r">
-       <Logo isCollapsed />
+    <aside className="fixed inset-y-0 left-0 z-50 flex items-center">
        <motion.div
         onMouseMove={(e) => mouseY.set(e.clientY)}
         onMouseLeave={() => mouseY.set(Infinity)}
-        className="flex flex-col items-center gap-2 rounded-full px-2 py-3"
+        className="flex flex-col items-center gap-2 rounded-full bg-card border mx-2 px-2 py-3"
        >
         <TooltipProvider>
+            <div className="pb-2">
+                <Logo isCollapsed />
+            </div>
           {navItems.map((item, i) => {
              const isActive = pathname.startsWith(item.href);
             return(
@@ -42,11 +44,11 @@ export function DashboardSidebar() {
                 <Link href={item.href}>
                   <motion.div
                     className={cn(
-                        'relative flex h-12 w-12 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary',
+                        'relative flex h-14 w-14 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary',
                         isActive && 'bg-primary/10 text-primary'
                     )}
                   >
-                    <AppIcon mouseY={mouseY} icon={<item.icon className="h-6 w-6" />} />
+                    <AppIcon mouseY={mouseY} icon={<item.icon className="h-7 w-7" />} />
                   </motion.div>
                 </Link>
               </TooltipTrigger>
@@ -57,7 +59,6 @@ export function DashboardSidebar() {
           )})}
         </TooltipProvider>
       </motion.div>
-      <div />
     </aside>
   );
 }
@@ -69,39 +70,21 @@ function AppIcon({
     mouseY: ReturnType<typeof useMotionValue>,
     icon: React.ReactNode
   }) {
-    let ref = React.useRef<HTMLDivElement>(null);
+    let ref = useRef<HTMLDivElement>(null);
   
-    let distance = useMotionValue(Infinity);
+    let distance = useTransform(mouseY, (val) => {
+      let bounds = ref.current?.getBoundingClientRect();
+      return val - (bounds?.y || 0) - (bounds?.height || 0) / 2;
+    });
   
-    React.useEffect(() => {
-      if (!ref.current) return;
-  
-      let unSub = mouseY.on('change', (val) => {
-        if (ref.current) {
-            let rect = ref.current.getBoundingClientRect();
-            distance.set(val - rect.top - rect.height / 2);
-        }
-      });
-  
-      return unSub;
-    }, [mouseY, distance]);
-  
-    let scale = useMotionValue(1);
-  
-    React.useEffect(() => {
-      let unSub = distance.on('change', (val) => {
-        let newScale = 1 - Math.abs(val) / 100;
-        scale.set(Math.max(0.5, newScale));
-      });
-  
-      return unSub;
-    }, [distance, scale]);
+    let widthSync = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+    let width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
   
     return (
       <motion.div
         ref={ref}
-        style={{ scale }}
-        className="flex items-center justify-center"
+        style={{ width }}
+        className="aspect-square w-10 rounded-full bg-secondary flex items-center justify-center"
       >
         {icon}
       </motion.div>
