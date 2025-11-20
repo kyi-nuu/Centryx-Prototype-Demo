@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 export function MotionAutomationCard() {
   return (
     <Card className="bg-blue-900/30 border-blue-500/30">
-      <CardContent className="p-4">
+      <CardContent className="p-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-blue-500/20 rounded-lg">
@@ -24,7 +24,7 @@ export function MotionAutomationCard() {
             <span className="mr-1.5">✓</span> ON
           </Badge>
         </div>
-        <div className="flex flex-col items-center justify-center my-4">
+        <div className="flex flex-col items-center justify-center my-2">
             <div className="flex items-center justify-between w-full">
                 <div className="relative">
                     <div className="absolute -inset-2 bg-blue-500/20 rounded-full blur-lg" />
@@ -38,7 +38,7 @@ export function MotionAutomationCard() {
                     <Lightbulb className="h-8 w-8 text-yellow-400 z-10 relative" />
                 </div>
             </div>
-            <p className="text-center text-xs text-muted-foreground mt-3">
+            <p className="text-center text-xs text-muted-foreground mt-2">
               When motion is detected, lights turn on.
             </p>
         </div>
