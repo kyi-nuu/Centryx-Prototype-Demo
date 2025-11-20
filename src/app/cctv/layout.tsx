@@ -6,13 +6,13 @@ export default function CctvLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col h-screen w-full bg-muted/40">
-      <div className="flex-1 overflow-auto">
-        <main className="h-full">
+    <div className="flex h-screen w-full bg-muted/40">
+      <DashboardSidebar />
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <main className="flex-1 overflow-auto">
           {children}
         </main>
       </div>
-      <DashboardSidebar />
     </div>
   );
 }
