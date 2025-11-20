@@ -12,7 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import React, e useRef } from 'react';
+import React, { useRef } from 'react';
 import { Logo } from '../logo';
 
 const navItems = [
@@ -41,7 +41,7 @@ export function DashboardSidebar() {
               key={item.href}
               href={item.href}
               mouseY={mouseY}
-              isActive={usePathname().startsWith(item.href)}
+              isActive={usePathname() === item.href}
               icon={<item.icon className="h-6 w-6" />}
               label={item.label}
             />
@@ -77,15 +77,14 @@ const AppIcon = ({ mouseY, isActive, icon, href, label }: AppIconProps) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Link href={href} ref={ref}>
+        <Link href={href} ref={ref} className={cn(
+            'aspect-square rounded-full flex items-center justify-center transition-colors w-12 h-12',
+            isActive
+              ? 'bg-primary/10 text-primary'
+              : 'bg-secondary text-muted-foreground hover:bg-primary/10 hover:text-primary'
+          )}>
           <motion.div
             style={{ scale }}
-            className={cn(
-              'aspect-square rounded-full flex items-center justify-center transition-colors w-12 h-12',
-              isActive
-                ? 'bg-primary/10 text-primary'
-                : 'bg-secondary text-muted-foreground hover:bg-primary/10 hover:text-primary'
-            )}
           >
             {icon}
           </motion.div>
