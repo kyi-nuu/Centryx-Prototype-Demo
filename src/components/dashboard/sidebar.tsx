@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, Lightbulb, Settings, User, Video } from 'lucide-react';
+import { Home, Settings, User, Video } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
@@ -16,7 +16,6 @@ import { Logo } from '../logo';
 
 const navItems = [
   { href: '/dashboard', icon: Home, label: 'Home' },
-  { href: '/lights', icon: Lightbulb, label: 'Lights' },
   { href: '/cctv', icon: Video, label: 'CCTV' },
   { href: '/settings', icon: Settings, label: 'Settings' },
   { href: '/user', icon: User, label: 'User' },
