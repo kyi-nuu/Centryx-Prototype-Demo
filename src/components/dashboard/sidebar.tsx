@@ -30,7 +30,7 @@ export function DashboardSidebar() {
       <motion.div
         onMouseMove={(e) => mouseY.set(e.clientY)}
         onMouseLeave={() => mouseY.set(Infinity)}
-        className="flex flex-col items-center gap-2 rounded-full bg-card border mx-2 px-2 py-3"
+        className="flex flex-col items-center gap-2 rounded-full bg-card border mx-4 px-2 py-4"
       >
         <TooltipProvider>
           <div className="pb-2">
@@ -44,11 +44,14 @@ export function DashboardSidebar() {
                   <Link
                     href={item.href}
                     className={cn(
-                      'relative flex h-14 w-14 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary',
-                      isActive && 'bg-primary/10 text-primary'
+                      'relative flex h-16 w-16 items-center justify-center rounded-full text-muted-foreground transition-colors'
                     )}
                   >
-                    <AppIcon mouseY={mouseY} icon={<item.icon className="h-7 w-7" />} />
+                    <AppIcon
+                      mouseY={mouseY}
+                      isActive={isActive}
+                      icon={<item.icon className="h-8 w-8" />}
+                    />
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent side="right">
@@ -65,9 +68,11 @@ export function DashboardSidebar() {
 
 function AppIcon({
   mouseY,
+  isActive,
   icon,
 }: {
   mouseY: ReturnType<typeof useMotionValue>;
+  isActive: boolean;
   icon: React.ReactNode;
 }) {
   let ref = useRef<HTMLDivElement>(null);
@@ -84,7 +89,12 @@ function AppIcon({
     <motion.div
       ref={ref}
       style={{ width }}
-      className="aspect-square w-10 rounded-full bg-secondary flex items-center justify-center"
+      className={cn(
+        "aspect-square w-12 rounded-full flex items-center justify-center transition-colors",
+        isActive
+          ? 'bg-primary/10 text-primary'
+          : 'bg-secondary text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
+      )}
     >
       {icon}
     </motion.div>
