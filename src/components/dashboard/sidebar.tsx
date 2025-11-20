@@ -41,12 +41,12 @@ export function DashboardSidebar() {
             return (
               <Tooltip key={item.href}>
                 <TooltipTrigger asChild>
-                    <AppIcon
-                      href={item.href}
-                      mouseY={mouseY}
-                      isActive={isActive}
-                      icon={<item.icon className="h-8 w-8" />}
-                    />
+                  <AppIcon
+                    href={item.href}
+                    mouseY={mouseY}
+                    isActive={isActive}
+                    icon={<item.icon className="h-6 w-6" />}
+                  />
                 </TooltipTrigger>
                 <TooltipContent side="right">
                   <p>{item.label}</p>
@@ -81,28 +81,22 @@ const AppIcon = forwardRef<HTMLAnchorElement, AppIconProps>(({
     return val - (bounds?.y || 0) - (bounds?.height || 0) / 2;
   });
 
-  let widthSync = useTransform(distance, [-150, 0, 150], [50, 100, 50]);
+  let widthSync = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
   let width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
 
   return (
     <Link href={href} ref={forwardedRef} {...props}>
       <motion.div
+        ref={ref}
+        style={{ width }}
         className={cn(
-          'relative flex h-20 w-20 items-center justify-center rounded-full text-muted-foreground transition-colors'
+          "aspect-square w-16 rounded-full flex items-center justify-center transition-colors",
+          isActive
+            ? 'bg-primary/10 text-primary'
+            : 'bg-secondary text-muted-foreground hover:bg-primary/10 hover:text-primary'
         )}
       >
-        <motion.div
-          ref={ref}
-          style={{ width }}
-          className={cn(
-            "aspect-square w-16 rounded-full flex items-center justify-center transition-colors",
-            isActive
-              ? 'bg-primary/10 text-primary'
-              : 'bg-secondary text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
-          )}
-        >
-          {icon}
-        </motion.div>
+        {icon}
       </motion.div>
     </Link>
   );
