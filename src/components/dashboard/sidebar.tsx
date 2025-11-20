@@ -14,6 +14,7 @@ const navItems = [
 
 const secondaryNavItems = [
     { href: '/settings', icon: Settings, label: 'Settings' },
+    { href: '/profile', icon: User, label: 'Profile' },
 ]
 
 export function DashboardSidebar() {
