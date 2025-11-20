@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Search, Filter, UserPlus, Phone } from 'lucide-react';
+import { Search, Filter, UserPlus, Phone, Trash2, Mail } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type User = {
@@ -36,38 +36,46 @@ const usersData: User[] = [
 
 function UserRow({ user }: { user: User }) {
   return (
-    <Card className="bg-secondary/30">
-      <CardContent className="p-3 grid grid-cols-1 md:grid-cols-10 items-center gap-4">
-        <div className="md:col-span-3 flex items-center gap-4">
-          <Avatar>
+    <Card className="bg-secondary/30 transition-all hover:bg-secondary/50 hover:shadow-md">
+      <CardContent className="p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <div className="flex-1 flex items-center gap-4">
+          <Avatar className="h-12 w-12">
             <AvatarImage src={user.avatarUrl} alt={user.name} data-ai-hint="person face" />
-            <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+            <AvatarFallback>{user.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
           </Avatar>
-          <div>
-            <p className="text-sm text-muted-foreground">Name</p>
-            <p className="font-semibold">{user.name}</p>
+          <div className="flex-1">
+            <p className="font-bold text-lg text-foreground">{user.name}</p>
+            <div className='flex flex-col sm:flex-row sm:items-center sm:gap-4'>
+              <a href={`mailto:${user.email}`} className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
+                <Mail className="h-3 w-3" />
+                {user.email}
+              </a>
+              <span className='hidden sm:inline text-muted-foreground'>·</span>
+              <a href={`tel:${user.phone}`} className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
+                <Phone className="h-3 w-3" />
+                {user.phone}
+              </a>
+            </div>
           </div>
         </div>
-        <div className="md:col-span-3">
-          <p className="text-sm text-muted-foreground">Email</p>
-          <p className="font-semibold">{user.email}</p>
-        </div>
-        <div className="md:col-span-2">
-          <p className="text-sm text-muted-foreground">Phone</p>
-          <p className="font-semibold flex items-center gap-2">
-            <Phone className="h-4 w-4" />
-            {user.phone}
-          </p>
-        </div>
-        <div className="md:col-span-2 flex items-center justify-end gap-2">
-          <Badge className={cn('text-xs', user.status === 'active' ? 'bg-green-500/20 text-green-400 border-green-500/30' : 'bg-muted text-muted-foreground border-transparent')}>
-            {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
+
+        <div className="flex items-center gap-2 self-end sm:self-center">
+          <Badge
+            className={cn(
+              'text-xs capitalize',
+              user.status === 'active'
+                ? 'border-green-500/30 bg-green-900/50 text-green-400'
+                : 'border-transparent bg-muted text-muted-foreground'
+            )}
+            variant="outline"
+          >
+            {user.status}
           </Badge>
-          <Badge variant="outline" className="text-xs">
-            {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+          <Badge variant="outline" className="text-xs capitalize">
+            {user.role}
           </Badge>
-          <Button variant="destructive" size="sm" className="text-xs h-8">
-            Remove
+          <Button variant="ghost" size="icon" className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive h-8 w-8">
+            <Trash2 className="h-4 w-4" />
           </Button>
         </div>
       </CardContent>
@@ -80,7 +88,7 @@ export function UserManagement() {
   const [filter, setFilter] = useState('all');
 
   const filteredUsers = usersData
-    .filter(user => user.email.toLowerCase().includes(searchTerm.toLowerCase()))
+    .filter(user => user.name.toLowerCase().includes(searchTerm.toLowerCase()) || user.email.toLowerCase().includes(searchTerm.toLowerCase()))
     .filter(user => {
       if (filter === 'all') return true;
       if (filter === 'active') return user.status === 'active';
@@ -91,16 +99,22 @@ export function UserManagement() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold">User Management</h2>
-        <p className="text-muted-foreground">Manage users and their permissions</p>
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold">User Management</h2>
+          <p className="text-muted-foreground">Manage users and their permissions</p>
+        </div>
+         <Button>
+          <UserPlus className="mr-2 h-4 w-4" />
+          Add User
+        </Button>
       </div>
 
       <div className="flex flex-wrap items-center gap-4">
         <div className="relative flex-grow sm:flex-grow-0 sm:w-80">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search by email..."
+            placeholder="Search by name or email..."
             className="pl-10 bg-input"
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
@@ -120,17 +134,18 @@ export function UserManagement() {
             </SelectContent>
           </Select>
         </div>
-        <div className="flex-grow" />
-        <Button>
-          <UserPlus className="mr-2 h-4 w-4" />
-          Add User
-        </Button>
       </div>
 
       <div className="space-y-4">
-        {filteredUsers.map(user => (
-          <UserRow key={user.id} user={user} />
-        ))}
+        {filteredUsers.length > 0 ? (
+            filteredUsers.map(user => (
+            <UserRow key={user.id} user={user} />
+            ))
+        ) : (
+            <div className="text-center py-12 text-muted-foreground">
+                <p>No users found matching your criteria.</p>
+            </div>
+        )}
       </div>
     </div>
   );
