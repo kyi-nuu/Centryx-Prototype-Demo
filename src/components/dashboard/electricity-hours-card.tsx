@@ -2,17 +2,17 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { Bar, BarChart } from 'recharts';
+import { Bar, BarChart, LabelList } from 'recharts';
 import { Clock } from 'lucide-react';
 
 const chartData = [
-  { day: 'Monday', hours: 8 },
-  { day: 'Tuesday', hours: 10 },
-  { day: 'Wednesday', hours: 12 },
-  { day: 'Thursday', hours: 9 },
-  { day: 'Friday', hours: 11 },
-  { day: 'Saturday', hours: 14 },
-  { day: 'Sunday', hours: 13 },
+  { day: 'Mon', hours: 8 },
+  { day: 'Tue', hours: 10 },
+  { day: 'Wed', hours: 12 },
+  { day: 'Thu', hours: 9 },
+  { day: 'Fri', hours: 11 },
+  { day: 'Sat', hours: 14 },
+  { day: 'Sun', hours: 13 },
 ];
 
 const chartConfig = {
@@ -35,13 +35,13 @@ export function ElectricityHoursCard() {
             <p className="text-sm text-muted-foreground">hours</p>
         </div>
       </CardHeader>
-      <CardContent className="p-0 flex-1">
+      <CardContent className="p-0 flex-1 min-h-[120px]">
         <ChartContainer config={chartConfig} className="h-full w-full">
           <BarChart
             accessibilityLayer
             data={chartData}
             margin={{
-              top: 10,
+              top: 20,
               right: 10,
               left: 10,
               bottom: 0,
@@ -55,8 +55,10 @@ export function ElectricityHoursCard() {
               dataKey="hours"
               fill="var(--color-hours)"
               radius={4}
-              barSize={12}
-            />
+              barSize={20}
+            >
+              <LabelList dataKey="hours" position="top" offset={8} className="fill-foreground" fontSize={12} />
+            </Bar>
           </BarChart>
         </ChartContainer>
       </CardContent>

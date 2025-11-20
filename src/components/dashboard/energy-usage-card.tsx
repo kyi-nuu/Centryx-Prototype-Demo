@@ -2,17 +2,17 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { Area, AreaChart } from 'recharts';
+import { Area, AreaChart, LabelList } from 'recharts';
 import { Bolt } from 'lucide-react';
 
 const chartData = [
-  { day: 'Monday', kWh: 1.5 },
-  { day: 'Tuesday', kWh: 1.8 },
-  { day: 'Wednesday', kWh: 2.5 },
-  { day: 'Thursday', kWh: 4.1 },
-  { day: 'Friday', kWh: 5.5 },
-  { day: 'Saturday', kWh: 6.8 },
-  { day: 'Sunday', kWh: 7.2 },
+  { day: 'Mon', kWh: 1.5 },
+  { day: 'Tue', kWh: 1.8 },
+  { day: 'Wed', kWh: 2.5 },
+  { day: 'Thu', kWh: 4.1 },
+  { day: 'Fri', kWh: 5.5 },
+  { day: 'Sat', kWh: 6.8 },
+  { day: 'Sun', kWh: 7.2 },
 ];
 
 const chartConfig = {
@@ -35,14 +35,14 @@ export function EnergyUsageCard() {
             <p className="text-sm text-muted-foreground">kWh</p>
         </div>
       </CardHeader>
-      <CardContent className="p-0 flex-1">
+      <CardContent className="p-0 flex-1 min-h-[120px]">
         <ChartContainer config={chartConfig} className="h-full w-full">
           <AreaChart
             data={chartData}
             margin={{
-              top: 10,
-              right: 0,
-              left: 0,
+              top: 20,
+              right: 10,
+              left: 10,
               bottom: 0,
             }}
           >
@@ -63,7 +63,15 @@ export function EnergyUsageCard() {
               strokeWidth={2}
               fillOpacity={1}
               fill="url(#colorKWhCard)"
-            />
+              dot={{
+                r: 4,
+                fill: 'var(--color-kWh)',
+                stroke: 'hsl(var(--background))',
+                strokeWidth: 2,
+              }}
+            >
+              <LabelList dataKey="kWh" position="top" offset={8} className="fill-foreground" fontSize={12} />
+            </Area>
           </AreaChart>
         </ChartContainer>
       </CardContent>
