@@ -41,13 +41,12 @@ export function DashboardSidebar() {
             return (
               <Tooltip key={item.href}>
                 <TooltipTrigger asChild>
-                  <Link href={item.href} passHref legacyBehavior>
                     <AppIcon
+                      href={item.href}
                       mouseY={mouseY}
                       isActive={isActive}
                       icon={<item.icon className="h-8 w-8" />}
                     />
-                  </Link>
                 </TooltipTrigger>
                 <TooltipContent side="right">
                   <p>{item.label}</p>
@@ -65,14 +64,14 @@ type AppIconProps = {
   mouseY: ReturnType<typeof useMotionValue>;
   isActive: boolean;
   icon: React.ReactNode;
-  href?: string;
-  onClick?: () => void;
+  href: string;
 };
 
 const AppIcon = forwardRef<HTMLAnchorElement, AppIconProps>(({
   mouseY,
   isActive,
   icon,
+  href,
   ...props
 }, forwardedRef) => {
   let ref = useRef<HTMLDivElement>(null);
@@ -86,26 +85,26 @@ const AppIcon = forwardRef<HTMLAnchorElement, AppIconProps>(({
   let width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
 
   return (
-    <motion.a
-      ref={forwardedRef}
-      {...props}
-      className={cn(
-        'relative flex h-16 w-16 items-center justify-center rounded-full text-muted-foreground transition-colors'
-      )}
-    >
+    <Link href={href} ref={forwardedRef} {...props}>
       <motion.div
-        ref={ref}
-        style={{ width }}
         className={cn(
-          "aspect-square w-12 rounded-full flex items-center justify-center transition-colors",
-          isActive
-            ? 'bg-primary/10 text-primary'
-            : 'bg-secondary text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
+          'relative flex h-20 w-20 items-center justify-center rounded-full text-muted-foreground transition-colors'
         )}
       >
-        {icon}
+        <motion.div
+          ref={ref}
+          style={{ width }}
+          className={cn(
+            "aspect-square w-16 rounded-full flex items-center justify-center transition-colors",
+            isActive
+              ? 'bg-primary/10 text-primary'
+              : 'bg-secondary text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
+          )}
+        >
+          {icon}
+        </motion.div>
       </motion.div>
-    </motion.a>
+    </Link>
   );
 });
 
