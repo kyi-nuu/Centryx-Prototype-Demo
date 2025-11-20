@@ -1,16 +1,16 @@
 'use client';
 
-import { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { User, Shield, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import type { ActiveTab } from '@/app/user/page';
 
-type ActiveTab = 'profile' | 'security' | 'users';
+type UserHeaderProps = {
+  activeTab: ActiveTab;
+  setActiveTab: (tab: ActiveTab) => void;
+};
 
-export function UserHeader() {
-  const [activeTab, setActiveTab] = useState<ActiveTab>('profile');
-
+export function UserHeader({ activeTab, setActiveTab }: UserHeaderProps) {
   const getButtonClasses = (tab: ActiveTab) => {
     return cn(
       'pb-3 px-4 rounded-none border-b-2 font-medium text-muted-foreground hover:text-foreground transition-all',
