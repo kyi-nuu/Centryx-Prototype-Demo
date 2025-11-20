@@ -37,41 +37,42 @@ const usersData: User[] = [
 function UserRow({ user }: { user: User }) {
   return (
     <Card className="bg-secondary/30 transition-all hover:bg-secondary/50 hover:shadow-md">
-      <CardContent className="p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-        <div className="flex-1 flex items-center gap-4">
-          <Avatar className="h-12 w-12">
-            <AvatarImage src={user.avatarUrl} alt={user.name} data-ai-hint="person face" />
-            <AvatarFallback>{user.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-          </Avatar>
-          <div className="flex-1">
-            <p className="font-bold text-lg text-foreground">{user.name}</p>
-            <div className='flex flex-col sm:flex-row sm:items-center sm:gap-4'>
-              <a href={`mailto:${user.email}`} className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
-                <Mail className="h-3 w-3" />
+      <CardContent className="p-4 flex items-center gap-4">
+        <Avatar className="h-10 w-10">
+          <AvatarImage src={user.avatarUrl} alt={user.name} data-ai-hint="person face" />
+          <AvatarFallback>{user.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+        </Avatar>
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-x-4">
+          <div>
+            <p className="font-semibold text-base text-foreground">{user.name}</p>
+            <div className='flex items-center gap-1.5'>
+              <Mail className="h-3 w-3 text-muted-foreground" />
+              <a href={`mailto:${user.email}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
                 {user.email}
-              </a>
-              <span className='hidden sm:inline text-muted-foreground'>·</span>
-              <a href={`tel:${user.phone}`} className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
-                <Phone className="h-3 w-3" />
-                {user.phone}
               </a>
             </div>
           </div>
+          <div className='flex items-center gap-1.5'>
+            <Phone className="h-3 w-3 text-muted-foreground" />
+            <a href={`tel:${user.phone}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              {user.phone}
+            </a>
+          </div>
         </div>
 
-        <div className="flex items-center gap-2 self-end sm:self-center">
+        <div className="flex items-center gap-2">
           <Badge
             className={cn(
-              'text-xs capitalize',
+              'text-xs capitalize px-2 py-0.5',
               user.status === 'active'
-                ? 'border-green-500/30 bg-green-900/50 text-green-400'
+                ? 'border-green-500/50 bg-green-900/50 text-green-400'
                 : 'border-transparent bg-muted text-muted-foreground'
             )}
             variant="outline"
           >
             {user.status}
           </Badge>
-          <Badge variant="outline" className="text-xs capitalize">
+          <Badge variant="outline" className="text-xs capitalize px-2 py-0.5">
             {user.role}
           </Badge>
           <Button variant="ghost" size="icon" className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive h-8 w-8">
