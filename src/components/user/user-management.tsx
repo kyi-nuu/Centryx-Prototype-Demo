@@ -13,8 +13,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Search, Filter, UserPlus, Phone, Trash2, Mail } from 'lucide-react';
+import { Search, Filter, Phone, Trash2, Mail } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { AddUserDialog } from './add-user-dialog';
 
 type User = {
   id: string;
@@ -103,10 +104,7 @@ export function UserManagement() {
           <h2 className="text-xl font-bold">User Management</h2>
           <p className="text-sm text-muted-foreground">Manage users and their permissions</p>
         </div>
-         <Button>
-          <UserPlus className="mr-2 h-4 w-4" />
-          Add User
-        </Button>
+         <AddUserDialog />
       </div>
 
       <div className="flex flex-wrap items-center gap-4">
