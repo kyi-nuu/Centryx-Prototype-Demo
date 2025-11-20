@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Home, Lightbulb, Video, Settings } from 'lucide-react';
@@ -11,7 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import React, { useRef } from 'react';
+import React, e useRef } from 'react';
 import { Logo } from '../logo';
 
 const navItems = [
@@ -22,8 +23,7 @@ const navItems = [
 ];
 
 export function DashboardSidebar() {
-  const pathname = usePathname();
-  let mouseY = useMotionValue(Infinity);
+  const mouseY = useMotionValue(Infinity);
 
   return (
     <aside className="fixed inset-y-0 left-0 z-50 flex items-center">
@@ -36,19 +36,16 @@ export function DashboardSidebar() {
           <div className="pb-4">
             <Logo isCollapsed />
           </div>
-          {navItems.map((item) => {
-            const isActive = pathname.startsWith(item.href);
-            return (
-              <AppIcon
-                key={item.href}
-                href={item.href}
-                mouseY={mouseY}
-                isActive={isActive}
-                icon={<item.icon className="h-6 w-6" />}
-                label={item.label}
-              />
-            );
-          })}
+          {navItems.map((item) => (
+            <AppIcon
+              key={item.href}
+              href={item.href}
+              mouseY={mouseY}
+              isActive={usePathname().startsWith(item.href)}
+              icon={<item.icon className="h-6 w-6" />}
+              label={item.label}
+            />
+          ))}
         </TooltipProvider>
       </motion.div>
     </aside>
@@ -64,7 +61,7 @@ type AppIconProps = {
 };
 
 const AppIcon = ({ mouseY, isActive, icon, href, label }: AppIconProps) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLAnchorElement>(null);
 
   const distance = useTransform(mouseY, (val) => {
     const bounds = ref.current?.getBoundingClientRect();
@@ -80,9 +77,8 @@ const AppIcon = ({ mouseY, isActive, icon, href, label }: AppIconProps) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Link href={href} aria-label={label}>
+        <Link href={href} ref={ref}>
           <motion.div
-            ref={ref}
             style={{ scale }}
             className={cn(
               'aspect-square rounded-full flex items-center justify-center transition-colors w-12 h-12',
