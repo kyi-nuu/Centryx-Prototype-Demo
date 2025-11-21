@@ -25,18 +25,21 @@ export function CameraCard({
     <Card className="overflow-hidden bg-card">
       <CardContent className="p-0">
         <div className="relative aspect-video">
-          <Image
-            src={camera.imageUrl}
-            alt={`View of ${camera.name}`}
-            fill
-            className={cn(
-              "object-cover transition-transform duration-300 group-hover:scale-105",
-              !isOnline && "filter grayscale"
-            )}
-            data-ai-hint="surveillance footage"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-          
+          {isOnline ? (
+            <>
+              <Image
+                src={camera.imageUrl}
+                alt={`View of ${camera.name}`}
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                data-ai-hint="surveillance footage"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+            </>
+          ) : (
+             <div className="absolute inset-0 bg-muted/50" />
+          )}
+
           {isOnline ? (
             <>
               {camera.isRecording && (
@@ -49,7 +52,7 @@ export function CameraCard({
                 1080p
               </Badge>
               <div className="absolute bottom-3 right-3 flex gap-2">
-                <button 
+                <button
                   onClick={onInfoClick}
                   className="h-8 w-8 rounded-md bg-black/50 text-white/80 hover:bg-black/80 hover:text-white flex items-center justify-center transition-colors"
                 >
