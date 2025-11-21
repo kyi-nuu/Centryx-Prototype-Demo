@@ -13,12 +13,11 @@ import {
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { Lightbulb, Video } from 'lucide-react';
+import { Combobox } from '@/components/ui/combobox';
 
 const cctvBrands = [
   { value: 'hikvision', label: 'Hikvision' },
   { value: 'dahua', label: 'Dahua' },
-  { value: 'axis', label: 'Axis' },
-  { value: 'bosch', label: 'Bosch' },
 ];
 
 const lightBrands = [
@@ -29,16 +28,12 @@ const lightBrands = [
 ];
 
 const modelsByBrand: Record<string, { value: string; label: string }[]> = {
-  hikvision: [
-    { value: 'ds-2cd2143g2-i', label: 'DS-2CD2143G2-I' },
-    { value: 'ds-2cd2047g2-lu', label: 'DS-2CD2047G2-LU' },
-  ],
   dahua: [
-    { value: 'ipc-hdw5442tm-as', label: 'IPC-HDW5442TM-AS' },
-    { value: 'ipc-hfw3849t1-as-pv', label: 'IPC-HFW3849T1-AS-PV' },
+    { value: 'ipc-hfw2431s', label: 'IPC-HFW2431S' },
+    { value: 'dh-ipc-hfw4831e', label: 'DH-IPC-HFW4831E' },
+    { value: 'ipc-hdbw2831r-zs', label: 'IPC-HDBW2831R-ZS' },
+    { value: 'ipc-hfw5831e-ze', label: 'IPC-HFW5831E-ZE' },
   ],
-  axis: [{ value: 'm3065-v', label: 'M3065-V' }],
-  bosch: [{ value: 'flexidome-ip-5000', label: 'Flexidome IP 5000' }],
   'philips-hue': [
     { value: 'white-ambiance', label: 'White Ambiance' },
     { value: 'white-and-color-ambiance', label: 'White and Color Ambiance' },
@@ -66,6 +61,48 @@ export function AddDeviceCard() {
     setDeviceType(type);
     setSelectedBrand(null); // Reset brand selection when device type changes
   };
+
+  const renderModelInput = () => {
+    if (deviceType === 'light') {
+       return (
+        <Select disabled={!selectedBrand}>
+          <SelectTrigger className="h-11 bg-background">
+            <SelectValue
+              placeholder={
+                selectedBrand ? 'Select model' : 'Choose brand first'
+              }
+            />
+          </SelectTrigger>
+          <SelectContent>
+            {models.map((model) => (
+              <SelectItem key={model.value} value={model.value}>
+                {model.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      );
+    }
+
+    if (selectedBrand === 'hikvision') {
+      return <Input placeholder="Enter model" className="bg-background h-11" />;
+    }
+
+    if (selectedBrand === 'dahua') {
+      return (
+        <Combobox
+          options={models}
+          placeholder="Search model..."
+          emptyMessage="No models found."
+        />
+      );
+    }
+    
+    return (
+       <Input placeholder="Choose brand first" className="bg-background h-11" disabled />
+    )
+  };
+
 
   return (
     <div className="space-y-4">
@@ -112,22 +149,7 @@ export function AddDeviceCard() {
                 ))}
               </SelectContent>
             </Select>
-            <Select disabled={!selectedBrand}>
-              <SelectTrigger className="h-11 bg-background">
-                <SelectValue
-                  placeholder={
-                    selectedBrand ? 'Select model' : 'Choose brand first'
-                  }
-                />
-              </SelectTrigger>
-              <SelectContent>
-                {models.map((model) => (
-                  <SelectItem key={model.value} value={model.value}>
-                    {model.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            {renderModelInput()}
           </div>
         </CardContent>
       </Card>
