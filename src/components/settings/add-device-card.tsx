@@ -47,26 +47,19 @@ const modelsByBrand: Record<string, { value: string; label: string }[]> = {
     { value: 'ipc-hdbw2831r-zs', label: 'IPC-HDBW2831R-ZS' },
     { value: 'ipc-hfw5831e-ze', label: 'IPC-HFW5831E-ZE' },
   ],
-  lifx: [
-    { value: 'lifx-a19', label: 'LIFX A19' },
-    { value: 'lifx-br30', label: 'LIFX BR30' },
-  ],
-  tuya: [
-    { value: 'tuya-bulb-e27', label: 'Smart Bulb E27' },
-    { value: 'tuya-light-strip', label: 'LED Light Strip' },
-  ],
 };
 
-const devicesByModel: Record<string, { value: string; label: string }[]> = {
-    'lifx-a19': [
-        { value: 'A19-001', label: 'LIFX A19 Bulb #001' },
-        { value: 'A19-002', label: 'LIFX A19 Bulb #002' },
+const devicesByBrand: Record<string, { value: string; label: string, model: string }[]> = {
+    lifx: [
+        { value: 'A19-001', label: 'LIFX A19 Bulb #001', model: 'LIFX A19' },
+        { value: 'A19-002', label: 'LIFX A19 Bulb #002', model: 'LIFX A19' },
+        { value: 'BR30-001', label: 'LIFX BR30 Bulb #001', model: 'LIFX BR30' },
     ],
-    'tuya-bulb-e27': [
-        { value: 'TY-E27-001', label: 'Tuya E27 Bulb #001' },
+    tuya: [
+        { value: 'TY-E27-001', label: 'Tuya E27 Bulb #001', model: 'Smart Bulb E27' },
+        { value: 'TY-LS-001', label: 'Tuya Light Strip #001', model: 'LED Light Strip' },
     ]
 }
-
 
 export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
   const [deviceType, setDeviceType] = useState<'cctv' | 'light'>('cctv');
@@ -88,15 +81,15 @@ export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
 
   const brands = deviceType === 'cctv' ? cctvBrands : lightBrands;
   const models = selectedBrand ? modelsByBrand[selectedBrand] || [] : [];
-  const devices = modelValue ? devicesByModel[modelValue] || [] : [];
+  const devices = deviceType === 'light' && selectedBrand ? devicesByBrand[selectedBrand] || [] : [];
 
   const isCctvFormValid = useMemo(() => {
     return name && location && selectedBrand && modelValue && serialNumber && authCode;
   }, [name, location, selectedBrand, modelValue, serialNumber, authCode]);
 
   const isLightFormValid = useMemo(() => {
-    return name && location && selectedBrand && modelValue && selectedDevice;
-  }, [name, location, selectedBrand, modelValue, selectedDevice]);
+    return name && location && selectedBrand && selectedDevice;
+  }, [name, location, selectedBrand, selectedDevice]);
 
   const isFormValid = deviceType === 'cctv' ? isCctvFormValid : isLightFormValid;
 
@@ -134,16 +127,32 @@ export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
 
     setIsLoading(true);
 
-    const brandLabel = brands.find(b => b.value === selectedBrand)?.label || '';
-    const modelLabel = modelValue;
-    
-    const newDevice: Device = {
-        id: `${deviceType}-${Date.now()}`,
-        icon: deviceType,
-        name,
-        description: location,
-        details: `${brandLabel} ${modelLabel}`
-    };
+    let newDevice: Device;
+
+    if (deviceType === 'cctv') {
+        const brandLabel = brands.find(b => b.value === selectedBrand)?.label || '';
+        const modelLabel = modelValue;
+        
+        newDevice = {
+            id: `${deviceType}-${Date.now()}`,
+            icon: deviceType,
+            name,
+            description: location,
+            details: `${brandLabel} ${modelLabel}`
+        };
+    } else {
+        const brandLabel = brands.find(b => b.value === selectedBrand)?.label || '';
+        const deviceData = devices.find(d => d.value === selectedDevice);
+        
+        newDevice = {
+            id: `${deviceType}-${Date.now()}`,
+            icon: deviceType,
+            name,
+            description: location,
+            details: `${brandLabel} ${deviceData?.model || ''}`
+        };
+    }
+
 
     setTimeout(() => {
         onAddDevice(newDevice);
@@ -190,34 +199,11 @@ export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
   }
 
   const renderLightExtraFields = () => {
-    const showDeviceSelect = deviceType === 'light' && selectedBrand && modelValue && devices.length > 0;
-    const showIdAndModel = deviceType === 'light' && selectedBrand && modelValue && selectedDevice;
+    const selectedDeviceData = devices.find(d => d.value === selectedDevice);
+    const showIdAndModel = deviceType === 'light' && selectedBrand && selectedDevice && selectedDeviceData;
+
     return (
          <AnimatePresence>
-            {showDeviceSelect && (
-                <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden"
-                >
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-4">
-                        <Select onValueChange={setSelectedDevice} value={selectedDevice}>
-                          <SelectTrigger className="h-11 bg-background">
-                            <SelectValue placeholder="Select device"/>
-                          </SelectTrigger>
-                          <SelectContent>
-                            {devices.map((device) => (
-                              <SelectItem key={device.value} value={device.value}>
-                                {device.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                    </div>
-                </motion.div>
-            )}
              {showIdAndModel && (
                  <motion.div
                     initial={{ opacity: 0 }}
@@ -232,7 +218,7 @@ export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
                         />
                          <Input
                             readOnly
-                            value={`Model: ${modelValue}`}
+                            value={`Model: ${selectedDeviceData.model}`}
                             className="bg-background/50 h-11"
                         />
                     </div>
@@ -265,17 +251,17 @@ export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
         />
       );
     }
-
-    // Default for 'light'
+    
+    // For lights
     return (
-      <Select disabled={!selectedBrand} onValueChange={handleModelChange} value={modelValue}>
+      <Select disabled={!selectedBrand} onValueChange={setSelectedDevice} value={selectedDevice}>
         <SelectTrigger className="h-11 bg-background">
-          <SelectValue placeholder={selectedBrand ? 'Select model' : 'Choose brand first'}/>
+          <SelectValue placeholder={selectedBrand ? 'Select device' : 'Choose brand first'}/>
         </SelectTrigger>
         <SelectContent>
-          {models.map((model) => (
-            <SelectItem key={model.value} value={model.value}>
-              {model.label}
+          {devices.map((device) => (
+            <SelectItem key={device.value} value={device.value}>
+              {device.label}
             </SelectItem>
           ))}
         </SelectContent>
