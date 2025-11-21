@@ -1,9 +1,11 @@
+
 'use client';
 
 import { useState } from 'react';
 import { CctvHeader } from '@/components/cctv/cctv-header';
 import { CameraCard } from '@/components/cctv/camera-card';
 import { RecordingsView } from '@/components/cctv/recordings-view';
+import { LiveMonitoringView } from '@/components/cctv/live-monitoring-view';
 
 const camerasData = [
   { name: 'Main Entrance', location: 'Front Door', brand: 'Hikvision', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam1/600/400' },
@@ -28,18 +30,33 @@ const camerasData = [
   { name: 'Finance Office', location: 'Floor 4', brand: 'Axis', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam20/600/400' },
 ];
 
-export type CctvView = 'live' | 'recordings';
+export type CctvView = 'grid' | 'recordings' | 'live-monitoring';
 
 export default function CctvPage() {
-  const [view, setView] = useState<CctvView>('live');
+  const [view, setView] = useState<CctvView>('grid');
+
+  const handleSetView = (newView: CctvView) => {
+    // If we are in live-monitoring, clicking the button again should take us back to the grid.
+    if (view === 'live-monitoring' && newView === 'live-monitoring') {
+        setView('grid');
+    } else {
+        setView(newView);
+    }
+  }
+
+  const onlineCameras = camerasData.filter(cam => cam.status === 'online');
+
+  if (view === 'live-monitoring') {
+    return <LiveMonitoringView cameras={onlineCameras} onClose={() => setView('grid')} />;
+  }
 
   return (
     <div className="flex flex-col h-full">
       <div className="sticky top-0 z-10">
-        <CctvHeader activeView={view} onsetView={setView} />
+        <CctvHeader activeView={view} onSetView={handleSetView} />
       </div>
       <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
-        {view === 'live' ? (
+        {view === 'grid' ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {camerasData.map((camera, index) => (
               <CameraCard
