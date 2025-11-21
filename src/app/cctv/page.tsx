@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { CctvHeader } from '@/components/cctv/cctv-header';
 import { CameraCard } from '@/components/cctv/camera-card';
 import { RecordingsView } from '@/components/cctv/recordings-view';
@@ -31,9 +31,14 @@ const camerasData = [
 ];
 
 export type CctvView = 'grid' | 'recordings' | 'live-monitoring';
+export type FilterStatus = 'all' | 'online' | 'offline';
+
 
 export default function CctvPage() {
   const [view, setView] = useState<CctvView>('grid');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
+
 
   const handleSetView = (newView: CctvView) => {
     // If we are in live-monitoring, clicking the button again should take us back to the grid.
@@ -45,6 +50,21 @@ export default function CctvPage() {
   }
 
   const onlineCameras = camerasData.filter(cam => cam.status === 'online');
+  
+  const filteredCameras = useMemo(() => {
+    return camerasData
+      .filter(camera => {
+        if (filterStatus === 'all') return true;
+        return camera.status === filterStatus;
+      })
+      .filter(camera => 
+        camera.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        camera.location.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+  }, [searchTerm, filterStatus]);
+
+  const onlineCount = useMemo(() => camerasData.filter(cam => cam.status === 'online').length, []);
+  const offlineCount = useMemo(() => camerasData.filter(cam => cam.status === 'offline').length, []);
 
   if (view === 'live-monitoring') {
     return <LiveMonitoringView cameras={onlineCameras} onClose={() => setView('grid')} />;
@@ -53,12 +73,19 @@ export default function CctvPage() {
   return (
     <div className="flex flex-col h-full">
       <div className="sticky top-0 z-10">
-        <CctvHeader activeView={view} onSetView={handleSetView} />
+        <CctvHeader 
+          activeView={view} 
+          onSetView={handleSetView}
+          onSearchChange={setSearchTerm}
+          onFilterChange={setFilterStatus}
+          onlineCount={onlineCount}
+          offlineCount={offlineCount}
+        />
       </div>
       <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
         {view === 'grid' ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {camerasData.map((camera, index) => (
+            {filteredCameras.map((camera, index) => (
               <CameraCard
                 key={index}
                 name={camera.name}
