@@ -29,31 +29,25 @@ export function CameraInfoDialog({ camera, open, onOpenChange }: CameraInfoDialo
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-3xl h-[90vh] flex flex-col p-0 gap-0">
-         <DialogHeader className="sr-only">
-          <DialogTitle>Camera Details: {camera.name}</DialogTitle>
-          <DialogDescription>
-            Detailed information and settings for the {camera.name} camera.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="p-6 bg-primary/10 sticky top-0 z-10 border-b">
+        <DialogHeader className="p-6 pb-4 border-b">
           <div className="flex items-start gap-4">
             <div className="p-3 bg-primary/20 rounded-lg">
                 <CameraIcon className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-foreground">{camera.name}</h2>
-              <p className="text-sm text-muted-foreground">
+              <DialogTitle className="text-2xl font-bold text-foreground">{camera.name}</DialogTitle>
+              <DialogDescription className="text-sm text-muted-foreground">
                 {camera.brand} • {camera.model}
-              </p>
+              </DialogDescription>
             </div>
           </div>
           {camera.isRecording && (
-            <Badge variant="destructive" className="mt-4">
+            <Badge variant="destructive" className="mt-4 w-fit">
               <div className="w-2 h-2 rounded-full bg-white mr-2 animate-pulse" />
               Recording
             </Badge>
           )}
-        </div>
+        </DialogHeader>
 
         <ScrollArea className="flex-1">
           <div className="p-6 space-y-6">
