@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -12,8 +13,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
-import { Lightbulb, Video } from 'lucide-react';
+import { Lightbulb, Video, PlusCircle, KeyRound, Hash } from 'lucide-react';
 import { Combobox } from '@/components/ui/combobox';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const cctvBrands = [
   { value: 'hikvision', label: 'Hikvision' },
@@ -49,23 +51,28 @@ const modelsByBrand: Record<string, { value: string; label: string }[]> = {
 export function AddDeviceCard() {
   const [deviceType, setDeviceType] = useState<'cctv' | 'light'>('cctv');
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+  const [modelValue, setModelValue] = useState('');
 
   const brands = deviceType === 'cctv' ? cctvBrands : lightBrands;
   const models = selectedBrand ? modelsByBrand[selectedBrand] || [] : [];
+  
+  const showAuthFields = deviceType === 'cctv' && selectedBrand && modelValue;
 
   const handleBrandChange = (value: string) => {
     setSelectedBrand(value);
+    setModelValue('');
   };
 
-  const handleDeviceTypeChange = (type: 'cctv' | 'light') => {
+  const handleDeviceTypeChange = (type: 'cctv' | 'light'>) => {
     setDeviceType(type);
-    setSelectedBrand(null); // Reset brand selection when device type changes
+    setSelectedBrand(null);
+    setModelValue('');
   };
 
   const renderModelInput = () => {
     if (deviceType === 'light') {
        return (
-        <Select disabled={!selectedBrand}>
+        <Select disabled={!selectedBrand} onValueChange={setModelValue} value={modelValue}>
           <SelectTrigger className="h-11 bg-background">
             <SelectValue
               placeholder={
@@ -85,7 +92,7 @@ export function AddDeviceCard() {
     }
 
     if (selectedBrand === 'hikvision') {
-      return <Input placeholder="Enter model" className="bg-background h-11" />;
+      return <Input placeholder="Enter model" className="bg-background h-11" value={modelValue} onChange={(e) => setModelValue(e.target.value)} />;
     }
 
     if (selectedBrand === 'dahua') {
@@ -94,6 +101,8 @@ export function AddDeviceCard() {
           options={models}
           placeholder="Search model..."
           emptyMessage="No models found."
+          value={modelValue}
+          onChange={setModelValue}
         />
       );
     }
@@ -133,11 +142,11 @@ export function AddDeviceCard() {
         </div>
       </Card>
       <Card className="bg-card/50">
-        <CardContent className="p-4">
+        <CardContent className="p-4 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Input placeholder="Name" className="bg-background h-11 md:col-span-1" />
             <Input placeholder="Location" className="bg-background h-11 md:col-span-1" />
-            <Select onValueChange={handleBrandChange} value={selectedBrand || ''}>
+            <Select onValueChange={handleBrandChange}>
               <SelectTrigger className="h-11 bg-background">
                 <SelectValue placeholder="Select brand" />
               </SelectTrigger>
@@ -150,6 +159,38 @@ export function AddDeviceCard() {
               </SelectContent>
             </Select>
             {renderModelInput()}
+          </div>
+           <AnimatePresence>
+            {showAuthFields && (
+                <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-4">
+                    {selectedBrand === 'hikvision' && (
+                    <>
+                        <Input placeholder="Serial Number" className="bg-background h-11" />
+                        <Input placeholder="Verify Code" className="bg-background h-11" />
+                    </>
+                    )}
+                    {selectedBrand === 'dahua' && (
+                    <>
+                        <Input placeholder="Serial Number" className="bg-background h-11" />
+                        <Input type="password" placeholder="Password" className="bg-background h-11" />
+                    </>
+                    )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+           <div className="flex justify-end pt-4">
+            <Button>
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Add Device
+            </Button>
           </div>
         </CardContent>
       </Card>
