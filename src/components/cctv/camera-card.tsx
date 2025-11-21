@@ -6,33 +6,26 @@ import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 import { Info, Expand, VideoOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import type { Camera } from '@/app/cctv/page';
 
 type CameraCardProps = {
-  name: string;
-  location: string;
-  brand: string;
-  isRecording: boolean;
-  status: 'online' | 'offline';
-  imageUrl: string;
+  camera: Camera;
+  onInfoClick: () => void;
 };
 
 export function CameraCard({
-  name,
-  location,
-  brand,
-  isRecording,
-  status,
-  imageUrl,
+  camera,
+  onInfoClick,
 }: CameraCardProps) {
-  const isOnline = status === 'online';
+  const isOnline = camera.status === 'online';
 
   return (
     <Card className="overflow-hidden bg-card">
       <CardContent className="p-0">
         <div className="relative aspect-video">
           <Image
-            src={imageUrl}
-            alt={`View of ${name}`}
+            src={camera.imageUrl}
+            alt={`View of ${camera.name}`}
             fill
             className={cn(
               "object-cover transition-transform duration-300 group-hover:scale-105",
@@ -44,7 +37,7 @@ export function CameraCard({
           
           {isOnline ? (
             <>
-              {isRecording && (
+              {camera.isRecording && (
                 <Badge variant="destructive" className="absolute top-3 left-3 h-6 gap-1.5 pl-2 pr-2.5">
                   <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
                   <span>REC</span>
@@ -54,7 +47,10 @@ export function CameraCard({
                 1080p
               </Badge>
               <div className="absolute bottom-3 right-3 flex gap-2">
-                <button className="h-8 w-8 rounded-md bg-black/50 text-white/80 hover:bg-black/80 hover:text-white flex items-center justify-center transition-colors">
+                <button 
+                  onClick={onInfoClick}
+                  className="h-8 w-8 rounded-md bg-black/50 text-white/80 hover:bg-black/80 hover:text-white flex items-center justify-center transition-colors"
+                >
                   <Info className="h-4 w-4" />
                 </button>
                 <button className="h-8 w-8 rounded-md bg-black/50 text-white/80 hover:bg-black/80 hover:text-white flex items-center justify-center transition-colors">
@@ -69,12 +65,9 @@ export function CameraCard({
             </div>
           )}
         </div>
-        <div className="p-2">
-          <h3 className="font-semibold text-foreground text-xs truncate">{name}</h3>
-          <div className="flex justify-between items-center">
-            <p className="text-[10px] text-muted-foreground">{location}</p>
-            <Badge variant="outline" className="text-[10px]">{brand}</Badge>
-          </div>
+        <div className="p-3">
+          <h3 className="font-semibold text-foreground truncate">{camera.name}</h3>
+          <p className="text-sm text-muted-foreground">{camera.location}</p>
         </div>
       </CardContent>
     </Card>

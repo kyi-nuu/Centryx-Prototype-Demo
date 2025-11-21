@@ -33,7 +33,7 @@ export function CctvHeader({
           <p className="text-muted-foreground">Live surveillance camera feeds and monitoring</p>
         </div>
         <div className="flex flex-wrap items-center gap-4">
-          <div className="relative flex-grow sm:flex-grow-0 sm:w-80">
+          <div className="relative flex-grow sm:flex-grow-0 sm:w-[400px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input 
                 placeholder="Search camera by name or location" 

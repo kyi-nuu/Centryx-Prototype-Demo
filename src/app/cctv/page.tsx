@@ -6,28 +6,45 @@ import { CctvHeader } from '@/components/cctv/cctv-header';
 import { CameraCard } from '@/components/cctv/camera-card';
 import { RecordingsView } from '@/components/cctv/recordings-view';
 import { LiveMonitoringView } from '@/components/cctv/live-monitoring-view';
+import { CameraInfoDialog } from '@/components/cctv/camera-info-dialog';
 
-const camerasData = [
-  { name: 'Main Entrance', location: 'Front Door', brand: 'Hikvision', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam1/600/400' },
-  { name: 'Parking Lot A', location: 'East Wing', brand: 'Dahua', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam2/600/400' },
-  { name: 'Lobby Area', location: 'Ground Floor', brand: 'Axis', isRecording: false, status: 'offline', imageUrl: 'https://picsum.photos/seed/cam3/600/400' },
-  { name: 'Hallway Section 3', location: 'Floor 2', brand: 'Bosch', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam4/600/400' },
-  { name: 'Rooftop East', location: 'Building A', brand: 'Hikvision', isRecording: false, status: 'offline', imageUrl: 'https://picsum.photos/seed/cam5/600/400' },
-  { name: 'Loading Bay', location: 'Service Area', brand: 'Dahua', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam6/600/400' },
-  { name: 'Server Room', location: 'Basement', brand: 'Axis', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam7/600/400' },
-  { name: 'Staff Canteen', location: 'Floor 1', brand: 'Hikvision', isRecording: false, status: 'offline', imageUrl: 'https://picsum.photos/seed/cam8/600/400' },
-  { name: 'Meeting Room 5', location: 'Floor 3', brand: 'Dahua', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam9/600/400' },
-  { name: 'West Corridor', location: 'Floor 2', brand: 'Axis', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam10/600/400' },
-  { name: 'Garage Level 2', location: 'Parking Structure', brand: 'Bosch', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam11/600/400' },
-  { name: 'Library', location: 'Community Hall', brand: 'Hikvision', isRecording: false, status: 'offline', imageUrl: 'https://picsum.photos/seed/cam12/600/400' },
-  { name: 'Main Auditorium', location: 'Main Hall', brand: 'Dahua', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam13/600/400' },
-  { name: 'Gymnasium', location: 'Sports Complex', brand: 'Hikvision', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam14/600/400' },
-  { name: 'IT Department', location: 'Floor 4', brand: 'Dahua', isRecording: false, status: 'offline', imageUrl: 'https://picsum.photos/seed/cam15/600/400' },
-  { name: 'Reception', location: 'Ground Floor', brand: 'Axis', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam16/600/400' },
-  { name: 'Archive Room', location: 'Basement', brand: 'Bosch', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam17/600/400' },
-  { name: 'Data Center', location: 'Floor 5', brand: 'Hikvision', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam18/600/400' },
-  { name: 'Back Entrance', location: 'Rear Side', brand: 'Dahua', isRecording: false, status: 'offline', imageUrl: 'https://picsum.photos/seed/cam19/600/400' },
-  { name: 'Finance Office', location: 'Floor 4', brand: 'Axis', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam20/600/400' },
+export type Camera = {
+  name: string;
+  location: string;
+  brand: string;
+  model: string;
+  isRecording: boolean;
+  status: 'online' | 'offline';
+  imageUrl: string;
+  linkedLights: {
+    name: string;
+    location: string;
+    brightness: number;
+    isOn: boolean;
+  }[];
+};
+
+const camerasData: Camera[] = [
+  { name: 'Main Entrance', location: 'Front Door', brand: 'Hikvision', model: 'DS-2CD2143G0-I', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam1/600/400', linkedLights: [{ name: 'Entrance Light 1', location: 'Front Door', brightness: 80, isOn: true }, { name: 'Entrance Light 2', location: 'Front Door', brightness: 100, isOn: true }] },
+  { name: 'Parking Lot A', location: 'East Wing', brand: 'Dahua', model: 'IPC-HDBW2831R-ZS', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam2/600/400', linkedLights: [] },
+  { name: 'Lobby Area', location: 'Ground Floor', brand: 'Axis', model: 'M3065-V', isRecording: false, status: 'offline', imageUrl: 'https://picsum.photos/seed/cam3/600/400', linkedLights: [] },
+  { name: 'Hallway Section 3', location: 'Floor 2', brand: 'Bosch', model: 'Flexidome IP 5000', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam4/600/400', linkedLights: [] },
+  { name: 'Rooftop East', location: 'Building A', brand: 'Hikvision', model: 'DS-2CD2047G2-LU', isRecording: false, status: 'offline', imageUrl: 'https://picsum.photos/seed/cam5/600/400', linkedLights: [] },
+  { name: 'Loading Bay', location: 'Service Area', brand: 'Dahua', model: 'IPC-HFW3849T1-AS-PV', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam6/600/400', linkedLights: [] },
+  { name: 'Server Room', location: 'Basement', brand: 'Axis', model: 'M3065-V', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam7/600/400', linkedLights: [] },
+  { name: 'Staff Canteen', location: 'Floor 1', brand: 'Hikvision', model: 'DS-2CD2143G2-I', isRecording: false, status: 'offline', imageUrl: 'https://picsum.photos/seed/cam8/600/400', linkedLights: [] },
+  { name: 'Meeting Room 5', location: 'Floor 3', brand: 'Dahua', model: 'IPC-HDBW2831R-ZS', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam9/600/400', linkedLights: [] },
+  { name: 'West Corridor', location: 'Floor 2', brand: 'Axis', model: 'M3065-V', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam10/600/400', linkedLights: [] },
+  { name: 'Garage Level 2', location: 'Parking Structure', brand: 'Bosch', model: 'Flexidome IP 5000', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam11/600/400', linkedLights: [] },
+  { name: 'Library', location: 'Community Hall', brand: 'Hikvision', model: 'DS-2CD2047G2-LU', isRecording: false, status: 'offline', imageUrl: 'https://picsum.photos/seed/cam12/600/400', linkedLights: [] },
+  { name: 'Main Auditorium', location: 'Main Hall', brand: 'Dahua', model: 'IPC-HFW3849T1-AS-PV', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam13/600/400', linkedLights: [] },
+  { name: 'Gymnasium', location: 'Sports Complex', brand: 'Hikvision', model: 'DS-2CD2143G2-I', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam14/600/400', linkedLights: [] },
+  { name: 'IT Department', location: 'Floor 4', brand: 'Dahua', model: 'IPC-HDBW2831R-ZS', isRecording: false, status: 'offline', imageUrl: 'https://picsum.photos/seed/cam15/600/400', linkedLights: [] },
+  { name: 'Reception', location: 'Ground Floor', brand: 'Axis', model: 'M3065-V', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam16/600/400', linkedLights: [] },
+  { name: 'Archive Room', location: 'Basement', brand: 'Bosch', model: 'Flexidome IP 5000', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam17/600/400', linkedLights: [] },
+  { name: 'Data Center', location: 'Floor 5', brand: 'Hikvision', model: 'DS-2CD2047G2-LU', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam18/600/400', linkedLights: [] },
+  { name: 'Back Entrance', location: 'Rear Side', brand: 'Dahua', model: 'IPC-HFW3849T1-AS-PV', isRecording: false, status: 'offline', imageUrl: 'https://picsum.photos/seed/cam19/600/400', linkedLights: [] },
+  { name: 'Finance Office', location: 'Floor 4', brand: 'Axis', model: 'M3065-V', isRecording: true, status: 'online', imageUrl: 'https://picsum.photos/seed/cam20/600/400', linkedLights: [] },
 ];
 
 export type CctvView = 'grid' | 'recordings' | 'live-monitoring';
@@ -38,6 +55,7 @@ export default function CctvPage() {
   const [view, setView] = useState<CctvView>('grid');
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
+  const [selectedCamera, setSelectedCamera] = useState<Camera | null>(null);
 
 
   const handleSetView = (newView: CctvView) => {
@@ -72,7 +90,14 @@ export default function CctvPage() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="sticky top-0 z-10">
+       {selectedCamera && (
+        <CameraInfoDialog
+          camera={selectedCamera}
+          open={!!selectedCamera}
+          onOpenChange={(isOpen) => !isOpen && setSelectedCamera(null)}
+        />
+      )}
+      <div className="sticky top-0 z-10 bg-muted/40">
         <CctvHeader 
           activeView={view} 
           onSetView={handleSetView}
@@ -88,12 +113,8 @@ export default function CctvPage() {
             {filteredCameras.map((camera, index) => (
               <CameraCard
                 key={index}
-                name={camera.name}
-                location={camera.location}
-                brand={camera.brand}
-                isRecording={camera.isRecording}
-                status={camera.status}
-                imageUrl={camera.imageUrl}
+                camera={camera}
+                onInfoClick={() => setSelectedCamera(camera)}
               />
             ))}
           </div>
