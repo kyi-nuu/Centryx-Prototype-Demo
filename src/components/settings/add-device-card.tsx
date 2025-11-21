@@ -63,7 +63,7 @@ export function AddDeviceCard() {
     setModelValue('');
   };
 
-  const handleDeviceTypeChange = (type: 'cctv' | 'light'>) => {
+  const handleDeviceTypeChange = (type: 'cctv' | 'light') => {
     setDeviceType(type);
     setSelectedBrand(null);
     setModelValue('');
