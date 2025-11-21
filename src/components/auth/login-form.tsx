@@ -28,9 +28,10 @@ const formSchema = z.object({
 
 type LoginFormProps = {
   onSuccess: (email: string) => void;
+  onForgotPassword: () => void;
 };
 
-export function LoginForm({ onSuccess }: LoginFormProps) {
+export function LoginForm({ onSuccess, onForgotPassword }: LoginFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -123,7 +124,13 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
                 </FormItem>
               )}
             />
-            <Button variant="link" size="sm" className="p-0 h-auto text-primary">
+            <Button
+              type="button"
+              variant="link"
+              size="sm"
+              onClick={onForgotPassword}
+              className="p-0 h-auto text-primary"
+            >
               Forgot password?
             </Button>
           </div>
