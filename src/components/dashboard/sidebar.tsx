@@ -1,6 +1,7 @@
+
 'use client';
 
-import { Home, Lightbulb, Settings, User, Video } from 'lucide-react';
+import { Home, Lightbulb, LogOut, Settings, User, Video } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
@@ -20,6 +21,7 @@ const navItems = [
   { href: '/cctv', icon: Video, label: 'CCTV' },
   { href: '/settings', icon: Settings, label: 'Settings' },
   { href: '/user', icon: User, label: 'User' },
+  { href: '/', icon: LogOut, label: 'Log Out' },
 ];
 
 export function DashboardSidebar() {
