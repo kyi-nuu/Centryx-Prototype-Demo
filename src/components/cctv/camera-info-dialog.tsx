@@ -82,6 +82,26 @@ export function CameraInfoDialog({ camera, open, onOpenChange }: CameraInfoDialo
               </CardContent>
             </Card>
 
+             <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <LinkIcon className="h-5 w-5 text-primary" />
+                  Linked Lights ({camera.linkedLights.length})
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {camera.linkedLights.length > 0 ? (
+                  camera.linkedLights.map((light, index) => (
+                    <LinkedLightItem key={index} light={light} />
+                  ))
+                ) : (
+                  <p className="text-muted-foreground text-sm text-center py-4">
+                    No lights are linked to this camera.
+                  </p>
+                )}
+              </CardContent>
+            </Card>
+
             <Card>
                 <CardHeader>
                     <div className="flex items-center gap-3">
@@ -124,25 +144,6 @@ export function CameraInfoDialog({ camera, open, onOpenChange }: CameraInfoDialo
                 </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-lg">
-                  <LinkIcon className="h-5 w-5 text-primary" />
-                  Linked Lights ({camera.linkedLights.length})
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {camera.linkedLights.length > 0 ? (
-                  camera.linkedLights.map((light, index) => (
-                    <LinkedLightItem key={index} light={light} />
-                  ))
-                ) : (
-                  <p className="text-muted-foreground text-sm text-center py-4">
-                    No lights are linked to this camera.
-                  </p>
-                )}
-              </CardContent>
-            </Card>
           </div>
         </ScrollArea>
       </DialogContent>
