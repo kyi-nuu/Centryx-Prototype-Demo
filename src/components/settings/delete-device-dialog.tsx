@@ -12,7 +12,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 
 type DeleteDeviceDialogProps = {
   onConfirm: () => void;
@@ -35,7 +35,7 @@ export function DeleteDeviceDialog({ onConfirm, children }: DeleteDeviceDialogPr
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm} className={Button({ variant: "destructive" }).className}>
+          <AlertDialogAction onClick={onConfirm} className={buttonVariants({ variant: "destructive" })}>
             Confirm
           </AlertDialogAction>
         </AlertDialogFooter>
