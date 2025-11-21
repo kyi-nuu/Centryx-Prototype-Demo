@@ -40,19 +40,21 @@ function DeviceListItem({ item, onDelete }: DeviceListItemProps) {
           <p className="font-semibold text-foreground text-sm">{item.name}</p>
           <p className="text-xs text-muted-foreground">{item.description}</p>
         </div>
-        <div className="flex-grow text-center">
+      </div>
+      <div className="flex items-center gap-4">
+        <div className="text-right">
             <p className="font-semibold text-foreground text-sm">{brand}</p>
             <p className="text-xs text-muted-foreground">{model}</p>
         </div>
+        <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => onDelete(item.id)}
+            className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 ml-2 shrink-0 h-9 w-9 rounded-full"
+        >
+            <Trash2 className="h-4 w-4" />
+        </Button>
       </div>
-      <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => onDelete(item.id)}
-          className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 ml-2 shrink-0 h-9 w-9 rounded-full"
-      >
-          <Trash2 className="h-4 w-4" />
-      </Button>
     </div>
   );
 }
