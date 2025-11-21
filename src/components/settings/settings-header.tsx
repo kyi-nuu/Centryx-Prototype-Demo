@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
@@ -7,7 +8,7 @@ import { Zap } from 'lucide-react';
 export function SettingsHeader() {
   return (
     <div className="bg-transparent">
-      <CardContent className="p-4 sm:p-6 lg:p-8 flex items-center justify-between">
+      <CardContent className="p-4 sm:p-6 lg:p-8 pb-4 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Settings</h1>
           <p className="text-muted-foreground">Configure your smart building system</p>
