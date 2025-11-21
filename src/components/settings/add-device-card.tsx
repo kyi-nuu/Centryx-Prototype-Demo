@@ -175,7 +175,6 @@ export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
-                className="overflow-hidden"
               >
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-4">
                     <Input 
@@ -312,7 +311,7 @@ export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
             {renderModelInput()}
           </div>
           {deviceType === 'cctv' ? renderCctvAuthFields() : renderLightExtraFields()}
-           <div className="flex justify-end">
+           <div className="flex justify-end pt-2">
             <Button onClick={handleAddClick} disabled={!isFormValid || isLoading}>
               {isLoading ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
