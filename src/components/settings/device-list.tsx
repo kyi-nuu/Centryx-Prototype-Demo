@@ -22,7 +22,7 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
   
   if (layout === 'grid') {
     return (
-      <Card className="p-4">
+      <Card className="p-4 bg-secondary/50">
         <div className='flex items-center gap-4'>
             <div
               className={cn(
@@ -108,7 +108,7 @@ export function DeviceList({
 
   return (
     <Card className="flex flex-col h-full bg-card/50">
-      <CardHeader className="flex-shrink-0">
+      <CardHeader className="flex-shrink-0 p-4">
         <CardTitle>{title}</CardTitle>
         <div className="relative mt-2">
            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -126,7 +126,7 @@ export function DeviceList({
             className={cn(
                 'p-2 pr-4',
                 layout === 'grid'
-                ? 'grid grid-cols-1 sm:grid-cols-2 gap-4'
+                ? 'grid grid-cols-1 sm:grid-cols-2 gap-2'
                 : 'space-y-1'
             )}
             >
