@@ -6,11 +6,13 @@ import {
   DialogContent,
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Camera as CameraIcon, MapPin, Link as LinkIcon, BarChart } from 'lucide-react';
+import { Camera as CameraIcon, MapPin, Link as LinkIcon, BarChart, Video, Clock, Filter } from 'lucide-react';
 import type { Camera } from '@/app/cctv/page';
 import { LinkedLightItem } from './linked-light-item';
+import { DateTimePicker } from '../ui/date-time-picker';
+import { Button } from '../ui/button';
 
 type CameraInfoDialogProps = {
   camera: Camera | null;
@@ -23,7 +25,7 @@ export function CameraInfoDialog({ camera, open, onOpenChange }: CameraInfoDialo
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl h-[80vh] flex flex-col p-0 gap-0">
+      <DialogContent className="max-w-3xl h-[90vh] flex flex-col p-0 gap-0">
         <div className="p-6 bg-primary/10 sticky top-0 z-10 border-b">
           <div className="flex items-start gap-4">
             <div className="p-3 bg-primary/20 rounded-lg">
@@ -69,6 +71,48 @@ export function CameraInfoDialog({ camera, open, onOpenChange }: CameraInfoDialo
                   </div>
                 </div>
               </CardContent>
+            </Card>
+
+            <Card>
+                <CardHeader>
+                    <div className="flex items-center gap-3">
+                        <Video className="h-6 w-6 text-primary" />
+                        <div>
+                        <CardTitle>Camera Recordings</CardTitle>
+                        <CardDescription>Filter recordings by date and time</CardDescription>
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+                        <div className="space-y-2">
+                        <label className="text-sm font-medium flex items-center gap-2 text-muted-foreground">
+                            <Clock className="h-4 w-4" />
+                            Start Date & Time
+                        </label>
+                        <DateTimePicker />
+                        </div>
+                        <div className="space-y-2">
+                        <label className="text-sm font-medium flex items-center gap-2 text-muted-foreground">
+                            <Clock className="h-4 w-4" />
+                            End Date & Time
+                        </label>
+                        <DateTimePicker />
+                        </div>
+                        <div className="md:col-span-2">
+                            <Button className="w-full md:w-auto">
+                                <Filter className="mr-2 h-4 w-4" />
+                                Apply Filter
+                            </Button>
+                        </div>
+                    </div>
+                     <div className="flex flex-col items-center justify-center text-center mt-12">
+                        <div className="p-4 bg-primary/10 rounded-lg">
+                            <Video className="h-10 w-10 text-primary" />
+                        </div>
+                        <p className="mt-4 text-sm text-muted-foreground">Apply filter to view recordings for this camera</p>
+                    </div>
+                </CardContent>
             </Card>
 
             <Card>
