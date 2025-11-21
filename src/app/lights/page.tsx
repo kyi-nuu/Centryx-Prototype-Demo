@@ -60,19 +60,22 @@ export default function LightsPage() {
   };
 
   const handleToggleAll = (isOn: boolean) => {
+    setActiveMode(null);
     setLights(prevLights =>
       prevLights.map(light => ({ ...light, isOn, brightness: isOn ? light.brightness || 50 : 0 }))
     );
   };
 
   const handleModeChange = (mode: Mode) => {
-    setActiveMode(mode);
-    if (mode === 'day') {
+    const newActiveMode = activeMode === mode ? null : mode;
+    setActiveMode(newActiveMode);
+
+    if (newActiveMode === 'day') {
       setLights(prev => prev.map(l => ({...l, isOn: true, brightness: 80})));
-    } else if (mode === 'night') {
+    } else if (newActiveMode === 'night') {
       setLights(prev => prev.map(l => ({...l, isOn: true, brightness: 30})));
-    } else if (mode === 'eco') {
-       setLights(prev => prev.map(l => ({...l, isOn: l.brightness ? l.brightness > 50 : false, brightness: 50})));
+    } else if (newActiveMode === 'eco') {
+       setLights(prev => prev.map(l => ({...l, isOn: true, brightness: 50})));
     }
   };
 
