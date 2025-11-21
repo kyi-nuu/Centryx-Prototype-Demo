@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Power, LogOut, Sun, Moon, Leaf } from 'lucide-react';
@@ -13,25 +14,25 @@ export function QuickActions() {
         </div>
       </CardHeader>
       <CardContent className="grid grid-cols-3 gap-2 flex-1 p-3">
-        <Button size="sm" className="text-xs bg-primary hover:bg-primary/90 text-primary-foreground flex-col h-auto py-2">
+        <Button size="sm" className="text-xs bg-primary hover:bg-primary/90 text-primary-foreground flex-col h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95">
           <Power className="h-5 w-5 mb-1" /> All On
         </Button>
-        <Button size="sm" variant="destructive" className="text-xs flex-col h-auto py-2">
+        <Button size="sm" variant="destructive" className="text-xs flex-col h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95">
           <Power className="h-5 w-5 mb-1" /> All Off
         </Button>
-        <Button variant="secondary" size="sm" className="text-xs flex-col h-auto py-2">
+        <Button variant="secondary" size="sm" className="text-xs flex-col h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95">
           <LogOut className="h-5 w-5 mb-1" />
           <span>Log Out</span>
         </Button>
-        <Button variant="secondary" size="sm" className="text-xs flex-col h-auto py-2">
+        <Button variant="secondary" size="sm" className="text-xs flex-col h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95">
           <Sun className="h-5 w-5 mb-1" />
           <span>Day Mode</span>
         </Button>
-        <Button variant="secondary" size="sm" className="text-xs flex-col h-auto py-2">
+        <Button variant="secondary" size="sm" className="text-xs flex-col h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95">
           <Moon className="h-5 w-5 mb-1" />
           <span>Night Mode</span>
         </Button>
-        <Button variant="secondary" size="sm" className="text-xs flex-col h-auto py-2">
+        <Button variant="secondary" size="sm" className="text-xs flex-col h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95">
           <Leaf className="h-5 w-5 mb-1" />
           <span>Eco Mode</span>
         </Button>
