@@ -1,11 +1,11 @@
 
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { X } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 type Camera = {
   name: string;
@@ -18,35 +18,59 @@ type LiveMonitoringViewProps = {
   onClose: () => void;
 };
 
-const liveCameras = [
-  { name: 'Main Entrance', imageUrl: 'https://picsum.photos/seed/live1/800/600', status: 'online' },
-  { name: 'Parking Lot A', imageUrl: 'https://picsum.photos/seed/live2/800/600', status: 'online' },
-  { name: 'Lobby Area', imageUrl: 'https://picsum.photos/seed/live3/800/600', status: 'online' },
-  { name: 'Hallway 1st Floor', imageUrl: 'https://picsum.photos/seed/live4/800/600', status: 'online' },
-  { name: 'Back Entrance', imageUrl: 'https://picsum.photos/seed/live5/800/600', status: 'online' },
-  { name: 'Storage Area', imageUrl: 'https://picsum.photos/seed/live6/800/600', status: 'online' },
-];
+const CAMERAS_PER_PAGE = 6;
 
-export function LiveMonitoringView({ onClose }: LiveMonitoringViewProps) {
+export function LiveMonitoringView({ cameras, onClose }: LiveMonitoringViewProps) {
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const totalPages = Math.ceil(cameras.length / CAMERAS_PER_PAGE);
+  const startIndex = currentPage * CAMERAS_PER_PAGE;
+  const endIndex = startIndex + CAMERAS_PER_PAGE;
+  const currentCameras = cameras.slice(startIndex, endIndex);
+
+  // Fill remaining grid slots if the last page is not full
+  const displayCameras = [...currentCameras];
+  while (displayCameras.length < CAMERAS_PER_PAGE) {
+    displayCameras.push({ name: 'Empty', imageUrl: '', status: 'offline' });
+  }
+
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => (prev + 1) % totalPages);
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
+  };
+
+
   return (
     <div className="fixed inset-0 bg-background z-50 flex flex-col">
       <div className="grid grid-cols-3 grid-rows-2 flex-1 h-full">
-        {liveCameras.map((camera, index) => (
-          <div key={index} className="relative group border-2 border-background">
-            <Image
-              src={camera.imageUrl}
-              alt={`Live feed from ${camera.name}`}
-              fill
-              className="object-cover"
-              data-ai-hint="surveillance footage"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-            <Badge
-              variant="secondary"
-              className="absolute top-3 left-3 bg-black/50 text-white border-transparent"
-            >
-              {camera.name}
-            </Badge>
+        {displayCameras.map((camera, index) => (
+          <div key={index} className="relative group border-2 border-background bg-muted">
+            {camera.status === 'online' ? (
+              <>
+                <Image
+                  src={camera.imageUrl}
+                  alt={`Live feed from ${camera.name}`}
+                  fill
+                  className="object-cover"
+                  data-ai-hint="surveillance footage"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <Badge
+                  variant="secondary"
+                  className="absolute top-3 left-3 bg-black/50 text-white border-transparent"
+                >
+                  {camera.name}
+                </Badge>
+              </>
+            ) : (
+                <div className="flex items-center justify-center h-full">
+                    {/* Empty cell */}
+                </div>
+            )}
           </div>
         ))}
       </div>
@@ -59,6 +83,29 @@ export function LiveMonitoringView({ onClose }: LiveMonitoringViewProps) {
           <X className="h-5 w-5" />
           <span className="sr-only">Close live monitoring</span>
         </Button>
+         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4">
+            <Button
+                variant="secondary"
+                size="icon"
+                onClick={handlePrevPage}
+                disabled={totalPages <= 1}
+                className="rounded-full h-10 w-10 bg-black/50 hover:bg-black/80 text-white disabled:opacity-50"
+            >
+                <ChevronLeft className="h-5 w-5" />
+            </Button>
+            <span className="text-white font-medium text-sm">
+                Page {currentPage + 1} of {totalPages}
+            </span>
+            <Button
+                variant="secondary"
+                size="icon"
+                onClick={handleNextPage}
+                disabled={totalPages <= 1}
+                className="rounded-full h-10 w-10 bg-black/50 hover:bg-black/80 text-white disabled:opacity-50"
+            >
+                <ChevronRight className="h-5 w-5" />
+            </Button>
+        </div>
     </div>
   );
 }
