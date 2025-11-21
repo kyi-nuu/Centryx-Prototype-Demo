@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
@@ -242,20 +243,44 @@ export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
   }
 
   const renderModelInput = () => {
-     return (
-        <Select disabled={!selectedBrand} onValueChange={handleModelChange} value={modelValue}>
-          <SelectTrigger className="h-11 bg-background">
-            <SelectValue placeholder={selectedBrand ? 'Select model' : 'Choose brand first'}/>
-          </SelectTrigger>
-          <SelectContent>
-            {models.map((model) => (
-              <SelectItem key={model.value} value={model.value}>
-                {model.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+    if (deviceType === 'cctv') {
+      if (selectedBrand === 'dahua') {
+        return (
+          <Combobox
+            options={models}
+            placeholder="Search model"
+            emptyMessage="No models found."
+            value={modelValue}
+            onChange={handleModelChange}
+          />
+        );
+      }
+      return (
+        <Input
+          placeholder="Model"
+          className="bg-background h-11"
+          value={modelValue}
+          onChange={(e) => handleModelChange(e.target.value)}
+          disabled={!selectedBrand}
+        />
       );
+    }
+
+    // Default for 'light'
+    return (
+      <Select disabled={!selectedBrand} onValueChange={handleModelChange} value={modelValue}>
+        <SelectTrigger className="h-11 bg-background">
+          <SelectValue placeholder={selectedBrand ? 'Select model' : 'Choose brand first'}/>
+        </SelectTrigger>
+        <SelectContent>
+          {models.map((model) => (
+            <SelectItem key={model.value} value={model.value}>
+              {model.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    );
   };
 
 
