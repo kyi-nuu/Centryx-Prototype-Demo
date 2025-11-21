@@ -13,44 +13,14 @@ import type { Device } from './add-device-card';
 type DeviceListItemProps = {
   item: Device;
   onDelete: (id: string) => void;
-  layout: 'list' | 'grid';
 };
 
-function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
+function DeviceListItem({ item, onDelete }: DeviceListItemProps) {
   const isLight = item.icon === 'light';
   const IconComponent = isLight ? Lightbulb : Video;
+  const [brand, ...modelParts] = item.details.split(' ');
+  const model = modelParts.join(' ');
   
-  if (layout === 'grid') {
-    return (
-      <Card className="p-4 bg-secondary/50">
-        <div className='flex items-center gap-4'>
-            <div
-              className={cn(
-                'rounded-lg p-2',
-                isLight
-                  ? 'bg-yellow-400/20 text-yellow-400'
-                  : 'bg-blue-500/20 text-blue-500'
-              )}
-            >
-              <IconComponent className="h-5 w-5" />
-            </div>
-            <div className="flex-grow">
-              <p className="font-semibold text-foreground text-sm">{item.name}</p>
-              <p className="text-xs text-muted-foreground">{item.description}</p>
-            </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => onDelete(item.id)}
-              className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-8 w-8 shrink-0"
-            >
-              <Trash2 className="h-4 w-4" />
-            </Button>
-        </div>
-      </Card>
-    );
-  }
-
   return (
     <div
       className='flex items-center p-3 rounded-lg hover:bg-secondary/50 transition-colors group'
@@ -58,7 +28,7 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
       <div className={cn('flex items-center gap-4 flex-1 w-full')}>
         <div
           className={cn(
-            'rounded-lg p-2',
+            'rounded-lg p-3',
             isLight
               ? 'bg-yellow-400/20 text-yellow-400'
               : 'bg-blue-500/20 text-blue-500'
@@ -66,16 +36,20 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
         >
           <IconComponent className="h-5 w-5" />
         </div>
-        <div className="flex-grow">
+        <div>
           <p className="font-semibold text-foreground text-sm">{item.name}</p>
           <p className="text-xs text-muted-foreground">{item.description}</p>
+        </div>
+        <div className="flex-grow text-center">
+            <p className="font-semibold text-foreground text-sm">{brand}</p>
+            <p className="text-xs text-muted-foreground">{model}</p>
         </div>
       </div>
       <Button
           variant="ghost"
           size="icon"
           onClick={() => onDelete(item.id)}
-          className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 ml-2 shrink-0 h-8 w-8"
+          className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 ml-2 shrink-0 h-9 w-9 rounded-full"
       >
           <Trash2 className="h-4 w-4" />
       </Button>
@@ -88,7 +62,6 @@ type DeviceListProps = {
   searchPlaceholder: string;
   items: Device[];
   onDelete: (id: string) => void;
-  layout?: 'list' | 'grid';
 };
 
 export function DeviceList({
@@ -96,7 +69,6 @@ export function DeviceList({
   searchPlaceholder,
   items,
   onDelete,
-  layout = 'list',
 }: DeviceListProps) {
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -122,20 +94,12 @@ export function DeviceList({
       </CardHeader>
       <CardContent className="flex-1 p-2 pt-0">
         <ScrollArea className="h-[400px]">
-            <div
-            className={cn(
-                'p-2 pr-4',
-                layout === 'grid'
-                ? 'grid grid-cols-1 sm:grid-cols-2 gap-2'
-                : 'space-y-1'
-            )}
-            >
+            <div className="space-y-1 p-2 pr-4">
             {filteredItems.map((item) => (
                 <DeviceListItem
                 key={item.id}
                 item={item}
                 onDelete={onDelete}
-                layout={layout}
                 />
             ))}
             </div>

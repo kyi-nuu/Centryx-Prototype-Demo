@@ -75,9 +75,7 @@ export default function SettingsPage() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="sticky top-0 z-10 bg-transparent">
-        <SettingsHeader />
-      </div>
+      <SettingsHeader />
       <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <AddDeviceCard onAddDevice={handleAddDevice} />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -86,14 +84,12 @@ export default function SettingsPage() {
             searchPlaceholder="Search camera by name"
             items={cameras}
             onDelete={(id) => handleDeleteDevice(id, 'cctv')}
-            layout="list"
           />
           <DeviceList
             title="Lights"
             searchPlaceholder="Search light by name"
             items={lights}
             onDelete={(id) => handleDeleteDevice(id, 'light')}
-            layout="grid"
           />
         </div>
       </div>
