@@ -312,7 +312,7 @@ export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
             {renderModelInput()}
           </div>
           {deviceType === 'cctv' ? renderCctvAuthFields() : renderLightExtraFields()}
-           <div className="flex justify-end pt-4">
+           <div className="flex justify-end">
             <Button onClick={handleAddClick} disabled={!isFormValid || isLoading}>
               {isLoading ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
