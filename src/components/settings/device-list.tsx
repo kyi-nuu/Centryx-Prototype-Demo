@@ -107,8 +107,8 @@ export function DeviceList({
   );
 
   return (
-    <Card className="flex flex-col h-full bg-card/50">
-      <CardHeader className="flex-shrink-0 p-4">
+    <Card className="flex flex-col bg-card/50">
+      <CardHeader className="p-4">
         <CardTitle>{title}</CardTitle>
         <div className="relative mt-2">
            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -120,8 +120,8 @@ export function DeviceList({
           />
         </div>
       </CardHeader>
-      <CardContent className="flex-1 p-2 pt-0 overflow-hidden">
-        <ScrollArea className="h-full">
+      <CardContent className="flex-1 p-2 pt-0">
+        <ScrollArea className="h-[400px]">
             <div
             className={cn(
                 'p-2 pr-4',
