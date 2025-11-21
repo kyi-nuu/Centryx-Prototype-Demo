@@ -4,9 +4,12 @@
 import {
   Dialog,
   DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Camera as CameraIcon, MapPin, Link as LinkIcon, BarChart, Video, Clock, Filter } from 'lucide-react';
 import type { Camera } from '@/app/cctv/page';
@@ -26,6 +29,12 @@ export function CameraInfoDialog({ camera, open, onOpenChange }: CameraInfoDialo
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-3xl h-[90vh] flex flex-col p-0 gap-0">
+         <DialogHeader className="sr-only">
+          <DialogTitle>Camera Details: {camera.name}</DialogTitle>
+          <DialogDescription>
+            Detailed information and settings for the {camera.name} camera.
+          </DialogDescription>
+        </DialogHeader>
         <div className="p-6 bg-primary/10 sticky top-0 z-10 border-b">
           <div className="flex items-start gap-4">
             <div className="p-3 bg-primary/20 rounded-lg">
@@ -79,7 +88,7 @@ export function CameraInfoDialog({ camera, open, onOpenChange }: CameraInfoDialo
                         <Video className="h-6 w-6 text-primary" />
                         <div>
                         <CardTitle>Camera Recordings</CardTitle>
-                        <CardDescription>Filter recordings by date and time</CardDescription>
+                        <p className="text-sm text-muted-foreground">Filter recordings by date and time</p>
                         </div>
                     </div>
                 </CardHeader>
