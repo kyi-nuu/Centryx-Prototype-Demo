@@ -1,7 +1,6 @@
 
 'use client';
 
-import { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Slider } from '@/components/ui/slider';
@@ -13,17 +12,18 @@ type LightCardProps = {
   room: string;
   isOn: boolean;
   brightness?: number;
+  onToggle: (isOn: boolean) => void;
+  onBrightnessChange: (brightness: number) => void;
 };
 
 export function LightCard({
   name,
   room,
-  isOn: initialIsOn,
-  brightness: initialBrightness,
+  isOn,
+  brightness = 0,
+  onToggle,
+  onBrightnessChange,
 }: LightCardProps) {
-  const [isOn, setIsOn] = useState(initialIsOn);
-  const [brightness, setBrightness] = useState(initialBrightness || 0);
-
   return (
     <Card className={cn('flex flex-col', isOn && 'border-yellow-500/50')}>
       <CardHeader className="flex flex-row items-center justify-between p-3">
@@ -36,7 +36,7 @@ export function LightCard({
             <p className="text-xs text-muted-foreground">{room}</p>
           </div>
         </div>
-        <Switch checked={isOn} onCheckedChange={setIsOn} />
+        <Switch checked={isOn} onCheckedChange={onToggle} />
       </CardHeader>
       <CardContent className="flex-1 flex flex-col justify-center p-3 pt-0">
         {isOn ? (
@@ -47,9 +47,10 @@ export function LightCard({
             </div>
             <Slider
               value={[brightness]}
-              onValueChange={(value) => setBrightness(value[0])}
+              onValueChange={(value) => onBrightnessChange(value[0])}
               max={100}
               step={1}
+              disabled={!isOn}
             />
           </div>
         ) : (
