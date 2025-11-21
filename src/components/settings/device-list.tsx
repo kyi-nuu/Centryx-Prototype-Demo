@@ -9,6 +9,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Trash2, Video, Lightbulb, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Device } from './add-device-card';
+import { DeleteDeviceDialog } from './delete-device-dialog';
 
 type DeviceListItemProps = {
   item: Device;
@@ -46,14 +47,15 @@ function DeviceListItem({ item, onDelete }: DeviceListItemProps) {
             <p className="font-semibold text-foreground text-sm">{brand}</p>
             <p className="text-xs text-muted-foreground">{model}</p>
         </div>
-        <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => onDelete(item.id)}
-            className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 ml-2 shrink-0 h-9 w-9 rounded-full"
-        >
-            <Trash2 className="h-4 w-4" />
-        </Button>
+        <DeleteDeviceDialog onConfirm={() => onDelete(item.id)}>
+          <Button
+              variant="ghost"
+              size="icon"
+              className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 ml-2 shrink-0 h-9 w-9 rounded-full"
+          >
+              <Trash2 className="h-4 w-4" />
+          </Button>
+        </DeleteDeviceDialog>
       </div>
     </div>
   );
