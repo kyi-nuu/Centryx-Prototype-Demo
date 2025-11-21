@@ -104,13 +104,11 @@ export function CameraInfoDialog({ camera, open, onOpenChange }: CameraInfoDialo
 
             <Card>
                 <CardHeader>
-                    <div className="flex items-center gap-3">
-                        <Video className="h-6 w-6 text-primary" />
-                        <div>
-                        <CardTitle>Camera Recordings</CardTitle>
-                        <p className="text-sm text-muted-foreground">Filter recordings by date and time</p>
-                        </div>
-                    </div>
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                        <Video className="h-5 w-5 text-primary" />
+                        Camera Recordings
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground pt-1">Filter recordings by date and time</p>
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
