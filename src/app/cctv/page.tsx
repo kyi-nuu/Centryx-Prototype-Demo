@@ -7,6 +7,7 @@ import { CameraCard } from '@/components/cctv/camera-card';
 import { RecordingsView } from '@/components/cctv/recordings-view';
 import { LiveMonitoringView } from '@/components/cctv/live-monitoring-view';
 import { CameraInfoDialog } from '@/components/cctv/camera-info-dialog';
+import { SingleCameraView } from '@/components/cctv/single-camera-view';
 
 export type Camera = {
   name: string;
@@ -56,6 +57,7 @@ export default function CctvPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
   const [selectedCamera, setSelectedCamera] = useState<Camera | null>(null);
+  const [expandedCamera, setExpandedCamera] = useState<Camera | null>(null);
 
 
   const handleSetView = (newView: CctvView) => {
@@ -88,6 +90,10 @@ export default function CctvPage() {
     return <LiveMonitoringView cameras={onlineCameras} onClose={() => setView('grid')} />;
   }
 
+  if (expandedCamera) {
+    return <SingleCameraView camera={expandedCamera} onClose={() => setExpandedCamera(null)} />;
+  }
+
   return (
     <div className="flex flex-col h-full">
        {selectedCamera && (
@@ -115,6 +121,7 @@ export default function CctvPage() {
                 key={index}
                 camera={camera}
                 onInfoClick={() => setSelectedCamera(camera)}
+                onExpandClick={() => setExpandedCamera(camera)}
               />
             ))}
           </div>

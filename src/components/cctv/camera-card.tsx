@@ -11,11 +11,13 @@ import type { Camera } from '@/app/cctv/page';
 type CameraCardProps = {
   camera: Camera;
   onInfoClick: () => void;
+  onExpandClick: () => void;
 };
 
 export function CameraCard({
   camera,
   onInfoClick,
+  onExpandClick,
 }: CameraCardProps) {
   const isOnline = camera.status === 'online';
 
@@ -53,7 +55,10 @@ export function CameraCard({
                 >
                   <Info className="h-4 w-4" />
                 </button>
-                <button className="h-8 w-8 rounded-md bg-black/50 text-white/80 hover:bg-black/80 hover:text-white flex items-center justify-center transition-colors">
+                <button
+                  onClick={onExpandClick}
+                  className="h-8 w-8 rounded-md bg-black/50 text-white/80 hover:bg-black/80 hover:text-white flex items-center justify-center transition-colors"
+                >
                   <Expand className="h-4 w-4" />
                 </button>
               </div>
