@@ -103,7 +103,7 @@ export default function CctvPage() {
           onOpenChange={(isOpen) => !isOpen && setSelectedCamera(null)}
         />
       )}
-      <div className="sticky top-0 z-10 bg-muted/40">
+      <div className="sticky top-0 z-10 bg-transparent">
         <CctvHeader 
           activeView={view} 
           onSetView={handleSetView}
