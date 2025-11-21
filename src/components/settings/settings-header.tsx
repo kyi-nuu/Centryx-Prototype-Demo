@@ -6,7 +6,7 @@ import { Zap } from 'lucide-react';
 
 export function SettingsHeader() {
   return (
-    <Card className="rounded-none border-x-0 border-t-0 bg-card/80 backdrop-blur-sm">
+    <div className="bg-transparent">
       <CardContent className="p-4 sm:p-6 lg:p-8 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Settings</h1>
@@ -25,6 +25,6 @@ export function SettingsHeader() {
             </div>
         </Card>
       </CardContent>
-    </Card>
+    </div>
   );
 }
