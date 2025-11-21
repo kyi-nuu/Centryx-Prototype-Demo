@@ -1,10 +1,11 @@
 'use client';
 
-import { AddDeviceCard } from '@/components/settings/add-device-card';
+import { useState } from 'react';
+import { AddDeviceCard, Device } from '@/components/settings/add-device-card';
 import { DeviceList } from '@/components/settings/device-list';
 import { SettingsHeader } from '@/components/settings/settings-header';
 
-const camerasData = [
+const initialCamerasData: Device[] = [
   { id: 'cam1', icon: 'cctv', name: 'Main Entrance', description: 'Front Door', details: 'Hikvision DS-2CD2143G2-I' },
   { id: 'cam2', icon: 'cctv', name: 'Parking Lot A', description: 'East Wing', details: 'Dahua IPC-HDBW2831R-ZS' },
   { id: 'cam3', icon: 'cctv', name: 'Lobby Area', description: 'Ground Floor', details: 'Axis M3065-V' },
@@ -27,7 +28,7 @@ const camerasData = [
   { id: 'cam20', icon: 'cctv', name: 'Finance Office', description: 'Floor 4', details: 'Axis M3065-V' },
 ];
 
-const lightsData = [
+const initialLightsData: Device[] = [
   { id: 'light1', icon: 'light', name: 'Living Room', description: 'Room 1', details: 'Philips Hue White Ambiance' },
   { id: 'light2', icon: 'light', name: 'Kitchen', description: 'Room 2', details: 'LIFX A19' },
   { id: 'light3', icon: 'light', name: 'Bedroom 1', description: 'Room 3', details: 'Wyze Bulb Color' },
@@ -51,24 +52,46 @@ const lightsData = [
 ];
 
 export default function SettingsPage() {
+  const [cameras, setCameras] = useState<Device[]>(initialCamerasData);
+  const [lights, setLights] = useState<Device[]>(initialLightsData);
+
+  const handleAddDevice = (device: Device) => {
+    if (device.icon === 'cctv') {
+      setCameras(prev => [device, ...prev]);
+    } else {
+      setLights(prev => [device, ...prev]);
+    }
+  };
+
+  const handleDeleteDevice = (id: string, type: 'cctv' | 'light') => {
+    if (type === 'cctv') {
+      setCameras(prev => prev.filter(device => device.id !== id));
+    } else {
+      setLights(prev => prev.filter(device => device.id !== id));
+    }
+  };
+
+
   return (
     <div className="flex flex-col h-full">
       <div className="sticky top-0 z-10 bg-transparent">
         <SettingsHeader />
       </div>
       <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-8">
-        <AddDeviceCard />
+        <AddDeviceCard onAddDevice={handleAddDevice} />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-[500px]">
           <DeviceList
             title="CCTV"
             searchPlaceholder="Search camera by name"
-            items={camerasData}
+            items={cameras}
+            onDelete={(id) => handleDeleteDevice(id, 'cctv')}
             layout="grid"
           />
           <DeviceList
             title="Lights"
             searchPlaceholder="Search light by name"
-            items={lightsData}
+            items={lights}
+            onDelete={(id) => handleDeleteDevice(id, 'light')}
             layout="grid"
           />
         </div>

@@ -5,19 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Trash2, Video, Lightbulb, ArrowRight, Search } from 'lucide-react';
+import { Trash2, Video, Lightbulb, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-type DeviceItem = {
-  id: string;
-  icon: 'cctv' | 'light';
-  name: string;
-  description: string;
-  details: string;
-};
+import type { Device } from './add-device-card';
 
 type DeviceListItemProps = {
-  item: DeviceItem;
+  item: Device;
   onDelete: (id: string) => void;
   layout: 'list' | 'grid';
 };
@@ -92,22 +85,19 @@ function DeviceListItem({ item, onDelete, layout }: DeviceListItemProps) {
 type DeviceListProps = {
   title: string;
   searchPlaceholder: string;
-  items: DeviceItem[];
+  items: Device[];
+  onDelete: (id: string) => void;
   layout?: 'list' | 'grid';
 };
 
 export function DeviceList({
   title,
   searchPlaceholder,
-  items: initialItems,
+  items,
+  onDelete,
   layout = 'list',
 }: DeviceListProps) {
-  const [items, setItems] = useState(initialItems);
   const [searchTerm, setSearchTerm] = useState('');
-
-  const handleDelete = (id: string) => {
-    setItems(items.filter((item) => item.id !== id));
-  };
 
   const filteredItems = items.filter(
     (item) =>
@@ -143,7 +133,7 @@ export function DeviceList({
                 <DeviceListItem
                 key={item.id}
                 item={item}
-                onDelete={handleDelete}
+                onDelete={onDelete}
                 layout={layout}
                 />
             ))}
