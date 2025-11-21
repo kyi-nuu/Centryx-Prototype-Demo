@@ -18,6 +18,7 @@ type LightsHeaderProps = {
   onToggleAll: (state: boolean) => void;
   onCount: number;
   offCount: number;
+  onSearchChange: (term: string) => void;
 };
 
 export function LightsHeader({
@@ -26,7 +27,8 @@ export function LightsHeader({
   activeMode,
   onToggleAll,
   onCount,
-  offCount
+  offCount,
+  onSearchChange,
 }: LightsHeaderProps) {
   const modeCards = [
     {
@@ -60,9 +62,13 @@ export function LightsHeader({
           <p className="text-muted-foreground">Manage all smart lights in your building</p>
         </div>
         <div className="flex flex-wrap items-center gap-4">
-          <div className="relative flex-grow sm:flex-grow-0 sm:w-64">
+          <div className="relative flex-grow sm:flex-grow-0 sm:w-[400px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Search light by name" className="pl-10 bg-input" />
+            <Input 
+              placeholder="Search light by name or location" 
+              className="pl-10 bg-input" 
+              onChange={(e) => onSearchChange(e.target.value)}
+            />
           </div>
           <div className="flex-grow" />
           <div className="flex items-center gap-2">

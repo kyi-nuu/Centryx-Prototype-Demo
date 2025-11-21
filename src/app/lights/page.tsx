@@ -42,6 +42,7 @@ export default function LightsPage() {
   const [lights, setLights] = useState<Light[]>(initialLightsData);
   const [filter, setFilter] = useState<'all' | 'on' | 'off'>('all');
   const [activeMode, setActiveMode] = useState<Mode>(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleToggle = (id: number, isOn: boolean) => {
     setLights(prevLights =>
@@ -80,21 +81,23 @@ export default function LightsPage() {
   };
 
   const filteredLights = useMemo(() => {
-    if (filter === 'on') {
-      return lights.filter(light => light.isOn);
-    }
-    if (filter === 'off') {
-      return lights.filter(light => !light.isOn);
-    }
-    return lights;
-  }, [lights, filter]);
+    return lights
+      .filter(light => {
+        if (filter === 'all') return true;
+        return filter === 'on' ? light.isOn : !light.isOn;
+      })
+      .filter(light => 
+        light.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        light.room.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+  }, [lights, filter, searchTerm]);
 
   const onCount = useMemo(() => lights.filter(l => l.isOn).length, [lights]);
   const offCount = useMemo(() => lights.filter(l => !l.isOn).length, [lights]);
 
   return (
     <div className="flex flex-col h-full">
-      <div className="sticky top-0 z-10">
+      <div className="sticky top-0 z-10 bg-transparent">
         <LightsHeader
           onFilterChange={setFilter}
           onModeChange={handleModeChange}
@@ -102,6 +105,7 @@ export default function LightsPage() {
           onToggleAll={handleToggleAll}
           onCount={onCount}
           offCount={offCount}
+          onSearchChange={setSearchTerm}
         />
       </div>
       <div className="flex-1 overflow-y-auto px-4 pb-4 pt-2 sm:px-6 sm:pb-6 sm:pt-3 lg:px-8 lg:pb-8 lg:pt-4">
