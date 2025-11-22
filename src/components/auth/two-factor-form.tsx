@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -67,7 +68,7 @@ export function TwoFactorForm({ email, onBack }: TwoFactorFormProps) {
         </div>
         <CardTitle className="text-2xl font-bold">Two-Factor Authentication</CardTitle>
         <CardDescription className="text-muted-foreground">
-          We've sent a verification code to <span className="font-medium text-foreground">{email}</span>.
+          Enter the 6-digit code from your authenticator app.
         </CardDescription>
       </CardHeader>
       <Form {...form}>
@@ -92,7 +93,7 @@ export function TwoFactorForm({ email, onBack }: TwoFactorFormProps) {
           />
           <Button type="submit" size="lg" className="w-full h-12" disabled={isLoading}>
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Verify
+            Verify & Continue
           </Button>
         </form>
       </Form>
