@@ -37,12 +37,12 @@ export function SecurityForm() {
           <CardDescription>Manage your account security and authentication</CardDescription>
         </CardHeader>
         <CardContent className="space-y-8">
-          <Alert className="border-purple-500/50 bg-purple-900/20 text-purple-200 [&>svg]:text-purple-400">
+          <Alert className="border-primary/50 [&>svg]:text-primary">
             <ShieldAlert className="h-4 w-4" />
             <div className="flex items-center justify-between">
               <div>
-                <AlertTitle className="text-purple-300">Two-Factor Authentication</AlertTitle>
-                <AlertDescription className="text-purple-200/80">
+                <AlertTitle className="text-primary">Two-Factor Authentication</AlertTitle>
+                <AlertDescription className="text-muted-foreground">
                   Enable 2FA to secure your account
                 </AlertDescription>
               </div>
