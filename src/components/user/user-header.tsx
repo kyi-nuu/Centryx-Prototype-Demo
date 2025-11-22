@@ -24,7 +24,7 @@ export function UserHeader({ activeTab, setActiveTab }: UserHeaderProps) {
   }
 
   return (
-    <div className="sticky top-0 z-10 bg-card/80 backdrop-blur-sm">
+    <div className="sticky top-0 z-10 bg-transparent">
       <div className="p-4 sm:p-6 lg:p-8 space-y-4">
         <div>
           <h1 className="text-2xl font-bold">Profile Management</h1>
