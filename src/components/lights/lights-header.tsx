@@ -72,8 +72,7 @@ export function LightsHeader({
           </div>
           <div className="flex-grow" />
           <div className="flex items-center gap-2">
-            <Button variant="secondary" className="hidden sm:flex" onClick={() => onToggleAll(true)}>Turn all on</Button>
-            <Button variant="destructive" className="hidden sm:flex" onClick={() => onToggleAll(false)}>Turn all off</Button>
+            <Button variant="destructive" className="hidden sm:flex" onClick={() => onToggleAll(true)}>Turn all on</Button>
             <Button variant="ghost" size="icon">
               <Filter className="h-4 w-4" />
             </Button>
