@@ -37,7 +37,7 @@ export function CameraCard({
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
             </>
           ) : (
-             <div className="absolute inset-0 bg-muted/50" />
+             <div className="absolute inset-0 bg-muted" />
           )}
 
           {isOnline ? (
@@ -67,7 +67,7 @@ export function CameraCard({
               </div>
             </>
           ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-card/80">
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-card/50">
               <VideoOff className="h-12 w-12 text-muted-foreground" />
               <p className="mt-2 text-sm font-medium text-muted-foreground">Offline</p>
             </div>
