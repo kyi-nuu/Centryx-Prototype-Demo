@@ -16,18 +16,22 @@ import { Badge } from '@/components/ui/badge';
 import { Search, Filter, Phone, Trash2, Mail } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AddUserDialog } from './add-user-dialog';
+import { DeleteDeviceDialog } from '../settings/delete-device-dialog';
+import { useToast } from '@/hooks/use-toast';
 
-type User = {
+export type Role = 'admin' | 'user';
+
+export type User = {
   id: string;
   name: string;
   email: string;
   phone: string;
   avatarUrl: string;
   status: 'active' | 'inactive';
-  role: 'admin' | 'user';
+  role: Role;
 };
 
-const usersData: User[] = [
+const initialUsersData: User[] = [
   { id: 'usr1', name: 'John Doe', email: 'john.doe@centryx.com', phone: '+1 (555) 123-4567', avatarUrl: 'https://picsum.photos/seed/user1/100/100', status: 'active', role: 'admin' },
   { id: 'usr2', name: 'Jane Smith', email: 'jane.smith@centryx.com', phone: '+1 (555) 234-5678', avatarUrl: 'https://picsum.photos/seed/user2/100/100', status: 'active', role: 'admin' },
   { id: 'usr3', name: 'Mike Johnson', email: 'mike.johnson@centryx.com', phone: '+1 (555) 345-6789', avatarUrl: 'https://picsum.photos/seed/user3/100/100', status: 'active', role: 'user' },
@@ -35,7 +39,7 @@ const usersData: User[] = [
   { id: 'usr5', name: 'David Brown', email: 'david.brown@centryx.com', phone: '+1 (555) 567-8901', avatarUrl: 'https://picsum.photos/seed/user5/100/100', status: 'active', role: 'user' },
 ];
 
-function UserRow({ user }: { user: User }) {
+function UserRow({ user, onDelete }: { user: User; onDelete: () => void }) {
   return (
     <Card className="bg-secondary/30 transition-all hover:bg-secondary/50 hover:shadow-md">
       <CardContent className="p-3 flex items-center gap-4">
@@ -74,9 +78,11 @@ function UserRow({ user }: { user: User }) {
           <Badge variant="outline" className="text-[10px] capitalize px-2 py-0.5">
             {user.role}
           </Badge>
-          <Button variant="ghost" size="icon" className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive h-8 w-8">
-            <Trash2 className="h-4 w-4" />
-          </Button>
+          <DeleteDeviceDialog onConfirm={onDelete}>
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive h-8 w-8">
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          </DeleteDeviceDialog>
         </div>
       </CardContent>
     </Card>
@@ -84,10 +90,34 @@ function UserRow({ user }: { user: User }) {
 }
 
 export function UserManagement() {
+  const [users, setUsers] = useState<User[]>(initialUsersData);
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState('all');
+  const { toast } = useToast();
 
-  const filteredUsers = usersData
+  const handleAddUser = (newUser: Omit<User, 'id' | 'avatarUrl' | 'status'>) => {
+    const user: User = {
+        ...newUser,
+        id: `usr${Date.now()}`,
+        avatarUrl: `https://picsum.photos/seed/user${Date.now()}/100/100`,
+        status: 'active'
+    };
+    setUsers(prev => [user, ...prev]);
+  };
+  
+  const handleDeleteUser = (userId: string) => {
+    const userToDelete = users.find(u => u.id === userId);
+    setUsers(prev => prev.filter(user => user.id !== userId));
+    if (userToDelete) {
+        toast({
+            title: "User Deleted",
+            description: `${userToDelete.name} has been removed from the system.`,
+            variant: "destructive"
+        })
+    }
+  };
+
+  const filteredUsers = users
     .filter(user => user.name.toLowerCase().includes(searchTerm.toLowerCase()) || user.email.toLowerCase().includes(searchTerm.toLowerCase()))
     .filter(user => {
       if (filter === 'all') return true;
@@ -104,7 +134,7 @@ export function UserManagement() {
           <h2 className="text-xl font-bold">User Management</h2>
           <p className="text-sm text-muted-foreground">Manage users and their permissions</p>
         </div>
-         <AddUserDialog />
+         <AddUserDialog onAddUser={handleAddUser} />
       </div>
 
       <div className="flex flex-wrap items-center gap-4">
@@ -136,7 +166,7 @@ export function UserManagement() {
       <div className="space-y-3">
         {filteredUsers.length > 0 ? (
             filteredUsers.map(user => (
-            <UserRow key={user.id} user={user} />
+            <UserRow key={user.id} user={user} onDelete={() => handleDeleteUser(user.id)} />
             ))
         ) : (
             <div className="text-center py-12 text-muted-foreground">
