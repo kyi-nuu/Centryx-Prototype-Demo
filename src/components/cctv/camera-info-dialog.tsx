@@ -80,7 +80,7 @@ export function CameraInfoDialog({ camera, open, onOpenChange }: CameraInfoDialo
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <LinkIcon className="h-5 w-5 text-primary" />
-                  Linked Lights ({camera.linkedLights.length})
+                  Linked Lights
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
