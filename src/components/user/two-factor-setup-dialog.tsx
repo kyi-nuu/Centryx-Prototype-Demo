@@ -49,7 +49,9 @@ export function TwoFactorSetupDialog({ isOpen, onOpenChange, onSuccess }: TwoFac
     // Simulate API call to verify the code
     setTimeout(() => {
       setIsLoading(false);
-      if (verificationCode === '123456') { // Placeholder for actual verification logic
+      // For prototype purposes, we'll accept any 6-digit code.
+      // A real implementation would verify the TOTP code on the server.
+      if (verificationCode.length === 6) {
         toast({
           title: 'Two-Factor Authentication Enabled',
           description: 'Your account is now protected with 2FA.',
@@ -60,7 +62,7 @@ export function TwoFactorSetupDialog({ isOpen, onOpenChange, onSuccess }: TwoFac
         toast({
           variant: 'destructive',
           title: 'Invalid Code',
-          description: 'The verification code is incorrect. Please try again.',
+          description: 'The verification code must be 6 digits.',
         });
       }
     }, 1000);
