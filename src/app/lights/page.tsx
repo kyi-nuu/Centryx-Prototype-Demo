@@ -72,11 +72,11 @@ export default function LightsPage() {
     setActiveMode(newActiveMode);
 
     if (newActiveMode === 'day') {
-      setLights(prev => prev.map(l => ({...l, isOn: true, brightness: 80})));
+      setLights(prev => prev.map(l => l.isOn ? {...l, brightness: 80} : l));
     } else if (newActiveMode === 'night') {
-      setLights(prev => prev.map(l => ({...l, isOn: true, brightness: 30})));
+      setLights(prev => prev.map(l => l.isOn ? {...l, brightness: 30} : l));
     } else if (newActiveMode === 'eco') {
-       setLights(prev => prev.map(l => ({...l, isOn: true, brightness: 50})));
+       setLights(prev => prev.map(l => l.isOn ? {...l, brightness: 50} : l));
     }
   };
 
