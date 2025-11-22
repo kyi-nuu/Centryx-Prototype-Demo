@@ -1,18 +1,26 @@
+
 'use client'
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Switch } from "@/components/ui/switch";
-import { ShieldAlert } from "lucide-react";
+import { Loader2, ShieldAlert } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { TwoFactorSetupDialog } from "./two-factor-setup-dialog";
+import { useToast } from "@/hooks/use-toast";
 
 export function SecurityForm() {
   const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loginAlerts, setLoginAlerts] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleTwoFactorToggle = (checked: boolean) => {
     if (checked) {
@@ -28,6 +36,29 @@ export function SecurityForm() {
     setIsTwoFactorEnabled(true);
     setIsDialogOpen(false);
   };
+
+  const handleUpdate = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      // In a real app, you'd validate and save the data
+      setIsLoading(false);
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+      toast({
+        title: "Security Settings Updated",
+        description: "Your security information has been successfully saved.",
+      });
+    }, 1500);
+  };
+
+  const handleCancel = () => {
+    // Reset password fields to empty
+    setCurrentPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
+  };
+
 
   return (
     <>
@@ -57,15 +88,15 @@ export function SecurityForm() {
           <div className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="current-password">Current Password</Label>
-              <Input id="current-password" type="password" placeholder="Enter current password" className="bg-input" />
+              <Input id="current-password" type="password" placeholder="Enter current password" className="bg-input" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="new-password">New Password</Label>
-              <Input id="new-password" type="password" placeholder="Enter new password" className="bg-input" />
+              <Input id="new-password" type="password" placeholder="Enter new password" className="bg-input" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="confirm-password">Confirm New Password</Label>
-              <Input id="confirm-password" type="password" placeholder="Confirm new password" className="bg-input" />
+              <Input id="confirm-password" type="password" placeholder="Confirm new password" className="bg-input" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
             </div>
           </div>
 
@@ -74,12 +105,17 @@ export function SecurityForm() {
               <Label htmlFor="login-alerts" className="font-semibold">Login Alerts</Label>
               <p className="text-sm text-muted-foreground">Receive email notifications for new logins</p>
             </div>
-            <Switch id="login-alerts" defaultChecked/>
+            <Switch id="login-alerts" checked={loginAlerts} onCheckedChange={setLoginAlerts} />
           </div>
 
           <div className="flex justify-start gap-2">
-            <Button>Update Security</Button>
-            <Button variant="outline">Cancel</Button>
+            <Button onClick={handleUpdate} disabled={isLoading}>
+              {isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : null}
+              Update Security
+            </Button>
+            <Button variant="outline" onClick={handleCancel} disabled={isLoading}>Cancel</Button>
           </div>
         </CardContent>
       </Card>
