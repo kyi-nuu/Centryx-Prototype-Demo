@@ -68,7 +68,7 @@ function UserRow({ user, onDelete }: { user: User; onDelete: () => void }) {
             className={cn(
               'text-[10px] capitalize px-2 py-0.5',
               user.status === 'active'
-                ? 'border-green-500/50 bg-green-900/50 text-green-400'
+                ? 'border-green-500/50 bg-transparent text-green-400'
                 : 'border-transparent bg-muted text-muted-foreground'
             )}
             variant="outline"
