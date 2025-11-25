@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -17,6 +17,7 @@ import { Lightbulb, Video, PlusCircle, Loader2 } from 'lucide-react';
 import { Combobox } from '@/components/ui/combobox';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useToast } from '@/hooks/use-toast';
+import { MultiSelect, MultiSelectOption } from '../ui/multi-select';
 
 export type Device = {
   id: string;
@@ -28,6 +29,7 @@ export type Device = {
 
 type AddDeviceCardProps = {
   onAddDevice: (device: Device) => void;
+  cameras: Device[];
 };
 
 const cctvBrands = [
@@ -61,7 +63,7 @@ const devicesByBrand: Record<string, { value: string; label: string, model: stri
     ]
 }
 
-export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
+export function AddDeviceCard({ onAddDevice, cameras: allCameras }: AddDeviceCardProps) {
   const [deviceType, setDeviceType] = useState<'cctv' | 'light'>('cctv');
   
   const [name, setName] = useState('');
@@ -75,6 +77,7 @@ export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
 
   // Light specific state
   const [selectedDevice, setSelectedDevice] = useState('');
+  const [linkedCameras, setLinkedCameras] = useState<string[]>([]);
   
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -82,6 +85,11 @@ export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
   const brands = deviceType === 'cctv' ? cctvBrands : lightBrands;
   const models = selectedBrand ? modelsByBrand[selectedBrand] || [] : [];
   const devices = deviceType === 'light' && selectedBrand ? devicesByBrand[selectedBrand] || [] : [];
+  
+  const cameraOptions: MultiSelectOption[] = useMemo(() => 
+    allCameras.map(cam => ({ value: cam.id, label: cam.name }))
+  , [allCameras]);
+
 
   const isCctvFormValid = useMemo(() => {
     return name && location && selectedBrand && modelValue && serialNumber && authCode;
@@ -102,6 +110,7 @@ export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
     setSerialNumber('');
     setAuthCode('');
     setSelectedDevice('');
+    setLinkedCameras([]);
   }
 
   const handleDeviceTypeChange = (type: 'cctv' | 'light') => {
@@ -115,6 +124,7 @@ export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
     setSerialNumber('');
     setAuthCode('');
     setSelectedDevice('');
+    setLinkedCameras([]);
   };
 
   const handleModelChange = (value: string) => {
@@ -151,6 +161,7 @@ export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
             description: location,
             details: `${brandLabel} ${deviceData?.model || ''}`
         };
+        console.log('Linked Cameras:', linkedCameras);
     }
 
 
@@ -199,26 +210,35 @@ export function AddDeviceCard({ onAddDevice }: AddDeviceCardProps) {
 
   const renderLightExtraFields = () => {
     const selectedDeviceData = devices.find(d => d.value === selectedDevice);
-    const showIdAndModel = deviceType === 'light' && selectedBrand && selectedDevice && selectedDeviceData;
+    const showFields = deviceType === 'light' && selectedBrand && selectedDevice && selectedDeviceData;
 
     return (
          <AnimatePresence>
-             {showIdAndModel && (
+             {showFields && (
                  <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     className="overflow-hidden"
                  >
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-4">
-                        <Input
-                            readOnly
-                            value={`ID: ${selectedDevice}`}
-                            className="bg-background/50 h-11"
-                        />
-                         <Input
-                            readOnly
-                            value={`Model: ${selectedDeviceData.model}`}
-                            className="bg-background/50 h-11"
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+                        <div className='grid grid-cols-2 gap-4'>
+                          <Input
+                              readOnly
+                              value={`ID: ${selectedDevice}`}
+                              className="bg-background/50 h-11"
+                          />
+                           <Input
+                              readOnly
+                              value={`Model: ${selectedDeviceData.model}`}
+                              className="bg-background/50 h-11"
+                          />
+                        </div>
+                        <MultiSelect 
+                          options={cameraOptions}
+                          selected={linkedCameras}
+                          onChange={setLinkedCameras}
+                          placeholder="Link cameras..."
+                          className="bg-background"
                         />
                     </div>
                 </motion.div>

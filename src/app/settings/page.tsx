@@ -77,7 +77,7 @@ export default function SettingsPage() {
     <div className="flex flex-col h-full">
       <SettingsHeader />
       <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <AddDeviceCard onAddDevice={handleAddDevice} />
+        <AddDeviceCard onAddDevice={handleAddDevice} cameras={cameras} />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <DeviceList
             title="CCTV"
