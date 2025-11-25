@@ -1,11 +1,11 @@
 
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
+import { useState, useRef, useEffect } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, VideoOff } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 
 type Camera = {
   name: string;
@@ -19,6 +19,70 @@ type LiveMonitoringViewProps = {
 };
 
 const CAMERAS_PER_PAGE = 6;
+
+const LiveCameraFeed = ({ camera }: { camera: Camera }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [hasPermission, setHasPermission] = useState(true);
+
+  useEffect(() => {
+    if (camera.status !== 'online') return;
+
+    let stream: MediaStream;
+    const getCameraPermission = async () => {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        setHasPermission(true);
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      } catch (error) {
+        console.error(`Error accessing camera for ${camera.name}:`, error);
+        setHasPermission(false);
+      }
+    };
+
+    getCameraPermission();
+
+    return () => {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, [camera]);
+
+  if (camera.status !== 'online') {
+     return (
+        <div className="flex items-center justify-center h-full bg-muted">
+             {/* Empty cell */}
+        </div>
+    );
+  }
+
+  return (
+    <div className="relative w-full h-full bg-black">
+      <video ref={videoRef} className="w-full h-full object-cover" autoPlay muted playsInline />
+       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        <Badge
+            variant="secondary"
+            className="absolute top-3 left-3 bg-black/50 text-white border-transparent"
+        >
+            {camera.name}
+        </Badge>
+      {!hasPermission && (
+        <div className="absolute inset-0 flex items-center justify-center p-2 bg-black/80">
+            <Alert variant="destructive" className="max-w-xs text-center">
+                <VideoOff className="h-4 w-4" />
+                <AlertTitle>Camera Error</AlertTitle>
+                <AlertDescription>
+                    Permission denied.
+                </AlertDescription>
+            </Alert>
+        </div>
+      )}
+    </div>
+  );
+};
+
 
 export function LiveMonitoringView({ cameras, onClose }: LiveMonitoringViewProps) {
   const [currentPage, setCurrentPage] = useState(0);
@@ -49,28 +113,7 @@ export function LiveMonitoringView({ cameras, onClose }: LiveMonitoringViewProps
       <div className="grid grid-cols-3 grid-rows-2 flex-1 h-full">
         {displayCameras.map((camera, index) => (
           <div key={index} className="relative group border-2 border-background bg-muted">
-            {camera.status === 'online' ? (
-              <>
-                <Image
-                  src={camera.imageUrl}
-                  alt={`Live feed from ${camera.name}`}
-                  fill
-                  className="object-cover"
-                  data-ai-hint="surveillance footage"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                <Badge
-                  variant="secondary"
-                  className="absolute top-3 left-3 bg-black/50 text-white border-transparent"
-                >
-                  {camera.name}
-                </Badge>
-              </>
-            ) : (
-                <div className="flex items-center justify-center h-full">
-                    {/* Empty cell */}
-                </div>
-            )}
+            <LiveCameraFeed camera={camera} />
           </div>
         ))}
       </div>

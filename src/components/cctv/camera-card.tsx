@@ -1,18 +1,14 @@
 
 'use client';
 
+import { useRef, useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import Image from 'next/image';
 import { Info, Expand, VideoOff } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import type { Camera } from '@/app/cctv/page';
+import { useToast } from '@/hooks/use-toast';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 
-type CameraCardProps = {
-  camera: Camera;
-  onInfoClick: () => void;
-  onExpandClick: () => void;
-};
 
 export function CameraCard({
   camera,
@@ -20,21 +16,55 @@ export function CameraCard({
   onExpandClick,
 }: CameraCardProps) {
   const isOnline = camera.status === 'online';
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [hasCameraPermission, setHasCameraPermission] = useState(true);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (!isOnline) return;
+
+    let stream: MediaStream;
+    const getCameraPermission = async () => {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        setHasCameraPermission(true);
+
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      } catch (error) {
+        console.error('Error accessing camera:', error);
+        setHasCameraPermission(false);
+      }
+    };
+
+    getCameraPermission();
+
+    return () => {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, [isOnline]);
 
   return (
-    <Card className="overflow-hidden bg-card">
+    <Card className="overflow-hidden bg-card group">
       <CardContent className="p-0">
         <div className="relative aspect-video">
           {isOnline ? (
             <>
-              <Image
-                src={camera.imageUrl}
-                alt={`View of ${camera.name}`}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                data-ai-hint="surveillance footage"
-              />
+              <video ref={videoRef} className="w-full h-full object-cover" autoPlay muted playsInline />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+              {!hasCameraPermission && (
+                  <div className="absolute inset-0 flex items-center justify-center p-4 bg-black/70">
+                    <Alert variant="destructive" className="max-w-xs">
+                        <AlertTitle>Camera Error</AlertTitle>
+                        <AlertDescription>
+                            Camera permission denied. Please enable it in your browser settings.
+                        </AlertDescription>
+                    </Alert>
+                  </div>
+              )}
             </>
           ) : (
              <div className="absolute inset-0 bg-muted" />
@@ -49,9 +79,9 @@ export function CameraCard({
                 </Badge>
               )}
               <Badge variant="secondary" className="absolute top-3 right-3 bg-black/50 text-white border-transparent">
-                1080p
+                LIVE
               </Badge>
-              <div className="absolute bottom-3 right-3 flex gap-2">
+              <div className="absolute bottom-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button
                   onClick={onInfoClick}
                   className="h-8 w-8 rounded-md bg-black/50 text-white/80 hover:bg-black/80 hover:text-white flex items-center justify-center transition-colors"
@@ -81,3 +111,9 @@ export function CameraCard({
     </Card>
   );
 }
+
+type CameraCardProps = {
+  camera: Camera;
+  onInfoClick: () => void;
+  onExpandClick: () => void;
+};
