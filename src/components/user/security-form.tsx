@@ -12,6 +12,7 @@ import { useState } from "react";
 import { TwoFactorSetupDialog } from "./two-factor-setup-dialog";
 import { useToast } from "@/hooks/use-toast";
 import { TwoFactorDisableDialog } from "./two-factor-disable-dialog";
+import { cn } from "@/lib/utils";
 
 export function SecurityForm() {
   const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(false);
@@ -78,19 +79,27 @@ export function SecurityForm() {
           <CardDescription>Manage your account security and authentication</CardDescription>
         </CardHeader>
         <CardContent className="space-y-8">
-          <Alert className="border-primary/50 [&>svg]:text-primary">
+          <Alert className={cn(
+              isTwoFactorEnabled 
+                ? "border-green-500/50 [&>svg]:text-green-500" 
+                : "border-primary/50 [&>svg]:text-primary"
+            )}>
             <ShieldAlert className="h-4 w-4" />
             <div className="flex items-center justify-between">
               <div>
-                <AlertTitle className="text-primary">Two-Factor Authentication</AlertTitle>
+                <AlertTitle className={cn(isTwoFactorEnabled && "text-green-500")}>Two-Factor Authentication</AlertTitle>
                 <AlertDescription className="text-muted-foreground">
-                  Enable 2FA to secure your account
+                  {isTwoFactorEnabled
+                    ? "2FA is currently enabled for your account."
+                    : "Enable 2FA to add an extra layer of security."
+                  }
                 </AlertDescription>
               </div>
               <Switch 
                 id="two-factor-auth" 
                 checked={isTwoFactorEnabled}
                 onCheckedChange={handleTwoFactorToggle}
+                className="data-[state=checked]:bg-green-500"
               />
             </div>
           </Alert>

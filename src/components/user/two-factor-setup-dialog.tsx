@@ -55,6 +55,7 @@ export function TwoFactorSetupDialog({ isOpen, onOpenChange, onSuccess }: TwoFac
         toast({
           title: 'Two-Factor Authentication Enabled',
           description: 'Your account is now protected with 2FA.',
+          variant: 'success'
         });
         onSuccess();
         resetState();
