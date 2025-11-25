@@ -45,7 +45,7 @@ export default function DashboardPage() {
           <ElectricityHoursCard />
         </div>
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 max-w-sm mx-auto w-full">
         <DashboardHeader />
         <MotionAutomationCard />
         <QuickActions />
