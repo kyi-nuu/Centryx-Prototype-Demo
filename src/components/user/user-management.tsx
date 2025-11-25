@@ -64,20 +64,6 @@ function UserRow({ user, onDelete }: { user: User; onDelete: () => void }) {
         </div>
 
         <div className="flex items-center gap-2">
-          <Badge
-            className={cn(
-              'text-[10px] capitalize px-2 py-0.5',
-              user.status === 'active'
-                ? 'border-green-500/50 bg-transparent text-green-400'
-                : 'border-transparent bg-muted text-muted-foreground'
-            )}
-            variant="outline"
-          >
-            {user.status}
-          </Badge>
-          <Badge variant="outline" className="text-[10px] capitalize px-2 py-0.5">
-            {user.role}
-          </Badge>
           <DeleteDeviceDialog onConfirm={onDelete}>
             <Button variant="ghost" size="icon" className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive h-8 w-8">
               <Trash2 className="h-4 w-4" />
@@ -92,7 +78,6 @@ function UserRow({ user, onDelete }: { user: User; onDelete: () => void }) {
 export function UserManagement() {
   const [users, setUsers] = useState<User[]>(initialUsersData);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState('all');
   const { toast } = useToast();
 
   const handleAddUser = (newUser: Omit<User, 'id' | 'avatarUrl' | 'status'>) => {
@@ -118,14 +103,7 @@ export function UserManagement() {
   };
 
   const filteredUsers = users
-    .filter(user => user.name.toLowerCase().includes(searchTerm.toLowerCase()) || user.email.toLowerCase().includes(searchTerm.toLowerCase()))
-    .filter(user => {
-      if (filter === 'all') return true;
-      if (filter === 'active') return user.status === 'active';
-      if (filter === 'inactive') return user.status === 'inactive';
-      if (filter === 'admin') return user.role === 'admin';
-      return true;
-    });
+    .filter(user => user.name.toLowerCase().includes(searchTerm.toLowerCase()) || user.email.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <div className="space-y-6">
@@ -146,20 +124,6 @@ export function UserManagement() {
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
-        </div>
-        <div className="flex items-center gap-2">
-          <Filter className="h-4 w-4 text-muted-foreground" />
-          <Select value={filter} onValueChange={setFilter}>
-            <SelectTrigger className="w-[180px] bg-input">
-              <SelectValue placeholder="All Users" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Users</SelectItem>
-              <SelectItem value="active">Active</SelectItem>
-              <SelectItem value="inactive">Inactive</SelectItem>
-              <SelectItem value="admin">Admins</SelectItem>
-            </SelectContent>
-          </Select>
         </div>
       </div>
 
