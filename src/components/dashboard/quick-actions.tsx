@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -30,13 +31,13 @@ export function QuickActions() {
         </div>
       </CardHeader>
       <CardContent className="grid grid-cols-3 gap-2 flex-1 p-3">
-        <Button size="sm" className="text-xs bg-primary hover:bg-primary/90 text-primary-foreground flex-col h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95">
+        <Button size="sm" className="text-xs bg-primary hover:bg-primary/90 text-primary-foreground flex flex-col items-center justify-center h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95">
           <Power className="h-5 w-5 mb-1" /> All On
         </Button>
-        <Button size="sm" variant="destructive" className="text-xs flex-col h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95">
+        <Button size="sm" variant="destructive" className="text-xs flex flex-col items-center justify-center h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95">
           <Power className="h-5 w-5 mb-1" /> All Off
         </Button>
-        <Button variant="secondary" size="sm" onClick={handleLogout} className="text-xs flex-col h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95">
+        <Button variant="secondary" size="sm" onClick={handleLogout} className="text-xs flex flex-col items-center justify-center h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95">
           <LogOut className="h-5 w-5 mb-1" />
           <span>Log Out</span>
         </Button>
@@ -45,7 +46,7 @@ export function QuickActions() {
           size="sm" 
           onClick={() => handleModeClick('day')}
           className={cn(
-            "text-xs flex-col h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95",
+            "text-xs flex flex-col items-center justify-center h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95",
             activeMode === 'day' && 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
           )}
         >
@@ -57,7 +58,7 @@ export function QuickActions() {
           size="sm" 
           onClick={() => handleModeClick('night')}
           className={cn(
-            "text-xs flex-col h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95",
+            "text-xs flex flex-col items-center justify-center h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95",
             activeMode === 'night' && 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
           )}
         >
@@ -69,7 +70,7 @@ export function QuickActions() {
           size="sm" 
           onClick={() => handleModeClick('eco')}
           className={cn(
-            "text-xs flex-col h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95",
+            "text-xs flex flex-col items-center justify-center h-auto py-2 transition-transform duration-200 hover:scale-105 active:scale-95",
             activeMode === 'eco' && 'bg-green-500/20 text-green-400 border border-green-500/30'
           )}
         >
