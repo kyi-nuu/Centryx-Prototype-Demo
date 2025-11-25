@@ -11,10 +11,12 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { TwoFactorSetupDialog } from "./two-factor-setup-dialog";
 import { useToast } from "@/hooks/use-toast";
+import { TwoFactorDisableDialog } from "./two-factor-disable-dialog";
 
 export function SecurityForm() {
   const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSetupDialogOpen, setIsSetupDialogOpen] = useState(false);
+  const [isDisableDialogOpen, setIsDisableDialogOpen] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -24,18 +26,26 @@ export function SecurityForm() {
 
   const handleTwoFactorToggle = (checked: boolean) => {
     if (checked) {
-      setIsDialogOpen(true);
+      setIsSetupDialogOpen(true);
     } else {
-      // Here you would add logic to disable 2FA, possibly with a confirmation
-      console.log("Disabling 2FA");
-      setIsTwoFactorEnabled(false);
+      setIsDisableDialogOpen(true);
     }
   };
 
   const handleSetupSuccess = () => {
     setIsTwoFactorEnabled(true);
-    setIsDialogOpen(false);
+    setIsSetupDialogOpen(false);
   };
+  
+  const handleDisableSuccess = () => {
+    setIsTwoFactorEnabled(false);
+    setIsDisableDialogOpen(false);
+    toast({
+      title: "Two-Factor Authentication Disabled",
+      description: "2FA has been turned off for your account.",
+      variant: 'destructive'
+    })
+  }
 
   const handleUpdate = () => {
     setIsLoading(true);
@@ -120,9 +130,14 @@ export function SecurityForm() {
         </CardContent>
       </Card>
       <TwoFactorSetupDialog 
-        isOpen={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
+        isOpen={isSetupDialogOpen}
+        onOpenChange={setIsSetupDialogOpen}
         onSuccess={handleSetupSuccess}
+      />
+      <TwoFactorDisableDialog
+        isOpen={isDisableDialogOpen}
+        onOpenChange={setIsDisableDialogOpen}
+        onSuccess={handleDisableSuccess}
       />
     </>
   );
